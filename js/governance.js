@@ -172,7 +172,7 @@
               <h4 class="font-bold text-sm">Calibration Lockout</h4>
               <div class="text-xl font-bold text-danger mt-1">1 Locked Out</div>
               <p class="text-xs text-muted mt-1">
-                <code>eq_us_01</code> (GE Ultrasound Cart) expired 25 Oct 2026. Automatically blocked from booking engine until recalibrated.
+                <code>eq_us_01</code> (12-Lead ECG & Metabolic Cart) expired 25 Oct 2026. Automatically blocked from booking engine until recalibrated.
               </p>
             </div>
 
@@ -251,7 +251,7 @@
                   <td><strong>PRJ-PERFHUB</strong></td>
                   <td></td>
                   <td class="font-bold">£150.00</td>
-                  <td>Cosmed CPET Cart Hire (Standard 20% VAT)</td>
+                  <td>Portable CPET Cart Hire (Standard 20% VAT)</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-neutral">NEW</span></td>

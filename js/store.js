@@ -69,10 +69,10 @@
   ];
 
   const INITIAL_EQUIPMENT = [
-    { id: 'eq_cpet_01', name: 'Portable CPET Portable CPET Cart #1', room: 'rm_tr_env', status: 'available', calibrationDue: '2026-12-15' },
+    { id: 'eq_cpet_01', name: 'Portable CPET Cart #1', room: 'rm_tr_env', status: 'available', calibrationDue: '2026-12-15' },
     { id: 'eq_ecg_01', name: 'Schiller 12-Lead ECG Diagnostic System', room: 'rm_tr_g02', status: 'available', calibrationDue: '2027-01-10' },
     { id: 'eq_fd_01', name: 'ForceDecks Dual Wireless Force Plates', room: 'rm_ch_mov', status: 'available', calibrationDue: '2026-11-30' },
-    { id: 'eq_us_01', name: 'GE Logiq Vascular Ultrasound Cart', room: 'rm_tr_g03', status: 'maintenance_lock', calibrationDue: '2026-10-25' }
+    { id: 'eq_us_01', name: '12-Lead ECG & Metabolic Cart', room: 'rm_tr_g03', status: 'maintenance_lock', calibrationDue: '2026-10-25' }
   ];
 
   const INITIAL_SUPERVISOR_ROSTER = [
@@ -161,7 +161,7 @@
       nhsNumber: '999 000 0000',
       episodeCode: 'LJMU-CVS-2026-0945',
       discipline: 'cardiovascular',
-      disciplineTitle: 'Cardiovascular Screening & Ultrasound Lab',
+      disciplineTitle: 'Cardiovascular & Exercise Physiology Lab',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Year 3 MSc Student)',
@@ -288,7 +288,7 @@
       price: 60.00,
       vatCategory: 'Healthcare Exempt (VATA 1994 Sch 9 Grp 7)',
       duration: '60 mins',
-      facility: 'Cardiovascular Ultrasound Suite'
+      facility: 'Cardiovascular Screening Suite'
     },
     {
       id: 'srv_caren_hire',
@@ -793,7 +793,7 @@
       const rows = [
         ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4020', '7210', 'PRJ-PERFHUB', '', '105.00', 'GBP', 'N/A', 'Clinical Consultations Healthcare Exempt (0%)'],
         ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7220', 'PRJ-PERFHUB', '', '400.00', 'GBP', 'LH-2026-PO-9942', 'Biomechanics Lab Hire 2h (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7230', 'PRJ-PERFHUB', '', '150.00', 'GBP', 'LH-2026-PO-9942', 'Cosmed CPET Cart Hire Day Rate (Std Rated 20%)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7230', 'PRJ-PERFHUB', '', '150.00', 'GBP', 'LH-2026-PO-9942', 'Portable CPET Cart Hire Day Rate (Std Rated 20%)'],
         ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7240', 'PRJ-PERFHUB', '', '125.00', 'GBP', 'LH-2026-PO-9942', 'CPD Workshop Spinal Manipulation (Std Rated 20%)'],
         ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'VAT Payable', '01', '101', '0000', '2110', 'PRJ-PERFHUB', '', '135.00', 'GBP', 'LH-2026-PO-9942', 'HM Revenue & Customs Output VAT (20%)'],
         ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Trade Debtors', '01', '101', '0000', '1210', 'PRJ-PERFHUB', '915.00', '', 'GBP', 'LH-2026-PO-9942', 'Accounts Receivable Control Liverpool Harriers AC']

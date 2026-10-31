@@ -219,7 +219,7 @@
             </div>
             <div class="modal-body">
               <p class="text-muted mb-4">
-                Test the atomic constraint satisfaction engine. Try booking a 5th student under Dr. Jenkins to witness the mandatory academic safety block.
+                Test the atomic constraint satisfaction engine. Try booking a 5th student under Dr. Jenkins to witness the configurable supervision ratio block.
               </p>
 
               <form id="booking-form" onsubmit="return false;">
@@ -270,7 +270,7 @@
                       <option value="eq_standard" selected>Standard Plinth & Diagnostic Kit</option>
                       <option value="eq_ecg_01">Schiller 12-Lead ECG Cart #1 (Calibrated)</option>
                       <option value="eq_cpet_01">Portable CPET Cart #1 (Calibrated)</option>
-                      <option value="eq_us_01" disabled>GE Ultrasound Cart (Calibration Lockout)</option>
+                      <option value="eq_us_01" disabled>12-Lead ECG & Metabolic Cart (Calibration Lockout)</option>
                     </select>
                   </div>
                 </div>
@@ -310,8 +310,8 @@
                   </div>
 
                   <div id="constraint-warning-banner" class="alert-banner alert-danger" style="display: none;">
-                    <strong>Educational Safety Limit Exceeded!</strong>
-                    <span>Dr. Sarah Jenkins is supervising 4 concurrent student bays. In accordance with professional standards (GOsC / CSP / DCB0129), a 5th student slot is strictly blocked until an additional supervisor is rostered or another time slot is chosen.</span>
+                    <strong>Configured Supervision Ratio Reached (1:4 Demo Setting)</strong>
+                    <span>Dr. Sarah Jenkins is supervising 4 concurrent student bays. Under the configured clinic supervision ratio (set to 1:4 in this demonstration; configurable per clinic to align with GOsC / CSP / HCPC / AHCS governance), a 5th student slot is blocked until an additional supervisor is rostered or another time slot is chosen.</span>
                   </div>
                 </div>
 
