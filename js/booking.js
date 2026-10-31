@@ -229,7 +229,7 @@
                     <option value="srv_physio_eval" data-type="student">Area A: Physiotherapy Initial Assessment (Student Bay, £45.00)</option>
                     <option value="srv_osteo_eval" data-type="student" selected>Area A: Osteopathy Clinical Encounter (Student Bay, £45.00)</option>
                     <option value="srv_cardio_screen" data-type="staff">Area A: 12-Lead ECG Cardiovascular Screen (Staff Suite, £60.00)</option>
-                    <option value="srv_caren_hire" data-type="commercial">Area B: Biomechanics Lab Hire (£400.00)</option>
+                    <option value="srv_biomech_hire" data-type="commercial">Area B: Biomechanics Lab Hire (£400.00)</option>
                     <option value="srv_cpet_hire" data-type="commercial">Area B: Portable CPET Cart Rental (£150.00)</option>
                   </select>
                 </div>
@@ -260,7 +260,7 @@
                       <option value="rm_tr_g04" selected>Teaching Clinic — Bay 4 (Available)</option>
                       <option value="rm_tr_g01" disabled>Teaching Clinic — Bay 1 (Occupied)</option>
                       <option value="rm_tr_g02" disabled>Teaching Clinic — Bay 2 (Occupied)</option>
-                      <option value="rm_tr_caren">Tom Reilly — Biomechanics Lab</option>
+                      <option value="rm_tr_biomech">Tom Reilly — Biomechanics Lab</option>
                       <option value="rm_tr_env">Tom Reilly — Environmental Chamber</option>
                     </select>
                   </div>

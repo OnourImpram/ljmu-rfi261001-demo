@@ -13,7 +13,8 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'ljmu_hub_state_v3';
+  const STORAGE_KEY = 'ljmu_hub_state_v3_1';
+  const LEGACY_STORAGE_KEYS = ['ljmu_hub_state_v3', 'ljmu_hub_state_v2', 'ljmu_hub_state'];
 
   const INITIAL_PERSONAS = {
     student: {
@@ -62,9 +63,9 @@
     { id: 'rm_tr_g02', name: 'Teaching Clinic — Bay 2', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
     { id: 'rm_tr_g03', name: 'Teaching Clinic — Bay 3', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
     { id: 'rm_tr_g04', name: 'Teaching Clinic — Bay 4', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'available' },
-    { id: 'rm_tr_caren', name: 'Tom Reilly — Biomechanics Lab', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
+    { id: 'rm_tr_biomech', name: 'Tom Reilly — Biomechanics Lab', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
     { id: 'rm_tr_env', name: 'Tom Reilly — Environmental Hypoxia Chamber', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 6, discipline: 'physiology', status: 'available' },
-    { id: 'rm_tr_dexa', name: 'Tom Reilly — Body Composition Suite', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
+    { id: 'rm_tr_bodycomp', name: 'Tom Reilly — Body Composition Suite', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
     { id: 'rm_ch_mov', name: 'Clinic Bay 3: Movement Function', campus: 'Clinic Building (demo)', type: 'clinical_bay', capacity: 1, discipline: 'sc', status: 'available' }
   ];
 
@@ -291,7 +292,7 @@
       facility: 'Cardiovascular Screening Suite'
     },
     {
-      id: 'srv_caren_hire',
+      id: 'srv_biomech_hire',
       name: 'Biomechanics Lab Hire (2h Block)',
       discipline: 'biomechanics',
       stream: 'Area B',
@@ -358,7 +359,7 @@
     },
     {
       id: 'item_cart_3',
-      serviceId: 'srv_caren_hire',
+      serviceId: 'srv_biomech_hire',
       name: 'Biomechanics Lab Hire (2-Hour Block)',
       stream: 'Area B Commercial',
       category: 'Commercial Facility Hire (Standard 20%)',
@@ -504,12 +505,21 @@
     loadInitialState() {
       try {
         if (typeof window !== 'undefined' && window.localStorage) {
+          for (const oldKey of LEGACY_STORAGE_KEYS) {
+            window.localStorage.removeItem(oldKey);
+          }
           const saved = window.localStorage.getItem(STORAGE_KEY);
           if (saved) {
-            const parsed = JSON.parse(saved);
-            // Verify structure has records and cart
-            if (parsed && parsed.records && parsed.cart && parsed.currentUser) {
-              return parsed;
+            const staleMarkers = ['Ultrasound', 'Cosmed', 'Portable CPET Portable CPET', 'SEShub', 'Copperas', 'caren', 'dexa'];
+            const hasStale = staleMarkers.some(m => saved.includes(m));
+            if (hasStale) {
+              window.localStorage.removeItem(STORAGE_KEY);
+            } else {
+              const parsed = JSON.parse(saved);
+              // Verify structure has records and cart
+              if (parsed && parsed.records && parsed.cart && parsed.currentUser) {
+                return parsed;
+              }
             }
           }
         }
