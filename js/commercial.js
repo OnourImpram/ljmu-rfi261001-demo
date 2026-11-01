@@ -45,7 +45,7 @@
           <div class="view-actions">
             <button id="btn-view-invoice" class="btn btn-secondary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              <span>View Official VAT Invoice</span>
+              <span>View Sample VAT Invoice</span>
             </button>
           </div>
         </div>
@@ -107,7 +107,7 @@
                         </td>
                         <td>
                           <span class="badge ${item.vatExempt ? 'badge-success' : 'badge-amber'}">
-                            ${item.vatExempt ? '0% Exempt' : '20% Std'}
+                            ${item.vatExempt ? 'VAT Exempt' : '20% Std'}
                           </span>
                         </td>
                         <td>${item.vatExempt ? 'Exempt' : '20.0%'}</td>
@@ -158,32 +158,32 @@
 
               <div class="po-body">
                 <p class="text-sm text-muted">
-                  Corporate clients (clubs, schools, NHS trusts) cannot pay via consumer credit cards. This module separates the Corporate Booker from the Paying Organisation, with an approval gate for Faculty Managers.
+                  Corporate clients (clubs, schools, NHS trusts) often pay by purchase order rather than by card. This module separates the Corporate Booker from the Paying Organisation, with an approval gate for Faculty Managers.
                 </p>
 
                 <form id="po-form" class="po-form-grid" onsubmit="return false;">
                   <div class="form-group">
-                    <label for="po-number-input" class="font-bold">Official Client PO Number:</label>
-                    <input type="text" id="po-number-input" class="form-control" value="${activeOrder.poNumber || 'LH-2026-PO-9942'}" placeholder="e.g. LH-2026-PO-9942">
+                    <label for="po-number-input" class="font-bold">Client PO Number:</label>
+                    <input type="text" id="po-number-input" class="form-control" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
                   </div>
 
                   <div class="form-group">
                     <label for="po-terms-select" class="font-bold">Payment Credit Terms:</label>
                     <select id="po-terms-select" class="form-control">
                       <option value="net30" selected>Net 30 Days (University Standard)</option>
-                      <option value="net60">Net 60 Days (NHS Framework)</option>
+                      <option value="net60">Net 60 Days</option>
                       <option value="upfront">Immediate Card / BACS</option>
                     </select>
                   </div>
 
                   <div class="form-group">
                     <label for="po-org-name" class="font-bold">Client Organisation:</label>
-                    <input type="text" id="po-org-name" class="form-control" value="Liverpool Harriers Athletic Club" readonly>
+                    <input type="text" id="po-org-name" class="form-control" value="Riverside Athletics Club (fictional)" readonly>
                   </div>
 
                   <div class="form-group">
                     <label for="po-invoice-email" class="font-bold">Finance & Accounts Payable Email:</label>
-                    <input type="email" id="po-invoice-email" class="form-control" value="accounts@liverpoolharriers.org.uk" readonly>
+                    <input type="email" id="po-invoice-email" class="form-control" value="accounts@riverside-ac.example" readonly>
                   </div>
 
                   <div class="po-actions-group">
@@ -216,7 +216,7 @@
         <div id="invoice-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-invoice-title" style="display: none;">
           <div class="modal-content modal-lg">
             <div class="modal-header">
-              <h3 id="modal-invoice-title" class="modal-title">Official LJMU Commercial VAT Invoice: ${activeOrder.orderNumber}</h3>
+              <h3 id="modal-invoice-title" class="modal-title">Sample VAT Invoice (synthetic): ${activeOrder.orderNumber}</h3>
               <button id="btn-close-invoice" class="btn-close" aria-label="Close modal">&times;</button>
             </div>
             <div class="modal-body invoice-printable">
@@ -225,7 +225,7 @@
                   <h2 class="text-primary font-bold text-lg">Liverpool John Moores University</h2>
                   <div class="text-sm text-muted">Faculty of Science | School of Sport & Exercise Sciences</div>
                   <div class="text-sm text-muted">Tom Reilly Building, Byrom Street, Liverpool L3 3AF</div>
-                  <div class="text-sm text-muted">VAT Registration No: GB 561 2345 67</div>
+                  <div class="text-sm text-muted">VAT Registration No: [placeholder, from LJMU Finance]</div>
                 </div>
                 <div class="text-right">
                   <div class="badge badge-success text-sm">${activeOrder.status}</div>
@@ -258,7 +258,7 @@
                       <td>${it.name}</td>
                       <td>${it.vatRate === 0 ? 'Healthcare Exempt' : 'Standard 20%'}</td>
                       <td>£${it.net.toFixed(2)}</td>
-                      <td>${it.vatRate === 0 ? '£0.00 (0%)' : `£${it.vat.toFixed(2)} (20%)`}</td>
+                      <td>${it.vatRate === 0 ? 'Exempt (no VAT)' : `£${it.vat.toFixed(2)} (20%)`}</td>
                       <td class="font-bold">£${(it.net + it.vat).toFixed(2)}</td>
                     </tr>
                   `).join('')}
@@ -274,7 +274,7 @@
 
               <div class="invoice-remit-info mt-4">
                 <h5 class="font-bold text-sm">LJMU Bank Remittance Instructions:</h5>
-                <div class="text-xs text-muted">Bank: Barclays Bank PLC | Sort Code: 20-51-01 | Account: 80921845 | Swift: BARCGB22</div>
+                <div class="text-xs text-muted">Remittance details: [placeholder, inserted from LJMU's Oracle EBS configuration]</div>
                 <div class="text-xs text-muted">Oracle EBS Reconciliation Tag: <code>01-101-4030-7220-PRJ-PERFHUB</code></div>
               </div>
             </div>
@@ -299,7 +299,7 @@
           </div>
           <div class="service-pricing">
             <span class="price-val">£${s.price.toFixed(2)}</span>
-            <span class="price-vat-note text-xs text-muted">${s.vatExempt ? 'Ex. VAT (0%)' : '+ 20% VAT'}</span>
+            <span class="price-vat-note text-xs text-muted">${s.vatExempt ? 'VAT exempt' : '+ 20% VAT'}</span>
             <button class="btn btn-sm btn-outline-primary btn-add-cart" data-service-id="${s.id}">Added</button>
           </div>
         </div>
@@ -327,7 +327,7 @@
       const poInput = document.getElementById('po-number-input');
 
       const handleSubmitPo = async () => {
-        const poNum = poInput ? poInput.value.trim() : 'LH-2026-PO-9942';
+        const poNum = poInput ? poInput.value.trim() : 'RAC-2026-PO-9942';
         await AppStore.submitPurchaseOrder({ poNumber: poNum });
         if (typeof App !== 'undefined' && App.showToast) {
           App.showToast(`Purchase Order ${poNum} submitted! Awaiting Manager approval.`);

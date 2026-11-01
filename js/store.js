@@ -13,15 +13,15 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'ljmu_hub_state_v3_1';
-  const LEGACY_STORAGE_KEYS = ['ljmu_hub_state_v3', 'ljmu_hub_state_v2', 'ljmu_hub_state'];
+  const STORAGE_KEY = 'ljmu_hub_state_v3_2';
+  const LEGACY_STORAGE_KEYS = ['ljmu_hub_state_v3_1', 'ljmu_hub_state_v3', 'ljmu_hub_state_v2', 'ljmu_hub_state'];
 
   const INITIAL_PERSONAS = {
     student: {
       id: 'usr_stu_001',
       name: 'Alex Walker',
       role: 'student',
-      title: 'Student Practitioner (Year 3 MSc)',
+      title: 'Student Practitioner (Final-year)',
       program: 'MSc Clinical Exercise Physiology & Osteopathy',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Sarah Jenkins',
@@ -52,21 +52,21 @@
       name: 'David Miller',
       role: 'booker',
       title: 'Head Coach & Corporate Booker',
-      organization: 'Liverpool Harriers Athletic Club',
+      organization: 'Riverside Athletics Club (fictional)',
       badgeClass: 'badge-booker',
       bannerMsg: 'Self-Service Booking & PO Checkout'
     }
   };
 
   const INITIAL_FACILITIES = [
-    { id: 'rm_tr_g01', name: 'Teaching Clinic — Bay 1', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'occupied' },
-    { id: 'rm_tr_g02', name: 'Teaching Clinic — Bay 2', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
-    { id: 'rm_tr_g03', name: 'Teaching Clinic — Bay 3', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
-    { id: 'rm_tr_g04', name: 'Teaching Clinic — Bay 4', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'available' },
-    { id: 'rm_tr_biomech', name: 'Tom Reilly — Biomechanics Lab', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
-    { id: 'rm_tr_env', name: 'Tom Reilly — Environmental Hypoxia Chamber', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 6, discipline: 'physiology', status: 'available' },
-    { id: 'rm_tr_bodycomp', name: 'Tom Reilly — Body Composition Suite', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
-    { id: 'rm_ch_mov', name: 'Clinic Bay 3: Movement Function', campus: 'Clinic Building (demo)', type: 'clinical_bay', capacity: 1, discipline: 'sc', status: 'available' }
+    { id: 'rm_tr_g01', name: 'Teaching Clinic - Bay 1', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'occupied' },
+    { id: 'rm_tr_g02', name: 'Teaching Clinic - Bay 2', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
+    { id: 'rm_tr_g03', name: 'Teaching Clinic - Bay 3', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
+    { id: 'rm_tr_g04', name: 'Teaching Clinic - Bay 4', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'available' },
+    { id: 'rm_tr_biomech', name: 'Tom Reilly - Biomechanics Lab', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
+    { id: 'rm_tr_env', name: 'Tom Reilly - Environmental Hypoxia Chamber', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 6, discipline: 'physiology', status: 'available' },
+    { id: 'rm_tr_bodycomp', name: 'Tom Reilly - Body Composition Suite', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
+    { id: 'rm_ch_mov', name: 'S&C Movement Bay', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'sc', status: 'available' }
   ];
 
   const INITIAL_EQUIPMENT = [
@@ -82,8 +82,8 @@
   ];
 
   const INITIAL_STUDENT_ROSTER = [
-    { id: 'stu_walker', name: 'Alex Walker', year: 'Year 3 MSc', supervisorId: 'sup_jenkins', hoursLogged: 124, targetHours: 200, completedCases: 38 },
-    { id: 'stu_patel', name: 'Priya Patel', year: 'Year 3 MSc', supervisorId: 'sup_jenkins', hoursLogged: 148, targetHours: 200, completedCases: 46 }
+    { id: 'stu_walker', name: 'Alex Walker', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 124, targetHours: 200, completedCases: 38 },
+    { id: 'stu_patel', name: 'Priya Patel', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 148, targetHours: 200, completedCases: 46 }
   ];
 
   const INITIAL_RECORDS = {
@@ -98,9 +98,9 @@
       episodeCode: 'LJMU-OST-2026-0812',
       discipline: 'osteopathy',
       disciplineTitle: 'Osteopathy Clinic (GOsC Standard)',
-      status: 'DRAFT — AWAITING SUPERVISOR COUNTERSIGNATURE',
+      status: 'DRAFT: AWAITING SUPERVISOR COUNTERSIGNATURE',
       authorId: 'usr_stu_001',
-      authorName: 'Alex Walker (Year 3 MSc Student)',
+      authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Sarah Jenkins, MCSP',
       encounterDate: '2026-10-31 14:15 GMT',
@@ -132,7 +132,7 @@
       disciplineTitle: 'Physiotherapy & MSK Clinic (CSP / HCPC Standard)',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
-      authorName: 'Alex Walker (Year 3 MSc Student)',
+      authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Sarah Jenkins, MCSP',
       encounterDate: '2026-10-30 11:00 GMT',
@@ -144,7 +144,7 @@
       activePlan: 'Initiate heavy slow resistance (HSR) leg extension protocol and decline board isometric squats (5x45s holds). Progress per criteria.',
       signatureHash: 'SHA256:7e91f043ba4e21a8c093847291a4fd09e13b827e8a93112cba504d6f81a79241',
       signedTimestamp: '2026-10-30T11:45:12Z',
-      supervisorSignedBy: 'Dr. Sarah Jenkins (MCSP 049182)',
+      supervisorSignedBy: 'Dr. Sarah Jenkins, MCSP',
       researchConsent: true,
       bodyMarkers: [
         { x: 145, y: 310, type: 'primary', label: 'Patellar Tendon (Pain: 6/10)' },
@@ -165,7 +165,7 @@
       disciplineTitle: 'Cardiovascular & Exercise Physiology Lab',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
-      authorName: 'Alex Walker (Year 3 MSc Student)',
+      authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Mark Davies, PhD',
       encounterDate: '2026-10-29 09:30 GMT',
@@ -201,16 +201,16 @@
       disciplineTitle: 'Exercise Physiology & CPET Suite (AHCS / CASES)',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
-      authorName: 'Alex Walker (Year 3 MSc Student)',
+      authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Mark Davies, PhD',
       encounterDate: '2026-10-28 15:00 GMT',
       subjective: 'Competitive triathlete undergoing physiological benchmarking for aerobic power and ventilatory thresholds on Lode Excalibur ergometer.',
       objective: 'Continuous ramp test (25W/min). VO2peak achieved: 56.4 ml/kg/min (114% predicted). Peak RER 1.18. FEV1 4.20L (98% pred), FVC 4.95L, Ratio 84.8%.',
       assessment: 'Ventilatory Threshold 1 (VT1) at 165W (2.3 L/min VO2). Ventilatory Threshold 2 (VT2 / RCP) at 285W (3.8 L/min VO2). Baseline blood lactate 1.2 mmol/L; peak blood lactate 8.6 mmol/L.',
-      studentDraftPlan: 'Structure Zone 2 endurance volume at 145-160W (<VT1); establish threshold intervals at 265-280W.',
+      studentDraftPlan: 'Structure Zone 2 endurance volume at 145-160W (below VT1); establish threshold intervals at 265-280W.',
       supervisorAmendment: 'Thresholds verified against gas exchange criteria (V-slope method). Approved training plan.',
-      activePlan: 'Structure Zone 2 endurance volume at 145-160W (<VT1); establish threshold intervals at 265-280W.',
+      activePlan: 'Structure Zone 2 endurance volume at 145-160W (below VT1); establish threshold intervals at 265-280W.',
       signatureHash: 'SHA256:c940291e0a2938471b827e8a93112cba504d6f81a792417e91f043ba4e21a8c0',
       signedTimestamp: '2026-10-28T16:20:10Z',
       supervisorSignedBy: 'Dr. Mark Davies, PhD (AHCS Registered)',
@@ -239,7 +239,7 @@
       disciplineTitle: 'Strength & Conditioning Suite (CASES / UKSCA)',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
-      authorName: 'Alex Walker (Year 3 MSc Student)',
+      authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Sarah Jenkins, MCSP',
       encounterDate: '2026-10-27 14:00 GMT',
@@ -322,15 +322,28 @@
       name: 'CPD Workshop: Spinal Manipulation Masterclass',
       discipline: 'osteopathy',
       stream: 'Area B',
-      vatRate: 0.20,
-      vatCode: 'STANDARD_20',
-      vatExempt: false,
+      vatRate: 0.0,
+      vatCode: 'EXEMPT',
+      vatExempt: true,
       price: 125.00,
-      vatCategory: 'Professional Training (Standard 20%)',
+      vatCategory: 'Eligible Body Vocational Training Exempt (VATA 1994 Sch 9 Grp 6, illustrative)',
       duration: '1 Day (7 CPD hrs)',
       facility: 'Tom Reilly Lecture & Practical Suite',
       seatsTotal: 20,
       seatsBooked: 20
+    },
+    {
+      id: 'srv_env_hire',
+      name: 'Environmental Chamber Hire (1 Hour)',
+      discipline: 'physiology',
+      stream: 'Area B',
+      vatRate: 0.20,
+      vatCode: 'STANDARD_20',
+      vatExempt: false,
+      price: 125.00,
+      vatCategory: 'Commercial Facility Hire (Standard 20%)',
+      duration: '1 Hour',
+      facility: 'Tom Reilly Environmental Chamber'
     }
   ];
 
@@ -381,10 +394,10 @@
     },
     {
       id: 'item_cart_5',
-      serviceId: 'srv_cpd_manip',
-      name: 'CPD Workshop: Spinal Manipulation (1 Seat)',
+      serviceId: 'srv_env_hire',
+      name: 'Environmental Chamber Hire (1 Hour)',
       stream: 'Area B Commercial',
-      category: 'Professional Training (Standard 20%)',
+      category: 'Commercial Facility Hire (Standard 20%)',
       vatRate: 0.20,
       vatExempt: false,
       unitPrice: 125.00,
@@ -397,14 +410,14 @@
       id: 'ord_2026_0091',
       orderNumber: 'ORD-2026-0091',
       customerType: 'B2B_ORGANISATIONAL',
-      organisationName: 'Liverpool Harriers Athletic Club',
+      organisationName: 'Riverside Athletics Club (fictional)',
       bookerName: 'David Miller',
-      bookerEmail: 'd.miller@liverpoolharriers.org.uk',
-      payingOrg: 'Liverpool Harriers AC Accounts Payable',
-      invoiceEmail: 'accounts@liverpoolharriers.org.uk',
-      poNumber: 'LH-2026-PO-9942',
+      bookerEmail: 'd.miller@riverside-ac.example',
+      payingOrg: 'Riverside AC (fictional) Accounts Payable',
+      invoiceEmail: 'accounts@riverside-ac.example',
+      poNumber: 'RAC-2026-PO-9942',
       paymentTerms: 'Net 30 Days',
-      status: 'APPROVED — AWAITING PAYMENT',
+      status: 'APPROVED: AWAITING PAYMENT',
       dateCreated: '2026-10-31T11:30:00Z',
       dateApproved: '2026-10-31T12:05:14Z',
       approvedBy: 'Marcus Vance (Commercial Manager)',
@@ -413,7 +426,7 @@
         { name: '12-Lead ECG Cardiovascular Panel', qty: 1, unitPrice: 60.00, vatRate: 0.0, net: 60.00, vat: 0.00 },
         { name: 'Biomechanics Lab Hire (2h)', qty: 1, unitPrice: 400.00, vatRate: 0.20, net: 400.00, vat: 80.00 },
         { name: 'Portable CPET Cart Hire (Day Rate)', qty: 1, unitPrice: 150.00, vatRate: 0.20, net: 150.00, vat: 30.00 },
-        { name: 'CPD Workshop: Spinal Manipulation (1 Seat)', qty: 1, unitPrice: 125.00, vatRate: 0.20, net: 125.00, vat: 25.00 }
+        { name: 'Environmental Chamber Hire (1 Hour)', qty: 1, unitPrice: 125.00, vatRate: 0.20, net: 125.00, vat: 25.00 }
       ],
       netExempt: 105.00,
       netStandard: 675.00,
@@ -433,7 +446,7 @@
       role: 'student',
       action: 'EPR_DRAFT_SAVE',
       resource: 'rec_2026_0812 (James Taylor - Osteopathy)',
-      ip: '150.204.14.88',
+      ip: '192.0.2.88',
       hash: 'SHA256:7c3b2f910a4e321b09c847e9123847a98b71234cde56789012345678abcdef01'
     },
     {
@@ -444,7 +457,7 @@
       role: 'supervisor',
       action: 'EPR_REVIEW_ACCESS',
       resource: 'rec_2026_0812 (James Taylor - Osteopathy)',
-      ip: '150.204.14.12',
+      ip: '192.0.2.12',
       hash: 'SHA256:8d2e41c99b12345ef0192837465abcde9876543210fedcba0987654321fedcba'
     },
     {
@@ -454,8 +467,8 @@
       userName: 'Marcus Vance (Commercial Manager)',
       role: 'manager',
       action: 'PURCHASE_ORDER_APPROVE',
-      resource: 'ord_2026_0091 (Liverpool Harriers AC - £915.00)',
-      ip: '150.204.10.45',
+      resource: 'ord_2026_0091 (Riverside AC (fictional) - £915.00)',
+      ip: '198.51.100.45',
       hash: 'SHA256:4f81092384abcef01928374650192837465bcde8901234567890abcdef123456'
     },
     {
@@ -466,7 +479,7 @@
       role: 'manager',
       action: 'ORACLE_EBS_GL_BATCH_GENERATE',
       resource: 'GL_INTERFACE_BATCH_20261031_01',
-      ip: '150.204.10.45',
+      ip: '198.51.100.45',
       hash: 'SHA256:1a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f809'
     }
   ];
@@ -510,7 +523,7 @@
           }
           const saved = window.localStorage.getItem(STORAGE_KEY);
           if (saved) {
-            const staleMarkers = ['Ultrasound', 'Cosmed', 'Portable CPET Portable CPET', 'SEShub', 'Copperas', 'caren', 'dexa'];
+            const staleMarkers = ['Ultrasound', 'Cosmed', 'Portable CPET Portable CPET', 'SEShub', 'Copperas', 'caren', 'dexa', 'Harriers', '0% Exempt', 'Year 3 MSc', '150.204.', 'MCSP 049182', 'Cosmed'];
             const hasStale = staleMarkers.some(m => saved.includes(m));
             if (hasStale) {
               window.localStorage.removeItem(STORAGE_KEY);
@@ -546,7 +559,7 @@
         activeDiscipline: 'osteopathy',
         activeTab: 'booking',
         waitlist: [
-          { id: 'wl_001', clientName: 'David Miller', clientOrg: 'Liverpool Harriers AC', serviceId: 'srv_cpd_manip', time: '2026-10-31 09:12Z', status: 'WAITING' }
+          { id: 'wl_001', clientName: 'David Miller', clientOrg: 'Riverside AC (fictional)', serviceId: 'srv_cpd_manip', time: '2026-10-31 09:12Z', status: 'WAITING' }
         ],
         waitlistOffer: null
       };
@@ -631,7 +644,7 @@
         role: user.role,
         action: action,
         resource: resource,
-        ip: '150.204.14.' + Math.floor(10 + Math.random() * 80),
+        ip: '192.0.2.' + Math.floor(10 + Math.random() * 80),
         hash: hash
       };
 
@@ -724,12 +737,12 @@
         id: orderId,
         orderNumber: orderNumber,
         customerType: 'B2B_ORGANISATIONAL',
-        organisationName: poDetails.orgName || 'Liverpool Harriers Athletic Club',
+        organisationName: poDetails.orgName || 'Riverside Athletics Club (fictional)',
         bookerName: poDetails.bookerName || this.state.currentUser.name,
-        bookerEmail: poDetails.bookerEmail || 'd.miller@liverpoolharriers.org.uk',
-        payingOrg: poDetails.payingOrg || 'Liverpool Harriers AC Accounts Payable',
-        invoiceEmail: poDetails.invoiceEmail || 'accounts@liverpoolharriers.org.uk',
-        poNumber: poDetails.poNumber || 'LH-2026-PO-' + Math.floor(1000 + Math.random() * 9000),
+        bookerEmail: poDetails.bookerEmail || 'd.miller@riverside-ac.example',
+        payingOrg: poDetails.payingOrg || 'Riverside AC (fictional) Accounts Payable',
+        invoiceEmail: poDetails.invoiceEmail || 'accounts@riverside-ac.example',
+        poNumber: poDetails.poNumber || 'RAC-2026-PO-' + Math.floor(1000 + Math.random() * 9000),
         paymentTerms: poDetails.paymentTerms || 'Net 30 Days',
         status: 'PENDING_PO_VERIFICATION',
         dateCreated: new Date().toISOString(),
@@ -767,7 +780,7 @@
         if (ord.id === orderId) {
           return {
             ...ord,
-            status: 'APPROVED — AWAITING PAYMENT',
+            status: 'APPROVED: AWAITING PAYMENT',
             dateApproved: ts,
             approvedBy: `${user.name} (${user.title})`,
             oracleEbsSynced: true,
@@ -801,12 +814,12 @@
       ];
 
       const rows = [
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4020', '7210', 'PRJ-PERFHUB', '', '105.00', 'GBP', 'N/A', 'Clinical Consultations Healthcare Exempt (0%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7220', 'PRJ-PERFHUB', '', '400.00', 'GBP', 'LH-2026-PO-9942', 'Biomechanics Lab Hire 2h (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7230', 'PRJ-PERFHUB', '', '150.00', 'GBP', 'LH-2026-PO-9942', 'Portable CPET Cart Hire Day Rate (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7240', 'PRJ-PERFHUB', '', '125.00', 'GBP', 'LH-2026-PO-9942', 'CPD Workshop Spinal Manipulation (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'VAT Payable', '01', '101', '0000', '2110', 'PRJ-PERFHUB', '', '135.00', 'GBP', 'LH-2026-PO-9942', 'HM Revenue & Customs Output VAT (20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Trade Debtors', '01', '101', '0000', '1210', 'PRJ-PERFHUB', '915.00', '', 'GBP', 'LH-2026-PO-9942', 'Accounts Receivable Control Liverpool Harriers AC']
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4020', '7210', 'PRJ-PERFHUB', '', '105.00', 'GBP', 'N/A', 'Clinical Consultations Healthcare (VAT Exempt)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7220', 'PRJ-PERFHUB', '', '400.00', 'GBP', 'RAC-2026-PO-9942', 'Biomechanics Lab Hire 2h (Std Rated 20%)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7230', 'PRJ-PERFHUB', '', '150.00', 'GBP', 'RAC-2026-PO-9942', 'Portable CPET Cart Hire Day Rate (Std Rated 20%)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7240', 'PRJ-PERFHUB', '', '125.00', 'GBP', 'RAC-2026-PO-9942', 'Environmental Chamber Hire 1h (Std Rated 20%)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'VAT Payable', '01', '101', '0000', '2110', 'PRJ-PERFHUB', '', '135.00', 'GBP', 'RAC-2026-PO-9942', 'HM Revenue & Customs Output VAT (20%)'],
+        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Trade Debtors', '01', '101', '0000', '1210', 'PRJ-PERFHUB', '915.00', '', 'GBP', 'RAC-2026-PO-9942', 'Accounts Receivable Control Riverside AC (fictional)']
       ];
 
       const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');

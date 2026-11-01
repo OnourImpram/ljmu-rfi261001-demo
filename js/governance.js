@@ -41,9 +41,9 @@
         <div class="view-header">
           <div class="view-title-group">
             <span class="view-eyebrow">Enterprise Integrations & Audit Governance</span>
-            <h2 class="view-title">Oracle EBS GL Export, Immutable Audit Log & Systems Telemetry</h2>
+            <h2 class="view-title">Oracle EBS GL Export, Immutable Audit Log & Integration Status</h2>
             <p class="view-description">
-              Direct mapping into LJMU Oracle E-Business Suite Chart of Accounts, append-only audit trails supporting UK GDPR accountability, and live telemetry for Microsoft Entra ID & Teams.
+              Direct mapping into LJMU Oracle E-Business Suite Chart of Accounts, append-only audit trails supporting UK GDPR accountability, and simulated integration status for Microsoft Entra ID & Teams.
             </p>
           </div>
           <div class="view-actions">
@@ -115,7 +115,7 @@
               <strong>OIV Unified Hub Solution:</strong>
             </div>
             <p class="tobe-desc">
-              The proposal connects these services on a <strong>single multi-tenant, role-gated web platform</strong>. Equipment inventory, student-supervisor ratio guards (1:4), 5-discipline electronic patient records with cryptographic countersigning, mixed-basket UK VAT, and automated Oracle EBS General Ledger batch generation operate synchronously under one unified architecture.
+              The proposal connects these services on a <strong>single role-gated web platform</strong>. Equipment inventory, student-supervisor ratio guards (1:4), 5-discipline electronic patient records with cryptographic countersigning, mixed-basket UK VAT, and automated Oracle EBS General Ledger batch generation operate synchronously under one unified architecture.
             </p>
           </div>
         </section>
@@ -159,7 +159,7 @@
               <h4 class="font-bold text-sm">Unmatched EBS Transfers</h4>
               <div class="text-xl font-bold text-emerald mt-1">0 Unmatched</div>
               <p class="text-xs text-muted mt-1">
-                Two-phase transactional handshake: 100% of B2B purchase orders matched against Oracle EBS Chart of Accounts.
+                Two-phase posting: each purchase order is matched to the Oracle EBS chart of accounts before it is confirmed.
               </p>
             </div>
 
@@ -229,7 +229,7 @@
                   <td><strong>PRJ-PERFHUB</strong></td>
                   <td></td>
                   <td class="font-bold">£105.00</td>
-                  <td>Healthcare Consultations Exempt (0% VAT)</td>
+                  <td>Healthcare Consultations (VAT Exempt)</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-neutral">NEW</span></td>
@@ -258,11 +258,11 @@
                   <td><strong>01</strong> (LJMU)</td>
                   <td><strong>101</strong> (Sport & Exercise)</td>
                   <td>4030 (Performance Hub)</td>
-                  <td>7240 (CPD Short Courses)</td>
+                  <td>7240 (Environmental Chamber Hire)</td>
                   <td><strong>PRJ-PERFHUB</strong></td>
                   <td></td>
                   <td class="font-bold">£125.00</td>
-                  <td>CPD Spinal Manipulation Workshop (Standard 20% VAT)</td>
+                  <td>Environmental Chamber Hire 1h (Standard 20% VAT)</td>
                 </tr>
                 <tr>
                   <td><span class="badge badge-neutral">NEW</span></td>
@@ -284,7 +284,7 @@
                   <td><strong>PRJ-PERFHUB</strong></td>
                   <td class="text-primary font-bold">£915.00</td>
                   <td></td>
-                  <td>Accounts Receivable Control (Liverpool Harriers AC)</td>
+                  <td>Accounts Receivable Control (Riverside AC, fictional)</td>
                 </tr>
               </tbody>
             </table>
@@ -345,10 +345,10 @@
           <section id="telemetry-panel" class="card" aria-labelledby="telemetry-heading">
             <div class="card-header-flex">
               <div>
-                <span class="badge badge-success">Real-Time Telemetry</span>
+                <span class="badge badge-success">Simulated Status</span>
                 <h3 id="telemetry-heading" class="card-title">Enterprise System Connectors</h3>
               </div>
-              <span class="badge badge-accent">Health: 100% Operational</span>
+              <span class="badge badge-accent">Demo environment</span>
             </div>
 
             <div class="telemetry-connectors-list">
@@ -358,10 +358,10 @@
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Microsoft Azure AD / Entra ID SSO</strong>
-                    <span class="badge badge-success">CONNECTED</span>
+                    <span class="badge badge-neutral">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
-                    Tenant: <code>ljmu.ac.uk</code> | Protocol: OIDC / SAML 2.0 | SCIM 2.0 User Sync: Active (342 student & 28 staff accounts mapped)
+                    Planned: OIDC / SAML 2.0 single sign-on with SCIM 2.0 role provisioning (requires LJMU tenant administrator consent).
                   </div>
                 </div>
               </div>
@@ -372,10 +372,10 @@
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Microsoft Teams Graph API Connector</strong>
-                    <span class="badge badge-success">READY</span>
+                    <span class="badge badge-neutral">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
-                    Telehealth Virtual Consultation Engine: Instant encrypted lobby link generation, calendar sync with Outlook 365.
+                    Planned: Teams meetings with lobby control created through Microsoft Graph, with Outlook calendar sync.
                   </div>
                 </div>
               </div>
@@ -386,10 +386,10 @@
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Oracle E-Business Suite (EBS) Financial Bridge</strong>
-                    <span class="badge badge-success">BATCH SYNCHRONIZED</span>
+                    <span class="badge badge-neutral">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
-                    Chart of Accounts Segment Mapping: Validated | GL_INTERFACE & AR_INTERFACE batch generation active.
+                    Planned: GL and AR interface batches mapped to LJMU's chart of accounts (illustrative segment values).
                   </div>
                 </div>
               </div>
@@ -400,10 +400,10 @@
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>PCI DSS Level 1 Payment Gateway (Stripe UK / Worldpay)</strong>
-                    <span class="badge badge-success">TOKENIZED & ACTIVE</span>
+                    <span class="badge badge-neutral">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
-                    SAQ-A Compliance: Cardholder data never touches LJMU or OIV infrastructure. Direct bank tokenization.
+                    SAQ-A eligible design: card details are entered in the provider's hosted fields and never reach LJMU or OIV systems.
                   </div>
                 </div>
               </div>

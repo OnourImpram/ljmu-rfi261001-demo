@@ -40,7 +40,7 @@
             <span class="view-eyebrow">Area A & Area B Scheduling Core</span>
             <h2 class="view-title">Multi-Constraint Booking & Capacity Guard</h2>
             <p class="view-description">
-              Simultaneous 4-constraint validation: Practitioner/Student + Physical Bay + Diagnostic Equipment + 1:4 Supervisor-to-Student Safety Ratio Guard. Synthetic rooms and equipment for demonstration.
+              Simultaneous 4-constraint validation: Practitioner/Student + Physical Bay + Diagnostic Equipment + configurable supervisor-to-student ratio (1:4 in this demo). Synthetic rooms and equipment for demonstration.
             </p>
           </div>
           <div class="view-actions">
@@ -70,7 +70,7 @@
             </div>
             <div id="supervisor-ratio-status" class="ratio-status-pill ${sup.activeBays >= sup.maxRatio ? 'status-pill-danger' : 'status-pill-success'}">
               <span id="supervisor-ratio-indicator" class="pulse-dot"></span>
-              <strong>${sup.name}: ${sup.activeBays} / ${sup.maxRatio} Student Bays Utilised (${ratioPct}%)</strong> — 
+              <strong>${sup.name}: ${sup.activeBays} / ${sup.maxRatio} Student Bays Utilised (${ratioPct}%)</strong> | 
               <span>${sup.activeBays >= sup.maxRatio ? 'MAXIMUM SAFETY RATIO REACHED' : '1 BAY REMAINING AVAILABLE'}</span>
             </div>
           </div>
@@ -90,8 +90,8 @@
           <section class="card" aria-labelledby="bays-heading">
             <div class="card-header-flex">
               <div>
-                <h3 id="bays-heading" class="card-title">Tom Reilly Building — Clinical Bays (Area A)</h3>
-                <p class="card-subtitle">Real-time occupancy & sensor status</p>
+                <h3 id="bays-heading" class="card-title">Tom Reilly Building - Clinical Bays (Area A)</h3>
+                <p class="card-subtitle">Occupancy and booking status</p>
               </div>
               <span class="badge badge-success">Live Synchronised</span>
             </div>
@@ -145,8 +145,8 @@
                 <tr>
                   <td><strong>13:00 - 14:00</strong></td>
                   <td>Osteopathy Follow-up</td>
-                  <td>Alex Walker (Year 3 MSc)</td>
-                  <td>Tom Reilly — Bay 1</td>
+                  <td>Alex Walker (Final-year)</td>
+                  <td>Tom Reilly - Bay 1</td>
                   <td>Plinth + Articulation Props</td>
                   <td>Dr. Sarah Jenkins (1/4)</td>
                   <td><span class="badge badge-neutral">Completed</span></td>
@@ -154,8 +154,8 @@
                 <tr class="table-row-active">
                   <td><strong>14:00 - 15:00</strong></td>
                   <td>Osteopathy New Patient</td>
-                  <td>Alex Walker (Year 3 MSc)</td>
-                  <td>Tom Reilly — Bay 1</td>
+                  <td>Alex Walker (Final-year)</td>
+                  <td>Tom Reilly - Bay 1</td>
                   <td>Plinth + Goniometer</td>
                   <td>Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
@@ -163,8 +163,8 @@
                 <tr class="table-row-active">
                   <td><strong>14:00 - 15:00</strong></td>
                   <td>Physiotherapy Rehab</td>
-                  <td>Priya Patel (Year 3 MSc)</td>
-                  <td>Tom Reilly — Bay 2</td>
+                  <td>Priya Patel (Final-year)</td>
+                  <td>Tom Reilly - Bay 2</td>
                   <td>Biodex Dynamometer</td>
                   <td>Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
@@ -172,8 +172,8 @@
                 <tr class="table-row-active">
                   <td><strong>14:00 - 15:00</strong></td>
                   <td>Physiotherapy MSK Screen</td>
-                  <td>Tom Evans (Year 3 MSc)</td>
-                  <td>Tom Reilly — Bay 3</td>
+                  <td>Tom Evans (Final-year)</td>
+                  <td>Tom Reilly - Bay 3</td>
                   <td>Theraband & Force Gauges</td>
                   <td>Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
@@ -182,7 +182,7 @@
                   <td><strong>14:00 - 15:00</strong></td>
                   <td>Osteopathy Assessment</td>
                   <td><em>Student Roster Open</em></td>
-                  <td>Tom Reilly — Bay 4</td>
+                  <td>Tom Reilly - Bay 4</td>
                   <td>Plinth 4 (Cleaned & Ready)</td>
                   <td>Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-success">Available Slot (1 Left)</span></td>
@@ -191,7 +191,7 @@
                   <td><strong>15:00 - 17:00</strong></td>
                   <td>Biomechanics Hire</td>
                   <td>External Research Tech</td>
-                  <td>Tom Reilly — Biomechanics Lab</td>
+                  <td>Tom Reilly - Biomechanics Lab</td>
                   <td>Vicon Motion Capture 16-Cam</td>
                   <td>N/A (Staff Tech Run)</td>
                   <td><span class="badge badge-primary">Commercial Booked</span></td>
@@ -238,9 +238,9 @@
                   <div class="form-group">
                     <label for="booking-practitioner-select">Practitioner / Student Assigned:</label>
                     <select id="booking-practitioner-select" class="form-control">
-                      <option value="stu_walker" selected>Alex Walker (Year 3 MSc Student)</option>
-                      <option value="stu_patel">Priya Patel (Year 3 MSc Student)</option>
-                      <option value="stu_5th_over_ratio">Liam Vance (Year 3 MSc Student - Over-Ratio Test)</option>
+                      <option value="stu_walker" selected>Alex Walker (Final-year Student)</option>
+                      <option value="stu_patel">Priya Patel (Final-year Student)</option>
+                      <option value="stu_5th_over_ratio">Liam Vance (Final-year Student - Over-Ratio Test)</option>
                       <option value="sup_jenkins">Dr. Sarah Jenkins (Direct Senior Staff)</option>
                     </select>
                   </div>
@@ -257,11 +257,11 @@
                   <div class="form-group">
                     <label for="booking-room-select">Facility / Treatment Bay:</label>
                     <select id="booking-room-select" class="form-control">
-                      <option value="rm_tr_g04" selected>Teaching Clinic — Bay 4 (Available)</option>
-                      <option value="rm_tr_g01" disabled>Teaching Clinic — Bay 1 (Occupied)</option>
-                      <option value="rm_tr_g02" disabled>Teaching Clinic — Bay 2 (Occupied)</option>
-                      <option value="rm_tr_biomech">Tom Reilly — Biomechanics Lab</option>
-                      <option value="rm_tr_env">Tom Reilly — Environmental Chamber</option>
+                      <option value="rm_tr_g04" selected>Teaching Clinic - Bay 4 (Available)</option>
+                      <option value="rm_tr_g01" disabled>Teaching Clinic - Bay 1 (Occupied)</option>
+                      <option value="rm_tr_g02" disabled>Teaching Clinic - Bay 2 (Occupied)</option>
+                      <option value="rm_tr_biomech">Tom Reilly - Biomechanics Lab</option>
+                      <option value="rm_tr_env">Tom Reilly - Environmental Chamber</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -507,7 +507,7 @@
         serviceId: 'srv_cpd_manip',
         serviceName: 'CPD Workshop: Spinal Manipulation Masterclass',
         clientName: 'David Miller',
-        clientOrg: 'Liverpool Harriers Athletic Club',
+        clientOrg: 'Riverside Athletics Club (fictional)',
         timestamp: new Date().toISOString()
       };
 
@@ -530,7 +530,7 @@
       }
 
       if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('Waitlist backfill algorithm triggered! Real-time notification sent to next candidate.');
+        App.showToast('Waiting list backfill: the slot has been offered to the next person (simulated notification).');
       }
     }
   }

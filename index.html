@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LJMU Integrated Clinical, Student Supervision & Commercial Booking Hub — OIV RFI 261001</title>
+  <title>LJMU Integrated Clinical, Student Supervision & Commercial Booking Hub | OIV RFI 261001</title>
   <meta name="description" content="Reference demonstration (synthetic data only) for Liverpool John Moores University (LJMU) RFI 261001. Built by ONOUR IMPRAM VENTURES LTD.">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
@@ -50,10 +50,10 @@
           <label for="role-select" class="sr-only">Active Persona Role:</label>
           <div class="select-wrapper">
             <select id="role-select" class="role-select-dropdown" aria-label="Switch User Persona">
-              <option value="student">Student Practitioner (Alex Walker, Year 3 MSc)</option>
+              <option value="student">Student Practitioner (Alex Walker, final-year student)</option>
               <option value="supervisor" selected>Clinical Supervisor (Dr. Sarah Jenkins, MCSP)</option>
               <option value="manager">Commercial & Lab Manager (Marcus Vance)</option>
-              <option value="booker">Corporate Booker (David Miller, Liverpool Harriers)</option>
+              <option value="booker">Corporate Booker (David Miller, Riverside AC, fictional)</option>
             </select>
           </div>
         </div>
@@ -90,7 +90,7 @@
       <button id="tab-commercial" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-commercial" tabindex="-1">
         <span class="tab-icon">&#128722;</span>
         <span class="tab-label">3. Commercial Checkout & PO</span>
-        <span class="tab-sub">Mixed VAT (0% vs 20%)</span>
+        <span class="tab-sub">Mixed VAT (Exempt + 20%)</span>
       </button>
 
       <button id="tab-governance" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-governance" tabindex="-1">
@@ -172,20 +172,20 @@
           <div class="target-badge">OIV Unified Hub (To-Be Architecture)</div>
           <h3>Single Modular Higher-Education Clinical, Supervision & Commercial Platform</h3>
           <p>
-            OIV provides a single zero-build web platform that unifies all three functions:
+            OIV proposes one platform that connects all three functions:
           </p>
           <div class="grid-3-col mt-3">
             <div class="target-pillar">
               <strong>1. Atomic Capacity Guard</strong>
-              <div class="text-sm text-muted">Evaluates Student + Bay + Equipment + 1:4 Supervisor Ratio simultaneously.</div>
+              <div class="text-sm text-muted">Checks student, bay, equipment and the configured supervisor ratio (1:4 in this demo) together.</div>
             </div>
             <div class="target-pillar">
               <strong>2. 5-Discipline Clinical EPR</strong>
-              <div class="text-sm text-muted">DCB0129-aligned two-stage countersigning with SHA-256 cryptographic locking.</div>
+              <div class="text-sm text-muted">Two-stage countersigning, with each signature bound to the note version by a SHA-256 hash.</div>
             </div>
             <div class="target-pillar">
               <strong>3. Oracle EBS & Mixed VAT</strong>
-              <div class="text-sm text-muted">Automated 0% exempt vs 20% standard VAT engine with direct GL batch CSV export.</div>
+              <div class="text-sm text-muted">Per-item VAT treatment (exempt or 20% standard-rated) with GL batch CSV export.</div>
             </div>
           </div>
         </div>
@@ -211,7 +211,7 @@
             <span class="badge badge-primary">Pillar 1 (RFI 3.5 & 3.6)</span>
             <h4 class="mt-2 text-primary font-bold">Clinical Teaching & Supervision Hub</h4>
             <p class="text-sm text-muted">
-              Relationship-Based Access Control (ReBAC) via OpenFGA / CNCF Zanzibar model. Bounded student placement access, mandatory Student Draft &rarr; Practice Educator Diff Review &rarr; Cryptographic SHA-256 Countersignature, and student competency logbooks aligned with AHCS, HCPC, CSP, GOsC, and CASES.
+              Relationship-Based Access Control (ReBAC) via OpenFGA (Zanzibar-style relationship model). Bounded student placement access, mandatory Student Draft &rarr; Practice Educator Diff Review &rarr; Cryptographic SHA-256 Countersignature, and student competency logbooks aligned with AHCS, HCPC, CSP, GOsC, and CASES.
             </p>
           </div>
 
@@ -229,7 +229,7 @@
             <span class="badge badge-success">Pillar 3 (RFI 3.3 & 3.4)</span>
             <h4 class="mt-2 text-emerald font-bold">Unified Resource Dependency & Equipment Lifecycle Engine</h4>
             <p class="text-sm text-muted">
-              Simultaneous 4-constraint satisfaction (Practitioner + Room/Bay + Equipment + 1:4 Educational Ratio Guard). Full equipment calibration lifecycle tracking with automatic maintenance lockout routing to the Operational Exception Queue.
+              Simultaneous 4-constraint satisfaction (Practitioner + Room/Bay + Equipment + configurable supervisor ratio, 1:4 in this demo). Full equipment calibration lifecycle tracking with automatic maintenance lockout routing to the Operational Exception Queue.
             </p>
           </div>
 
@@ -238,7 +238,7 @@
             <span class="badge badge-amber">Pillar 4 (RFI 3.3 & 3.8)</span>
             <h4 class="mt-2 text-amber font-bold">Corporate CPD & Performance Hub Commerce Portal</h4>
             <p class="text-sm text-muted">
-              Self-service B2C patient booking and B2B corporate squad testing checkout. Net 30 Purchase Order approval workflow, mixed-basket UK VAT calculation (0% exempt vs 20% standard), and automated CPD certificate generation upon verified attendance.
+              Self-service B2C patient booking and B2B corporate squad testing checkout. Net 30 Purchase Order approval workflow, mixed-basket UK VAT calculation (exempt and 20% standard-rated), and automated CPD certificate generation upon verified attendance.
             </p>
           </div>
 
@@ -247,7 +247,7 @@
             <span class="badge badge-info">Pillar 5 (RFI 3.6, 3.9 & 3.10)</span>
             <h4 class="mt-2 text-primary font-bold">Faculty Intelligence & De-Identified Research Studio</h4>
             <p class="text-sm text-muted">
-              Automated Presidio-grade PII/PHI de-identification pipeline with outward postcode truncation (L3) and 5-year age-banding. Exportable research datasets (CSV/JSON) for SPSS/R, plus Synthea-based synthetic cohorts for a permanent Student Training Sandbox.
+              Presidio-based de-identification pipeline with outward postcode truncation (L3) and 5-year age-banding. Exportable research datasets (CSV/JSON) for SPSS/R, plus Synthea-based synthetic cohorts for a permanent Student Training Sandbox.
             </p>
           </div>
 
@@ -280,7 +280,7 @@
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-title">Accreditations & Educational Alignment</h4>
+        <h4 class="footer-title">Professional Frameworks Supported</h4>
         <div class="tag-cloud">
           <span class="tag">AHCS MSc Clinical Exercise Physiology</span>
           <span class="tag">GOsC Osteopathy</span>
@@ -290,12 +290,12 @@
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-title">Governance & Security Standards</h4>
+        <h4 class="footer-title">Governance Standards (designed against)</h4>
         <div class="tag-cloud">
-          <span class="tag">NHS DCB0129 Clinical Safety</span>
-          <span class="tag">UK GDPR Accountability Audit</span>
-          <span class="tag">WCAG 2.2 Level AA Accessible</span>
-          <span class="tag">Oracle E-Business Suite Ready</span>
+          <span class="tag">DCB0129 safety case (planned)</span>
+          <span class="tag">UK GDPR audit trail</span>
+          <span class="tag">WCAG 2.2 AA (target)</span>
+          <span class="tag">Oracle EBS integration (planned)</span>
         </div>
       </div>
     </div>

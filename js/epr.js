@@ -38,10 +38,10 @@
       this.container.innerHTML = `
         <div class="view-header">
           <div class="view-title-group">
-            <span class="view-eyebrow">Area A Clinical Governance & DCB0129-aligned safety controls</span>
+            <span class="view-eyebrow">Area A Clinical Governance & clinical safety controls</span>
             <h2 class="view-title">Profession-Specific EPR & Two-Stage Supervisor Countersigning</h2>
             <p class="view-description">
-              5 Switchable accredited disciplines (GOsC, CSP/HCPC, AHCS, CASES). Mandatory Student Draft -> Supervisor Side-by-Side Diff -> SHA-256 Cryptographic Seal Lock.
+              5 switchable disciplines, with templates designed around GOsC, CSP/HCPC, AHCS and CASES standards. Mandatory Student Draft -> Supervisor Side-by-Side Diff -> SHA-256 Cryptographic Seal Lock.
             </p>
           </div>
           <div class="view-actions">
@@ -124,14 +124,20 @@
               <!-- DCB0129 Clinical Safety & Pre-Submission Red-Flag Gate -->
               <div class="alert-banner alert-success mb-3 p-3 text-xs">
                 <div class="flex justify-between items-center mb-1">
-                  <strong>&#10003; Pre-Submission Clinical Sufficiency & Red-Flag Gate (NHS DCB0129 HAZ-01):</strong>
+                  <strong>&#10003; Pre-Submission Clinical Sufficiency & Red-Flag Gate (example hazard control HAZ-01; DCB0129 safety case planned):</strong>
                   <span class="badge badge-success">Passed</span>
                 </div>
                 <div class="flex gap-4 text-muted">
-                  <span>&#9633; Cauda Equina: <em>Negative</em></span>
-                  <span>&#9633; Cord Compression: <em>Negative</em></span>
-                  <span>&#9633; Systemic Flags: <em>Negative</em></span>
-                  <span>&#9633; Sign-Off SLA: <strong class="text-primary">3h 45m remaining (HAZ-02)</strong></span>
+                  ${(({
+                    osteopathy: ['Neurological red flags', 'Cervical arterial (vascular) screen', 'Systemic flags'],
+                    physiotherapy: ['Cauda equina', 'Cord compression', 'Systemic flags'],
+                    cardiovascular: ['PAR-Q+ positive responses', 'Resting ECG red flags', 'Family history of sudden cardiac death'],
+                    physiology: ['PAR-Q+ positive responses', 'ACSM exercise testing contraindications', 'Medication review'],
+                    sc: ['Concussion screen', 'Acute injury flags', 'Medication review']
+                  })[disc] || ['Red flags', 'Contraindications', 'Systemic flags']).map(f => `<span>&#9633; ${f}: <em>Negative</em></span>`).join('')}
+                  ${isLocked
+                    ? '<span>&#9633; Sign-off: <strong class="text-primary">Countersigned</strong></span>'
+                    : '<span>&#9633; Sign-off time limit: <strong class="text-primary">3h 45m remaining (HAZ-02)</strong></span>'}
                 </div>
               </div>
 
@@ -199,7 +205,7 @@
                       ? rec.supervisorAmendment 
                       : `<textarea id="supervisor-amendment-input" class="form-control" rows="4" ${!isSupervisor ? 'disabled' : ''}>${rec.supervisorAmendment}</textarea>`}
                   </div>
-                  <div class="diff-meta">Amended by Dr. Sarah Jenkins (MCSP)</div>
+                  <div class="diff-meta">Reviewed by ${rec.supervisorName}</div>
                 </div>
               </div>
 
@@ -216,7 +222,7 @@
                 <div class="hash-display-wrapper">
                   <span class="hash-label">Cryptographic Digest:</span>
                   <code id="signature-hash-display" class="hash-code ${rec.signatureHash ? 'hash-active' : ''}">
-                    ${rec.signatureHash || 'NOT_SIGNED_YET — PENDING SUPERVISOR COUNTERSIGNATURE'}
+                    ${rec.signatureHash || 'NOT_SIGNED_YET: PENDING SUPERVISOR COUNTERSIGNATURE'}
                   </code>
                 </div>
 
@@ -243,7 +249,7 @@
         <div id="logbook-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-logbook-title" style="display: none;">
           <div class="modal-content modal-lg">
             <div class="modal-header">
-              <h3 id="modal-logbook-title" class="modal-title">Student Competency Logbook: Alex Walker (Year 3 MSc)</h3>
+              <h3 id="modal-logbook-title" class="modal-title">Student Competency Logbook: Alex Walker (Final-year)</h3>
               <button id="btn-close-logbook" class="btn-close" aria-label="Close modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -325,7 +331,7 @@
             </div>
             <div class="modal-body">
               <div class="alert-banner alert-success mb-4">
-                <strong>UK GDPR Article 89 & NHS Health Research Authority Compliant:</strong>
+                <strong>Designed for UK GDPR Article 89 safeguards (subject to LJMU ethics and HRA approval where required):</strong>
                 <p>Direct identifiers (Name, NHS number, street address) are stripped. Dates of birth are banded into 5-year cohorts. Postcode reduced to outward district (L3). Records without digital research consent are excluded automatically.</p>
               </div>
 
@@ -453,7 +459,7 @@
 
               <div class="msk-hq-container">
                 <h5 class="font-bold">Musculoskeletal Health Questionnaire (MSK-HQ)</h5>
-                <p class="text-muted text-sm">Validated CSP/Versus Arthritis outcome metric across 14 quality-of-life dimensions.</p>
+                <p class="text-muted text-sm">Validated 14-item musculoskeletal outcome measure (score 0 to 56), used under its licence terms.</p>
                 <div class="score-display-card">
                   <div class="score-number" id="msk-hq-display">${rec.mskHqScore || 38} <span class="score-max">/ 56</span></div>
                   <div class="score-rating badge badge-success">Good MSK Functional Recovery</div>
@@ -522,13 +528,13 @@
                   <tr>
                     <td><strong>VT1 (Ventilatory Threshold 1)</strong></td>
                     <td>165 Watts (2.30 L/min)</td>
-                    <td>—</td>
+                    <td>-</td>
                     <td>V-Slope break point; aerobic endurance ceiling</td>
                   </tr>
                   <tr>
                     <td><strong>VT2 (Respiratory Comp. Point)</strong></td>
                     <td>285 Watts (3.80 L/min)</td>
-                    <td>—</td>
+                    <td>-</td>
                     <td>VE/VCO2 nadir; functional lactate turnpoint</td>
                   </tr>
                   <tr>
@@ -540,7 +546,7 @@
                   <tr>
                     <td><strong>Blood Lactate (Rest -> Peak)</strong></td>
                     <td>1.2 -> 8.6 mmol/L</td>
-                    <td>—</td>
+                    <td>-</td>
                     <td>Lactate clearance kinetics intact</td>
                   </tr>
                 </tbody>

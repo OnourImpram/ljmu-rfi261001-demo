@@ -160,7 +160,7 @@
           <span class="role-banner-title">
             Active Persona: <strong>${user.title}</strong> (${user.name})
           </span>
-          <span class="role-banner-meta">— ${user.bannerMsg || user.program || ''}</span>
+          <span class="role-banner-meta">| ${user.bannerMsg || user.program || ''}</span>
         </div>
         <div class="role-quick-switch-pills">
           <span class="text-xs text-muted">Switch Role:</span>
