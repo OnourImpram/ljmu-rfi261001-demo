@@ -466,7 +466,7 @@
                 </div>
                 <div class="msk-slider-group mt-3">
                   <label for="slider-msk" class="text-sm font-semibold">Simulate Patient MSK-HQ Score Change:</label>
-                  <input type="range" id="slider-msk" min="0" max="56" value="${rec.mskHqScore || 38}" class="range-slider">
+                  <input type="range" id="slider-msk" aria-label="Musculoskeletal Health Questionnaire Score (0 to 56)" min="0" max="56" value="${rec.mskHqScore || 38}" class="range-slider">
                 </div>
               </div>
             </div>

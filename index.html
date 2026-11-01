@@ -4,8 +4,68 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LJMU Integrated Clinical, Student Supervision & Commercial Booking Hub | OIV RFI 261001</title>
-  <meta name="description" content="Reference demonstration (synthetic data only) for Liverpool John Moores University (LJMU) RFI 261001. Built by ONOUR IMPRAM VENTURES LTD.">
+  <title>LJMU Clinical, Supervision &amp; Booking Hub | OIV RFI 261001</title>
+  <meta name="description" content="Interactive reference demonstration (synthetic data only) for Liverpool John Moores University (LJMU) RFI 261001 by ONOUR IMPRAM VENTURES LTD (OIV).">
+  <link rel="canonical" href="https://onourimpram.github.io/ljmu-rfi261001-demo/">
+  <!-- Open Graph / Microsoft Teams / Outlook Rich Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ONOUR IMPRAM VENTURES LTD - LJMU RFI 261001">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://onourimpram.github.io/ljmu-rfi261001-demo/">
+  <meta property="og:title" content="LJMU Unified Clinical, Student Supervision &amp; Commercial Booking Hub (RFI 261001)">
+  <meta property="og:description" content="Interactive reference demonstration (synthetic data only) covering 5-discipline clinical EPR, two-stage student countersigning, atomic capacity guard, mixed VAT checkout, and Oracle EBS GL export.">
+  <meta property="og:image" content="https://onourimpram.github.io/ljmu-rfi261001-demo/og-preview.png">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+  <meta property="og:image:alt" content="OIV Unified Clinical and Faculty Operations Platform Reference Demo for LJMU RFI 261001">
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LJMU Unified Clinical, Student Supervision &amp; Commercial Booking Hub (RFI 261001)">
+  <meta name="twitter:description" content="Interactive reference demonstration (synthetic data only) for Liverpool John Moores University RFI 261001 by ONOUR IMPRAM VENTURES LTD.">
+  <meta name="twitter:image" content="https://onourimpram.github.io/ljmu-rfi261001-demo/og-preview.png">
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://onourimpram.github.io/ljmu-rfi261001-demo/#organization",
+        "name": "ONOUR IMPRAM VENTURES LTD",
+        "legalName": "ONOUR IMPRAM VENTURES LTD",
+        "identifier": "17429906",
+        "duns": "235117532",
+        "url": "https://oiv.onourimpram.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "71-75 Shelton Street, Covent Garden",
+          "addressLocality": "London",
+          "postalCode": "WC2H 9JQ",
+          "addressCountry": "GB"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://onourimpram.github.io/ljmu-rfi261001-demo/#webapp",
+        "name": "OIV Unified Clinical & Faculty Operations Platform (LJMU RFI 261001 Reference Demo)",
+        "url": "https://onourimpram.github.io/ljmu-rfi261001-demo/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser (WCAG 2.2 AA target)",
+        "inLanguage": "en-GB",
+        "description": "Reference demonstration environment (synthetic data only) prepared for Liverpool John Moores University RFI 261001 (Integrated Clinical, Booking and Activity Management Software).",
+        "creator": {
+          "@id": "https://onourimpram.github.io/ljmu-rfi261001-demo/#organization"
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "GBP",
+          "price": "19800.00",
+          "description": "Indicative Tier 1 Combined Area A + Area B annual SaaS subscription with 10% three-year commitment discount (3-year total package £88,500 to £98,500 ex. VAT including 45 to 60 consultant days implementation)."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
   <style>.pill-role.active{background:#0B3D91 !important;color:#FFFFFF !important;border-color:#0B3D91 !important;}</style>
@@ -36,7 +96,7 @@
 
       <!-- Global Controls: 3-Silo Rationale, 6 Pillars, Persona Selector & Reset -->
       <div class="header-controls">
-        <button id="btn-open-arch-modal" class="btn btn-outline-light btn-sm" aria-haspopup="dialog">
+        <button id="btn-open-arch-modal" class="btn btn-outline-light btn-sm cta" aria-haspopup="dialog">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
           <span>Current Services &rarr; One Platform</span>
         </button>
@@ -103,6 +163,7 @@
 
   <!-- Main Application Workspace Panels -->
   <main id="main-content" class="app-main container">
+    <h2 class="sr-only">Clinical, Student Supervision and Commercial Operations Workspace</h2>
     <!-- Tab 1: Booking & Capacity Guard View -->
     <section id="view-booking" class="tab-panel active" role="tabpanel" aria-labelledby="tab-booking" tabindex="0">
       <!-- Populated dynamically by booking.js -->
@@ -128,7 +189,7 @@
   <div id="arch-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-arch-title" style="display: none;">
     <div class="modal-content modal-xl">
       <div class="modal-header">
-        <h3 id="modal-arch-title" class="modal-title">From LJMU's Current Services &rarr; To One Connected Platform</h3>
+        <h2 id="modal-arch-title" class="modal-title">From LJMU's Current Services &rarr; To One Connected Platform</h2>
         <button id="btn-close-arch" class="btn-close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -188,6 +249,9 @@
               <div class="text-sm text-muted">Per-item VAT treatment (exempt or 20% standard-rated) with GL batch CSV export.</div>
             </div>
           </div>
+          <div class="mt-3 p-3" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:6px;font-size:0.85rem;">
+            <strong>Indicative Founding University Partner Package (RFI Section 3.11):</strong> Tier 1 Combined (Area A + Area B, up to 20 staff + unlimited students &amp; patients) at <strong>&pound;19,800/yr</strong> (with 10% 3-year commitment discount, <strong>&pound;59,400</strong> over 3 years) + <strong>&pound;29,100 to &pound;39,100</strong> one-off implementation (45 to 60 consultant days at &pound;650/day) = <strong>&pound;88,500 to &pound;98,500 ex. VAT total 3-year package</strong>.
+          </div>
         </div>
       </div>
     </div>
@@ -197,7 +261,7 @@
   <div id="pillars-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-pillars-title" style="display: none;">
     <div class="modal-content modal-xl">
       <div class="modal-header">
-        <h3 id="modal-pillars-title" class="modal-title">OIV Platform Architecture: The 6 Named Capability Pillars</h3>
+        <h2 id="modal-pillars-title" class="modal-title">OIV Platform Architecture: The 6 Named Capability Pillars</h2>
         <button id="btn-close-pillars" class="btn-close" aria-label="Close modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -220,7 +284,7 @@
             <span class="badge badge-accent">Pillar 2 (RFI 3.5 & 3.6)</span>
             <h4 class="mt-2 text-accent font-bold">Allied Health & Sport Science Outcomes Studio</h4>
             <p class="text-sm text-muted">
-              Standardised repeated clinical scoring across 5 disciplines (Physiotherapy MSK-HQ / VISA-P, Cardiovascular 12-lead ECG intervals & QRISK3, CPET peak VO2 & ventilatory thresholds, and ForceDecks jump asymmetry). Multi-session exercise therapy plan templates.
+              Standardised repeated clinical scoring across 5 disciplines (Physiotherapy MSK-HQ / VISA-P, Cardiovascular 12-lead ECG intervals &amp; validated risk stratification, CPET peak VO2 &amp; ventilatory thresholds, and ForceDecks jump asymmetry). Multi-session exercise therapy plan templates.
             </p>
           </div>
 

@@ -305,7 +305,7 @@
 
             <div class="audit-filter-bar mb-3">
               <label for="audit-search-input" class="sr-only">Search Audit Log:</label>
-              <input type="text" id="audit-search-input" class="form-control" placeholder="Search by user, action, resource, or SHA-256 hash..." value="${this.auditFilterText}">
+              <input type="text" id="audit-search-input" aria-label="Filter immutable audit log" class="form-control" placeholder="Search by user, action, resource, or SHA-256 hash..." value="${this.auditFilterText}">
             </div>
 
             <div class="table-responsive audit-table-wrapper">

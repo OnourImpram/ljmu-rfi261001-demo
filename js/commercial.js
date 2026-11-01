@@ -164,12 +164,12 @@
                 <form id="po-form" class="po-form-grid" onsubmit="return false;">
                   <div class="form-group">
                     <label for="po-number-input" class="font-bold">Client PO Number:</label>
-                    <input type="text" id="po-number-input" class="form-control" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
+                    <input type="text" id="po-number-input" aria-label="Client Purchase Order Number" class="form-control" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
                   </div>
 
                   <div class="form-group">
                     <label for="po-terms-select" class="font-bold">Payment Credit Terms:</label>
-                    <select id="po-terms-select" class="form-control">
+                    <select id="po-terms-select" aria-label="Payment Credit Terms" class="form-control">
                       <option value="net30" selected>Net 30 Days (University Standard)</option>
                       <option value="net60">Net 60 Days</option>
                       <option value="upfront">Immediate Card / BACS</option>
@@ -178,12 +178,12 @@
 
                   <div class="form-group">
                     <label for="po-org-name" class="font-bold">Client Organisation:</label>
-                    <input type="text" id="po-org-name" class="form-control" value="Riverside Athletics Club (fictional)" readonly>
+                    <input type="text" id="po-org-name" aria-label="Client Organisation" class="form-control" value="Riverside Athletics Club (fictional)" readonly>
                   </div>
 
                   <div class="form-group">
                     <label for="po-invoice-email" class="font-bold">Finance & Accounts Payable Email:</label>
-                    <input type="email" id="po-invoice-email" class="form-control" value="accounts@riverside-ac.example" readonly>
+                    <input type="email" id="po-invoice-email" aria-label="Finance and Accounts Payable Email" class="form-control" value="accounts@riverside-ac.example" readonly>
                   </div>
 
                   <div class="po-actions-group">
