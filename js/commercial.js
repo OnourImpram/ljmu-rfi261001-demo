@@ -30,21 +30,20 @@
       const totals = AppStore.calculateCartTotals();
       const role = state.currentRole;
       const isManager = role === 'manager';
-      const isBooker = role === 'booker';
       const activeOrder = state.orders[0];
 
       this.container.innerHTML = `
         <div class="view-header">
           <div class="view-title-group">
-            <span class="view-eyebrow">Area B Commercial Revenue & VAT rules per item, configured with LJMU Finance</span>
-            <h2 class="view-title">Commercial Storefront, Mixed-VAT & Purchase Orders</h2>
+            <span class="view-eyebrow">Area B Commercial Revenue &amp; VAT rules per item, configured with LJMU Finance</span>
+            <h2 class="view-title">Commercial Storefront, Mixed-VAT &amp; Purchase Orders</h2>
             <p class="view-description">
               Illustrative VAT treatment (configured with LJMU Finance): Healthcare Exemption (VATA 1994 Sch 9 Grp 7) vs Standard-Rated 20% Commercial Facility Hire, alongside B2B Corporate Purchase Order (Net 30) lifecycle.
             </p>
           </div>
           <div class="view-actions">
             <button id="btn-view-invoice" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
               <span>View Sample VAT Invoice</span>
             </button>
           </div>
@@ -53,7 +52,7 @@
         <!-- 3-Silo Context Callout for Commercial Hub -->
         <div class="alert-banner alert-info mb-4">
           <div class="flex items-center gap-3">
-            <span class="text-xl">&#9432;</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
             <div>
               <strong>Connecting commercial testing with clinics and Oracle EBS:</strong>
               <span>Performance testing bookings (integrated with the existing Performance Hub booking service) are combined with Area A clinical services into a single mixed-basket checkout with automatic Oracle GL mapping.</span>
@@ -66,8 +65,8 @@
           <div class="catalog-col">
             <section class="card" aria-labelledby="catalog-heading">
               <div class="card-header-flex">
-                <h3 id="catalog-heading" class="card-title">Commercial & Diagnostic Services Catalog</h3>
-                <span class="badge badge-accent">Area A & B Combined</span>
+                <h3 id="catalog-heading" class="card-title">Commercial &amp; Diagnostic Services Catalog</h3>
+                <span class="badge badge-accent">Area A &amp; B Combined</span>
               </div>
 
               <div class="service-cards-list">
@@ -83,9 +82,9 @@
               <div class="card-header-flex">
                 <div>
                   <span class="badge badge-primary">Interactive Tax Engine</span>
-                  <h3 id="basket-heading" class="card-title">Commercial Checkout Basket</h3>
+                  <h3 id="basket-heading" class="card-title mt-2">Commercial Checkout Basket</h3>
                 </div>
-                <span class="badge badge-neutral">${state.cart.length} Line Items</span>
+                <span class="badge badge-neutral font-mono">${state.cart.length} Line Items</span>
               </div>
 
               <div class="basket-items-table-wrap">
@@ -95,7 +94,7 @@
                       <th scope="col">Item Description</th>
                       <th scope="col">Category</th>
                       <th scope="col">VAT Rate</th>
-                      <th scope="col">Net</th>
+                      <th scope="col" class="text-right">Net</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,8 +109,8 @@
                             ${item.vatExempt ? 'VAT Exempt' : '20% Std'}
                           </span>
                         </td>
-                        <td>${item.vatExempt ? 'Exempt' : '20.0%'}</td>
-                        <td class="font-bold">£${(item.unitPrice * item.qty).toFixed(2)}</td>
+                        <td class="font-mono">${item.vatExempt ? 'Exempt' : '20.0%'}</td>
+                        <td class="font-bold font-mono text-right">£${(item.unitPrice * item.qty).toFixed(2)}</td>
                       </tr>
                     `).join('')}
                   </tbody>
@@ -122,21 +121,21 @@
               <div class="vat-calculation-summary">
                 <div class="vat-line">
                   <span>Area A Healthcare Net (Exempt):</span>
-                  <strong id="subtotal-exempt">£${totals.netExempt.toFixed(2)}</strong>
+                  <strong id="subtotal-exempt" class="font-mono">£${totals.netExempt.toFixed(2)}</strong>
                 </div>
                 <div class="vat-line">
                   <span>Area B Commercial Net (Standard-Rated):</span>
-                  <strong id="subtotal-standard">£${totals.netStandard.toFixed(2)}</strong>
+                  <strong id="subtotal-standard" class="font-mono">£${totals.netStandard.toFixed(2)}</strong>
                 </div>
                 <div class="vat-line vat-tax-line">
                   <span>HMRC Output VAT (20% on Standard Net):</span>
-                  <strong id="vat-standard" class="text-danger">£${totals.vatStandard.toFixed(2)}</strong>
+                  <strong id="vat-standard" class="text-danger font-mono">£${totals.vatStandard.toFixed(2)}</strong>
                 </div>
                 <div class="vat-total-line">
                   <span>Total Amount Payable (Gross):</span>
-                  <strong id="total-gross" class="text-primary text-xl">£${totals.totalGross.toFixed(2)}</strong>
+                  <strong id="total-gross" class="text-primary text-xl font-mono">£${totals.totalGross.toFixed(2)}</strong>
                 </div>
-                
+
                 <!-- Alias selectors for test framework compatibility -->
                 <span id="vat-exempt-total" style="display:none;">£${totals.netExempt.toFixed(2)}</span>
                 <span id="vat-standard-total" style="display:none;">£${totals.vatStandard.toFixed(2)}</span>
@@ -149,7 +148,7 @@
               <div class="card-header-flex">
                 <div>
                   <span class="badge badge-accent">B2B Corporate Account</span>
-                  <h3 id="po-heading" class="card-title">Corporate Purchase Order (PO) Engine</h3>
+                  <h3 id="po-heading" class="card-title mt-2">Corporate Purchase Order (PO) Engine</h3>
                 </div>
                 <div id="order-status-badge" class="badge ${activeOrder.status.includes('APPROVED') ? 'badge-success' : 'badge-amber'}">
                   ${activeOrder.status}
@@ -164,7 +163,7 @@
                 <form id="po-form" class="po-form-grid" onsubmit="return false;">
                   <div class="form-group">
                     <label for="po-number-input" class="font-bold">Client PO Number:</label>
-                    <input type="text" id="po-number-input" aria-label="Client Purchase Order Number" class="form-control" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
+                    <input type="text" id="po-number-input" aria-label="Client Purchase Order Number" class="form-control font-mono" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
                   </div>
 
                   <div class="form-group">
@@ -182,13 +181,13 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="po-invoice-email" class="font-bold">Finance & Accounts Payable Email:</label>
-                    <input type="email" id="po-invoice-email" aria-label="Finance and Accounts Payable Email" class="form-control" value="accounts@riverside-ac.example" readonly>
+                    <label for="po-invoice-email" class="font-bold">Finance &amp; Accounts Payable Email:</label>
+                    <input type="email" id="po-invoice-email" aria-label="Finance and Accounts Payable Email" class="form-control font-mono" value="accounts@riverside-ac.example" readonly>
                   </div>
 
                   <div class="po-actions-group">
                     <button type="button" id="btn-submit-po" class="btn btn-secondary">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                       <span>Submit Commercial Order with PO</span>
                     </button>
                     <!-- Alias button for test compatibility -->
@@ -196,14 +195,14 @@
 
                     <!-- Manager Approval Button (Visible or enabled for Manager) -->
                     <button type="button" id="btn-approve-po" class="btn btn-success ${!isManager ? 'btn-disabled' : ''}" ${!isManager ? 'disabled' : ''}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                       <span>Approve PO as Operations Lead</span>
                     </button>
                   </div>
 
                   ${!isManager ? `
-                    <div class="text-xs text-muted mt-2">
-                      &#9432; Note: PO Approval is restricted to <strong>Commercial & Lab Manager (Marcus Vance)</strong>. Switch role in top bar to execute approval.
+                    <div class="po-role-notice text-xs text-muted mt-2">
+                      Note: PO Approval is restricted to <strong>Commercial &amp; Lab Manager (Marcus Vance)</strong>. Switch role in top bar to execute approval.
                     </div>
                   ` : ''}
                 </form>
@@ -212,7 +211,7 @@
           </div>
         </div>
 
-        <!-- Official VAT Invoice Modal -->
+        <!-- Sample VAT Invoice Modal -->
         <div id="invoice-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-invoice-title" style="display: none;">
           <div class="modal-content modal-lg">
             <div class="modal-header">
@@ -222,16 +221,16 @@
             <div class="modal-body invoice-printable">
               <div class="invoice-header-grid">
                 <div>
-                  <h2 class="text-primary font-bold text-lg">Liverpool John Moores University</h2>
-                  <div class="text-sm text-muted">Faculty of Science | School of Sport & Exercise Sciences</div>
+                  <h4 class="text-primary font-bold text-lg">Liverpool John Moores University</h4>
+                  <div class="text-sm text-muted">Faculty of Science | School of Sport &amp; Exercise Sciences</div>
                   <div class="text-sm text-muted">Tom Reilly Building, Byrom Street, Liverpool L3 3AF</div>
                   <div class="text-sm text-muted">VAT Registration No: [placeholder, from LJMU Finance]</div>
                 </div>
                 <div class="text-right">
                   <div class="badge badge-success text-sm">${activeOrder.status}</div>
-                  <div class="text-sm mt-1">Invoice Date: <strong>31 October 2026</strong></div>
-                  <div class="text-sm">Payment Due: <strong>30 November 2026</strong></div>
-                  <div class="text-sm">Purchase Order: <strong>${activeOrder.poNumber}</strong></div>
+                  <div class="text-sm mt-2">Invoice Date: <strong class="font-mono">31 October 2026</strong></div>
+                  <div class="text-sm">Payment Due: <strong class="font-mono">30 November 2026</strong></div>
+                  <div class="text-sm">Purchase Order: <strong class="font-mono">${activeOrder.poNumber}</strong></div>
                 </div>
               </div>
 
@@ -247,9 +246,9 @@
                   <tr>
                     <th>Description</th>
                     <th>Category</th>
-                    <th>Net Amount</th>
-                    <th>VAT Rate</th>
-                    <th>Gross</th>
+                    <th class="text-right">Net Amount</th>
+                    <th class="text-right">VAT Rate</th>
+                    <th class="text-right">Gross</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -257,19 +256,19 @@
                     <tr>
                       <td>${it.name}</td>
                       <td>${it.vatRate === 0 ? 'Healthcare Exempt' : 'Standard 20%'}</td>
-                      <td>£${it.net.toFixed(2)}</td>
-                      <td>${it.vatRate === 0 ? 'Exempt (no VAT)' : `£${it.vat.toFixed(2)} (20%)`}</td>
-                      <td class="font-bold">£${(it.net + it.vat).toFixed(2)}</td>
+                      <td class="font-mono text-right">£${it.net.toFixed(2)}</td>
+                      <td class="font-mono text-right">${it.vatRate === 0 ? 'Exempt (no VAT)' : `£${it.vat.toFixed(2)} (20%)`}</td>
+                      <td class="font-bold font-mono text-right">£${(it.net + it.vat).toFixed(2)}</td>
                     </tr>
                   `).join('')}
                 </tbody>
               </table>
 
               <div class="invoice-totals-box mt-4 text-right">
-                <div>Healthcare Exempt Subtotal: <strong>£${activeOrder.netExempt.toFixed(2)}</strong></div>
-                <div>Standard-Rated (20%) Subtotal: <strong>£${activeOrder.netStandard.toFixed(2)}</strong></div>
-                <div>HM Revenue & Customs VAT (20%): <strong>£${activeOrder.vatStandard.toFixed(2)}</strong></div>
-                <div class="text-lg font-bold text-primary mt-2">Total Amount Payable: £${activeOrder.totalGross.toFixed(2)}</div>
+                <div>Healthcare Exempt Subtotal: <strong class="font-mono">£${activeOrder.netExempt.toFixed(2)}</strong></div>
+                <div>Standard-Rated (20%) Subtotal: <strong class="font-mono">£${activeOrder.netStandard.toFixed(2)}</strong></div>
+                <div>HM Revenue &amp; Customs VAT (20%): <strong class="font-mono">£${activeOrder.vatStandard.toFixed(2)}</strong></div>
+                <div class="text-lg font-bold text-primary mt-2 font-mono">Total Amount Payable: £${activeOrder.totalGross.toFixed(2)}</div>
               </div>
 
               <div class="invoice-remit-info mt-4">
@@ -292,22 +291,21 @@
           <div class="service-info">
             <div class="service-top-row">
               <span class="badge ${s.vatExempt ? 'badge-success' : 'badge-amber'}">${s.vatCategory}</span>
-              <span class="service-duration text-muted">${s.duration}</span>
+              <span class="service-duration text-xs text-muted font-mono">${s.duration}</span>
             </div>
             <h4 class="service-title">${s.name}</h4>
             <div class="service-facility text-xs text-muted">${s.facility}</div>
           </div>
           <div class="service-pricing">
-            <span class="price-val">£${s.price.toFixed(2)}</span>
+            <span class="price-val font-mono">£${s.price.toFixed(2)}</span>
             <span class="price-vat-note text-xs text-muted">${s.vatExempt ? 'VAT exempt' : '+ 20% VAT'}</span>
-            <button class="btn btn-sm btn-outline-primary btn-add-cart" data-service-id="${s.id}">Added</button>
+            <button type="button" class="btn btn-sm btn-neutral btn-add-cart mt-2" data-service-id="${s.id}">In Basket</button>
           </div>
         </div>
       `).join('');
     }
 
     bindEvents() {
-      // Invoice modal
       const invoiceBtn = document.getElementById('btn-view-invoice');
       const closeInvoiceBtn = document.getElementById('btn-close-invoice');
       const invoiceModal = document.getElementById('invoice-modal');
@@ -345,7 +343,7 @@
           if (activeOrder) {
             await AppStore.approvePurchaseOrder(activeOrder.id);
             if (typeof App !== 'undefined' && App.showToast) {
-              App.showToast(`Purchase Order approved by Operations Lead! Oracle EBS GL Batch ready.`);
+              App.showToast('Purchase Order approved by Operations Lead! Oracle EBS GL Batch ready.');
             }
             this.render();
           }

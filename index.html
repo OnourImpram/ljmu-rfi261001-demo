@@ -60,49 +60,55 @@
           "@type": "Offer",
           "priceCurrency": "GBP",
           "price": "19800.00",
-          "description": "Indicative Tier 1 Combined Area A + Area B annual SaaS subscription with 10% three-year commitment discount (3-year total package £88,500 to £98,500 ex. VAT including 45 to 60 consultant days implementation)."
+          "description": "Indicative Tier 1 Combined Area A + Area B annual SaaS subscription with three-year commitment discount (3-year total package £88,500 to £98,500 ex. VAT including 45 to 60 consultant days implementation)."
         }
       }
     ]
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛️</text></svg>">
-  <style>.pill-role.active{background:#0B3D91 !important;color:#FFFFFF !important;border-color:#0B3D91 !important;}</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='6' fill='%230B3D91'/><path d='M8 26L18 8L28 26H22L18 17L14 26H8Z' fill='%23FFFFFF'/><circle cx='18' cy='13' r='2.5' fill='%2314B8A6'/></svg>">
 </head>
 <body>
   <!-- Accessible Skip-to-Content Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Top System Header -->
+  <!-- Top Institutional Command Header -->
   <header class="app-header">
     <div class="header-inner container">
       <div class="brand-group">
         <div class="brand-crest" aria-hidden="true">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <rect width="36" height="36" rx="8" fill="#0B3D91" />
-            <path d="M8 26L18 8L28 26H22L18 17L14 26H8Z" fill="#FFFFFF" />
-            <circle cx="18" cy="13" r="3" fill="#0D9488" />
+            <rect width="36" height="36" rx="6" fill="#0B3D91" stroke="#1E40AF" stroke-width="1" />
+            <path d="M9 25.5L18 8.5L27 25.5H22.2L18 17.2L13.8 25.5H9Z" fill="#FFFFFF" />
+            <circle cx="18" cy="13" r="2.5" fill="#14B8A6" />
           </svg>
         </div>
-        <div>
-          <div class="brand-institution">Liverpool John Moores University</div>
-          <h1 class="brand-title">OIV Unified Clinical & Faculty Operations Platform</h1>
-          <div class="brand-meta text-xs">
-            Faculty of Science | School of Sport & Exercise Sciences (Tom Reilly Building, Byrom Street, L3 3AF) | RFI 261001 | Reference demonstration, synthetic data only
+        <div class="brand-copy">
+          <div class="brand-kicker-row">
+            <span class="brand-institution">Liverpool John Moores University</span>
+            <span class="env-pill">RFI 261001 Reference Environment · Synthetic Data Only</span>
+          </div>
+          <h1 class="brand-title">OIV Unified Clinical &amp; Faculty Operations Platform</h1>
+          <div class="brand-meta">
+            Faculty of Science · School of Sport &amp; Exercise Sciences (Tom Reilly Building, Byrom Street, L3 3AF) · Not connected to live LJMU systems
           </div>
         </div>
       </div>
 
-      <!-- Global Controls: 3-Silo Rationale, 6 Pillars, Persona Selector & Reset -->
+      <!-- Global Architecture & State Controls -->
       <div class="header-controls">
-        <button id="btn-open-arch-modal" class="btn btn-outline-light btn-sm cta" aria-haspopup="dialog">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <button id="btn-open-arch-modal" class="btn btn-header-action cta" aria-haspopup="dialog">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
           <span>Current Services &rarr; One Platform</span>
         </button>
 
-        <button id="btn-open-pillars-modal" class="btn btn-outline-light btn-sm" aria-haspopup="dialog">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        <button id="btn-open-pillars-modal" class="btn btn-header-action" aria-haspopup="dialog">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
           <span>The 6 Capability Pillars</span>
         </button>
 
@@ -112,22 +118,21 @@
             <select id="role-select" class="role-select-dropdown" aria-label="Switch User Persona">
               <option value="student">Student Practitioner (Alex Walker, final-year student)</option>
               <option value="supervisor" selected>Clinical Supervisor (Dr. Sarah Jenkins, MCSP)</option>
-              <option value="manager">Commercial & Lab Manager (Marcus Vance)</option>
+              <option value="manager">Commercial &amp; Lab Manager (Marcus Vance)</option>
               <option value="booker">Corporate Booker (David Miller, Riverside AC, fictional)</option>
             </select>
           </div>
         </div>
 
-        <button id="btn-reset-demo" class="btn btn-neutral btn-sm" title="Reset all state data to factory seeds">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+        <button id="btn-reset-demo" class="btn btn-header-Ghost" title="Reset all state data to factory seeds">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
           <span>Reset State</span>
         </button>
       </div>
     </div>
   </header>
-  <div class="demo-disclaimer" role="note" style="background:#FEF3C7;color:#78350F;padding:8px 16px;text-align:center;font-size:0.85rem;border-bottom:1px solid #F59E0B;">Reference demonstration environment for LJMU RFI 261001. Synthetic data only. Not a live clinical system and not connected to any LJMU system.</div>
 
-  <!-- Active Persona Notification & Quick Switch Banner -->
+  <!-- Active Persona Notification & Quick Switch Bar -->
   <section id="role-banner" class="role-banner badge-supervisor" aria-live="polite">
     <!-- Populated dynamically by app.js -->
   </section>
@@ -136,27 +141,35 @@
   <nav class="app-nav-bar" role="tablist" aria-label="Main Application Views">
     <div class="container nav-tabs-container">
       <button id="tab-booking" class="tab-btn active" role="tab" aria-selected="true" aria-controls="view-booking" tabindex="0">
-        <span class="tab-icon">&#128197;</span>
-        <span class="tab-label">1. Booking & Ratio Guard</span>
-        <span class="tab-sub">Multi-Constraint & Waitlist</span>
+        <span class="tab-top-row">
+          <svg class="tab-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><path d="M9 16l2 2 4-4"></path></svg>
+          <span class="tab-label">1. Booking &amp; Ratio Guard</span>
+        </span>
+        <span class="tab-sub">Multi-Constraint &amp; Waitlist</span>
       </button>
 
       <button id="tab-epr" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-epr" tabindex="-1">
-        <span class="tab-icon">&#9877;</span>
-        <span class="tab-label">2. Clinical EPR & Countersign</span>
-        <span class="tab-sub">5 Disciplines & SHA-256 Lock</span>
+        <span class="tab-top-row">
+          <svg class="tab-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg>
+          <span class="tab-label">2. Clinical EPR &amp; Countersign</span>
+        </span>
+        <span class="tab-sub">5 Disciplines &amp; SHA-256 Lock</span>
       </button>
 
       <button id="tab-commercial" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-commercial" tabindex="-1">
-        <span class="tab-icon">&#128722;</span>
-        <span class="tab-label">3. Commercial Checkout & PO</span>
+        <span class="tab-top-row">
+          <svg class="tab-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+          <span class="tab-label">3. Commercial Checkout &amp; PO</span>
+        </span>
         <span class="tab-sub">Mixed VAT (Exempt + 20%)</span>
       </button>
 
       <button id="tab-governance" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-governance" tabindex="-1">
-        <span class="tab-icon">&#128176;</span>
-        <span class="tab-label">4. Oracle EBS & Governance</span>
-        <span class="tab-sub">GL Batch & Immutable Audit</span>
+        <span class="tab-top-row">
+          <svg class="tab-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          <span class="tab-label">4. Oracle EBS &amp; Governance</span>
+        </span>
+        <span class="tab-sub">GL Batch &amp; Immutable Audit</span>
       </button>
     </div>
   </nav>
@@ -201,7 +214,7 @@
           <!-- Silo 1 -->
           <div class="silo-diag-box as-is-box">
             <div class="diag-tag text-danger">Area B today</div>
-            <h4>Faculty Equipment & Room Hire</h4>
+            <h3 class="silo-box-heading">Faculty Equipment &amp; Room Hire</h3>
             <div class="diag-meta text-muted">Scope named in the RFI: CPD, workshops, equipment hire, specialist room hire</div>
             <p>
               Equipment and specialist rooms need capacity, payments, purchase orders and Oracle reconciliation, and must not double-book resources shared with teaching clinics.
@@ -211,7 +224,7 @@
           <!-- Silo 2 -->
           <div class="silo-diag-box as-is-box">
             <div class="diag-tag text-danger">Commercial testing today</div>
-            <h4>Public & Commercial Testing</h4>
+            <h3 class="silo-box-heading">Public &amp; Commercial Testing</h3>
             <div class="diag-meta text-muted">Tools: <code>ljmuperformancehub.com</code> (Performance Hub)</div>
             <p>
               Already offers online booking, group booking codes, an athlete portal and an online health screening questionnaire. The platform integrates with it, or migrates it, so testing, clinics and hire share one customer record and one finance feed.
@@ -221,7 +234,7 @@
           <!-- Silo 3 -->
           <div class="silo-diag-box as-is-box">
             <div class="diag-tag text-danger">Area A today</div>
-            <h4>Accredited Student Supervision</h4>
+            <h3 class="silo-box-heading">Accredited Student Supervision</h3>
             <div class="diag-meta text-muted">Clinics named in the RFI, plus placement-based programmes</div>
             <p>
               Osteopathy, physiotherapy and cardiovascular screening clinics, and the AHCS-accredited MSc Clinical Exercise Physiology, need an EPR with two-stage Student Draft &rarr; Supervisor Countersignature, which booking tools do not provide.
@@ -231,7 +244,7 @@
 
         <div class="unified-target-box">
           <div class="target-badge">OIV Unified Hub (To-Be Architecture)</div>
-          <h3>Single Modular Higher-Education Clinical, Supervision & Commercial Platform</h3>
+          <h3 class="silo-box-heading">Single Modular Higher-Education Clinical, Supervision &amp; Commercial Platform</h3>
           <p>
             OIV proposes one platform that connects all three functions:
           </p>
@@ -245,12 +258,12 @@
               <div class="text-sm text-muted">Two-stage countersigning, with each signature bound to the note version by a SHA-256 hash.</div>
             </div>
             <div class="target-pillar">
-              <strong>3. Oracle EBS & Mixed VAT</strong>
+              <strong>3. Oracle EBS &amp; Mixed VAT</strong>
               <div class="text-sm text-muted">Per-item VAT treatment (exempt or 20% standard-rated) with GL batch CSV export.</div>
             </div>
           </div>
-          <div class="mt-3 p-3" style="background:#ffffff;border:1px solid #bfdbfe;border-radius:6px;font-size:0.85rem;">
-            <strong>Indicative Founding University Partner Package (RFI Section 3.11):</strong> Tier 1 Combined (Area A + Area B, up to 20 staff + unlimited students &amp; patients) at <strong>&pound;19,800/yr</strong> (with 10% 3-year commitment discount, <strong>&pound;59,400</strong> over 3 years) + <strong>&pound;29,100 to &pound;39,100</strong> one-off implementation (45 to 60 consultant days at &pound;650/day) = <strong>&pound;88,500 to &pound;98,500 ex. VAT total 3-year package</strong>.
+          <div class="commercial-package-callout mt-3">
+            <strong>Indicative Founding University Partner Package (RFI Commercial Schedule):</strong> Tier 1 Combined (Area A + Area B, up to 20 staff + unlimited students &amp; patients) at <strong>&pound;19,800/yr</strong> (with three-year commitment discount, <strong>&pound;59,400</strong> over 3 years) + <strong>&pound;29,100 to &pound;39,100</strong> one-off implementation (45 to 60 consultant days at &pound;650/day) = <strong>&pound;88,500 to &pound;98,500 ex. VAT total 3-year package</strong>.
           </div>
         </div>
       </div>
@@ -266,59 +279,59 @@
       </div>
       <div class="modal-body">
         <p class="lead-text mb-4">
-          Engineered explicitly for Liverpool John Moores University RFI 261001, OIV's Unified Clinical & Faculty Operations Platform is structured around six cohesive capability pillars spanning clinical education, physiological research, and commercial governance:
+          Engineered explicitly for Liverpool John Moores University RFI 261001, OIV's Unified Clinical &amp; Faculty Operations Platform is structured around six cohesive capability pillars spanning clinical education, physiological research, and commercial governance:
         </p>
 
         <div class="grid-2-col">
           <!-- Pillar 1 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-primary">Pillar 1 (RFI 3.5 & 3.6)</span>
-            <h4 class="mt-2 text-primary font-bold">Clinical Teaching & Supervision Hub</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-primary">Pillar 1 (RFI 3.5 &amp; 3.6)</span>
+            <h3 class="pillar-heading text-primary">Clinical Teaching &amp; Supervision Hub</h3>
             <p class="text-sm text-muted">
               Relationship-Based Access Control (ReBAC) via OpenFGA (Zanzibar-style relationship model). Bounded student placement access, mandatory Student Draft &rarr; Practice Educator Diff Review &rarr; Cryptographic SHA-256 Countersignature, and student competency logbooks aligned with AHCS, HCPC, CSP, GOsC, and CASES.
             </p>
           </div>
 
           <!-- Pillar 2 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-accent">Pillar 2 (RFI 3.5 & 3.6)</span>
-            <h4 class="mt-2 text-accent font-bold">Allied Health & Sport Science Outcomes Studio</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-accent">Pillar 2 (RFI 3.5 &amp; 3.6)</span>
+            <h3 class="pillar-heading text-accent">Allied Health &amp; Sport Science Outcomes Studio</h3>
             <p class="text-sm text-muted">
-              Standardised repeated clinical scoring across 5 disciplines (Physiotherapy MSK-HQ / VISA-P, Cardiovascular 12-lead ECG intervals &amp; validated risk stratification, CPET peak VO2 &amp; ventilatory thresholds, and ForceDecks jump asymmetry). Multi-session exercise therapy plan templates.
+              Standardised repeated clinical scoring across 5 disciplines (Physiotherapy MSK-HQ / VISA-P, Cardiovascular resting ECG intervals &amp; validated risk stratification, CPET peak VO2 &amp; ventilatory thresholds, and ForceDecks jump asymmetry). Multi-session exercise therapy plan templates.
             </p>
           </div>
 
           <!-- Pillar 3 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-success">Pillar 3 (RFI 3.3 & 3.4)</span>
-            <h4 class="mt-2 text-emerald font-bold">Unified Resource Dependency & Equipment Lifecycle Engine</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-success">Pillar 3 (RFI 3.3 &amp; 3.4)</span>
+            <h3 class="pillar-heading text-emerald">Unified Resource Dependency &amp; Equipment Lifecycle Engine</h3>
             <p class="text-sm text-muted">
               Simultaneous 4-constraint satisfaction (Practitioner + Room/Bay + Equipment + configurable supervisor ratio, 1:4 in this demo). Full equipment calibration lifecycle tracking with automatic maintenance lockout routing to the Operational Exception Queue.
             </p>
           </div>
 
           <!-- Pillar 4 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-amber">Pillar 4 (RFI 3.3 & 3.8)</span>
-            <h4 class="mt-2 text-amber font-bold">Corporate CPD & Performance Hub Commerce Portal</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-amber">Pillar 4 (RFI 3.3 &amp; 3.8)</span>
+            <h3 class="pillar-heading text-amber">Corporate CPD &amp; Performance Hub Commerce Portal</h3>
             <p class="text-sm text-muted">
               Self-service B2C patient booking and B2B corporate squad testing checkout. Net 30 Purchase Order approval workflow, mixed-basket UK VAT calculation (exempt and 20% standard-rated), and automated CPD certificate generation upon verified attendance.
             </p>
           </div>
 
           <!-- Pillar 5 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-info">Pillar 5 (RFI 3.6, 3.9 & 3.10)</span>
-            <h4 class="mt-2 text-primary font-bold">Faculty Intelligence & De-Identified Research Studio</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-info">Pillar 5 (RFI 3.6 &amp; 3.9)</span>
+            <h3 class="pillar-heading text-primary">Faculty Intelligence &amp; De-Identified Research Studio</h3>
             <p class="text-sm text-muted">
               Presidio-based de-identification pipeline with outward postcode truncation (L3) and 5-year age-banding. Exportable research datasets (CSV/JSON) for SPSS/R, plus Synthea-based synthetic cohorts for a permanent Student Training Sandbox.
             </p>
           </div>
 
           <!-- Pillar 6 -->
-          <div class="card subcard-widget">
-            <span class="badge badge-danger">Pillar 6 (RFI 3.3, 3.4, 3.8 & 3.13)</span>
-            <h4 class="mt-2 text-danger font-bold">Operational Exception & Follow-Up Console</h4>
+          <div class="pillar-panel">
+            <span class="badge badge-danger">Pillar 6 (RFI 3.3, 3.4 &amp; 3.8)</span>
+            <h3 class="pillar-heading text-danger">Operational Exception &amp; Follow-Up Console</h3>
             <p class="text-sm text-muted">
               Single-pane operational console tracking: overdue student countersignatures (SLA auto-escalation), unmatched Oracle EBS bank transfers, equipment calibration locks, and failed patient notifications or pre-test questionnaires.
             </p>
@@ -335,16 +348,16 @@
   <footer class="app-footer">
     <div class="container footer-grid">
       <div class="footer-col">
-        <h4 class="footer-title">ONOUR IMPRAM VENTURES LTD</h4>
-        <p class="text-xs text-muted">
-          Company Registered in England & Wales: <strong>17429906</strong> | D-U-N-S: <strong>235117532</strong><br>
+        <h3 class="footer-title">ONOUR IMPRAM VENTURES LTD</h3>
+        <p class="text-xs footer-copy">
+          Company Registered in England &amp; Wales: <strong>17429906</strong> | D-U-N-S: <strong>235117532</strong><br>
           Registered Office: 71-75 Shelton Street, Covent Garden, London WC2H 9JQ<br>
           Reference Demonstration (synthetic data): <a href="https://onourimpram.github.io/ljmu-rfi261001-demo/" target="_blank" rel="noopener">https://onourimpram.github.io/ljmu-rfi261001-demo/</a>
         </p>
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-title">Professional Frameworks Supported</h4>
+        <h3 class="footer-title">Professional Frameworks Supported</h3>
         <div class="tag-cloud">
           <span class="tag">AHCS MSc Clinical Exercise Physiology</span>
           <span class="tag">GOsC Osteopathy</span>
@@ -354,7 +367,7 @@
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-title">Governance Standards (designed against)</h4>
+        <h3 class="footer-title">Governance Standards (designed against)</h3>
         <div class="tag-cloud">
           <span class="tag">DCB0129 safety case (planned)</span>
           <span class="tag">UK GDPR audit trail</span>
@@ -363,7 +376,7 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom container text-center text-xs text-muted">
+    <div class="footer-bottom container text-center text-xs footer-copy">
       &copy; 2026 ONOUR IMPRAM VENTURES LTD. All Rights Reserved. Prepared for Liverpool John Moores University (RFI 261001).
     </div>
   </footer>

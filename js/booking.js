@@ -29,28 +29,35 @@
       this.bindEvents();
     }
 
+    formatDiscipline(disc) {
+      if (!disc) return '';
+      if (disc.toLowerCase() === 'sc') return 'S&C Suite';
+      return disc.charAt(0).toUpperCase() + disc.slice(1);
+    }
+
     render() {
       const state = AppStore.getState();
       const sup = state.supervisors.find(s => s.id === 'sup_jenkins') || state.supervisors[0];
       const ratioPct = Math.round((sup.activeBays / sup.maxRatio) * 100);
+      const bay4Occupied = sup.activeBays >= sup.maxRatio;
 
       this.container.innerHTML = `
         <div class="view-header">
           <div class="view-title-group">
-            <span class="view-eyebrow">Area A & Area B Scheduling Core</span>
-            <h2 class="view-title">Multi-Constraint Booking & Capacity Guard</h2>
+            <span class="view-eyebrow">Area A &amp; Area B Scheduling Core</span>
+            <h2 class="view-title">Multi-Constraint Booking &amp; Capacity Guard</h2>
             <p class="view-description">
               Simultaneous 4-constraint validation: Practitioner/Student + Physical Bay + Diagnostic Equipment + configurable supervisor-to-student ratio (1:4 in this demo). Synthetic rooms and equipment for demonstration.
             </p>
           </div>
           <div class="view-actions">
             <button id="btn-open-booking-modal" class="btn btn-primary" aria-haspopup="dialog">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
               <span>Book Appointment / Bay</span>
             </button>
             <button id="btn-simulate-waitlist" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-              <span>Simulate Cancellation & Waitlist Backfill</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span>Simulate Cancellation &amp; Waitlist Backfill</span>
             </button>
           </div>
         </div>
@@ -64,24 +71,40 @@
         <section class="card supervisor-ratio-card" aria-labelledby="ratio-heading">
           <div class="ratio-header">
             <div>
-              <span class="badge badge-accent">Configurable Clinic Rule</span>
+              <div class="section-tag-row">
+                <span class="badge badge-accent">Configurable Clinic Rule</span>
+                <span class="text-xs text-muted font-mono">RULE_ID: SUP_RATIO_1_TO_4</span>
+              </div>
               <h3 id="ratio-heading" class="card-title">Clinic Rule: Supervisor-to-Student Ratio (set to 1:4 in this demo)</h3>
-              <p class="text-muted">Rostered Clinical Supervisor: <strong>${sup.name}</strong> (MCSP, HCPC, GOsC) | Location: <strong>Teaching Clinic (demo)</strong></p>
+              <p class="text-muted text-sm mb-2">Rostered Clinical Supervisor: <strong>${sup.name}</strong> (MCSP, HCPC, GOsC) · Location: <strong>Teaching Clinic (demo)</strong></p>
             </div>
             <div id="supervisor-ratio-status" class="ratio-status-pill ${sup.activeBays >= sup.maxRatio ? 'status-pill-danger' : 'status-pill-success'}">
-              <span id="supervisor-ratio-indicator" class="pulse-dot"></span>
-              <strong>${sup.name}: ${sup.activeBays} / ${sup.maxRatio} Student Bays Utilised (${ratioPct}%)</strong> | 
+              <span id="supervisor-ratio-indicator" class="status-dot" aria-hidden="true"></span>
+              <strong>${sup.name}: ${sup.activeBays} / ${sup.maxRatio} Student Bays Utilised (${ratioPct}%)</strong>
+              <span class="pill-divider" aria-hidden="true">|</span>
               <span>${sup.activeBays >= sup.maxRatio ? 'MAXIMUM SAFETY RATIO REACHED' : '1 BAY REMAINING AVAILABLE'}</span>
             </div>
           </div>
           <div class="ratio-bar-wrapper" role="progressbar" aria-valuenow="${sup.activeBays}" aria-valuemin="0" aria-valuemax="${sup.maxRatio}" aria-label="Supervisor Bay Capacity">
-            <div class="ratio-bar-fill" style="width: ${ratioPct}%; background-color: ${ratioPct > 80 ? 'var(--clr-crimson)' : ratioPct > 50 ? 'var(--clr-amber)' : 'var(--clr-emerald)'};"></div>
+            <div class="ratio-bar-fill" style="width: ${ratioPct}%; background-color: ${ratioPct > 80 ? 'var(--clr-crimson)' : ratioPct > 50 ? 'var(--clr-navy)' : 'var(--clr-emerald)'};"></div>
           </div>
           <div class="ratio-footer-meta">
-            <span>Bay 1 (Osteopathy): Active</span>
-            <span>Bay 2 (Physiotherapy): Active</span>
-            <span>Bay 3 (Physiotherapy): Active</span>
-            <span class="text-accent font-bold">Bay 4 (Osteopathy): Available (Final Slot)</span>
+            <div class="ratio-slot-chip slot-occupied">
+              <span class="slot-dot" aria-hidden="true"></span>
+              <span>Bay 1 (Osteopathy): Active · Alex Walker</span>
+            </div>
+            <div class="ratio-slot-chip slot-occupied">
+              <span class="slot-dot" aria-hidden="true"></span>
+              <span>Bay 2 (Physiotherapy): Active · Priya Patel</span>
+            </div>
+            <div class="ratio-slot-chip slot-occupied">
+              <span class="slot-dot" aria-hidden="true"></span>
+              <span>Bay 3 (Physiotherapy): Active · Tom Evans</span>
+            </div>
+            <div class="ratio-slot-chip ${bay4Occupied ? 'slot-occupied' : 'slot-available'}">
+              <span class="slot-dot" aria-hidden="true"></span>
+              <span class="${bay4Occupied ? '' : 'text-accent font-bold'}">${bay4Occupied ? 'Bay 4 (Osteopathy): Active (4/4 Full)' : 'Bay 4 (Osteopathy): Available (Final Slot)'}</span>
+            </div>
           </div>
         </section>
 
@@ -91,7 +114,7 @@
             <div class="card-header-flex">
               <div>
                 <h3 id="bays-heading" class="card-title">Tom Reilly Building - Clinical Bays (Area A)</h3>
-                <p class="card-subtitle">Occupancy and booking status</p>
+                <p class="card-subtitle">Live consultation bay occupancy and practitioner assignment</p>
               </div>
               <span class="badge badge-success">Live Synchronised</span>
             </div>
@@ -103,8 +126,8 @@
           <section class="card" aria-labelledby="labs-heading">
             <div class="card-header-flex">
               <div>
-                <h3 id="labs-heading" class="card-title">Specialist Performance Labs & Suites (Area B)</h3>
-                <p class="card-subtitle">Biomechanics, Environmental Chambers & body composition</p>
+                <h3 id="labs-heading" class="card-title">Specialist Performance Labs &amp; Suites (Area B)</h3>
+                <p class="card-subtitle">Biomechanics, Environmental Chambers &amp; body composition</p>
               </div>
               <span class="badge badge-info">Commercial Hire</span>
             </div>
@@ -143,52 +166,52 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>13:00 - 14:00</strong></td>
+                  <td class="font-mono"><strong>13:00 - 14:00</strong></td>
                   <td>Osteopathy Follow-up</td>
                   <td>Alex Walker (Final-year)</td>
                   <td>Tom Reilly - Bay 1</td>
                   <td>Plinth + Articulation Props</td>
-                  <td>Dr. Sarah Jenkins (1/4)</td>
+                  <td class="font-mono">Dr. Sarah Jenkins (1/4)</td>
                   <td><span class="badge badge-neutral">Completed</span></td>
                 </tr>
                 <tr class="table-row-active">
-                  <td><strong>14:00 - 15:00</strong></td>
+                  <td class="font-mono"><strong>14:00 - 15:00</strong></td>
                   <td>Osteopathy New Patient</td>
                   <td>Alex Walker (Final-year)</td>
                   <td>Tom Reilly - Bay 1</td>
                   <td>Plinth + Goniometer</td>
-                  <td>Dr. Sarah Jenkins (3/4)</td>
+                  <td class="font-mono">Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
                 </tr>
                 <tr class="table-row-active">
-                  <td><strong>14:00 - 15:00</strong></td>
+                  <td class="font-mono"><strong>14:00 - 15:00</strong></td>
                   <td>Physiotherapy Rehab</td>
                   <td>Priya Patel (Final-year)</td>
                   <td>Tom Reilly - Bay 2</td>
                   <td>Biodex Dynamometer</td>
-                  <td>Dr. Sarah Jenkins (3/4)</td>
+                  <td class="font-mono">Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
                 </tr>
                 <tr class="table-row-active">
-                  <td><strong>14:00 - 15:00</strong></td>
+                  <td class="font-mono"><strong>14:00 - 15:00</strong></td>
                   <td>Physiotherapy MSK Screen</td>
                   <td>Tom Evans (Final-year)</td>
                   <td>Tom Reilly - Bay 3</td>
-                  <td>Theraband & Force Gauges</td>
-                  <td>Dr. Sarah Jenkins (3/4)</td>
+                  <td>Theraband &amp; Force Gauges</td>
+                  <td class="font-mono">Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-amber">Consulting Now</span></td>
                 </tr>
                 <tr class="table-row-available">
-                  <td><strong>14:00 - 15:00</strong></td>
+                  <td class="font-mono"><strong>14:00 - 15:00</strong></td>
                   <td>Osteopathy Assessment</td>
                   <td><em>Student Roster Open</em></td>
                   <td>Tom Reilly - Bay 4</td>
-                  <td>Plinth 4 (Cleaned & Ready)</td>
-                  <td>Dr. Sarah Jenkins (3/4)</td>
+                  <td>Plinth 4 (Cleaned &amp; Ready)</td>
+                  <td class="font-mono">Dr. Sarah Jenkins (3/4)</td>
                   <td><span class="badge badge-success">Available Slot (1 Left)</span></td>
                 </tr>
                 <tr>
-                  <td><strong>15:00 - 17:00</strong></td>
+                  <td class="font-mono"><strong>15:00 - 17:00</strong></td>
                   <td>Biomechanics Hire</td>
                   <td>External Research Tech</td>
                   <td>Tom Reilly - Biomechanics Lab</td>
@@ -197,8 +220,8 @@
                   <td><span class="badge badge-primary">Commercial Booked</span></td>
                 </tr>
                 <tr>
-                  <td><strong>15:30 - 17:00</strong></td>
-                  <td>CPET Peak VO2 & Lactate</td>
+                  <td class="font-mono"><strong>15:30 - 17:00</strong></td>
+                  <td>CPET Peak VO2 &amp; Lactate</td>
                   <td>Dr. Mark Davies, PhD</td>
                   <td>Environmental Hypoxia Chamber</td>
                   <td>Portable CPET Cart #1</td>
@@ -267,10 +290,10 @@
                   <div class="form-group">
                     <label for="booking-equipment-select">Specialist Instrumentation:</label>
                     <select id="booking-equipment-select" class="form-control">
-                      <option value="eq_standard" selected>Standard Plinth & Diagnostic Kit</option>
+                      <option value="eq_standard" selected>Standard Plinth &amp; Diagnostic Kit</option>
                       <option value="eq_ecg_01">Schiller 12-Lead ECG Cart #1 (Calibrated)</option>
                       <option value="eq_cpet_01">Portable CPET Cart #1 (Calibrated)</option>
-                      <option value="eq_us_01" disabled>12-Lead ECG & Metabolic Cart (Calibration Lockout)</option>
+                      <option value="eq_us_01" disabled>12-Lead ECG &amp; Metabolic Cart (Calibration Lockout)</option>
                     </select>
                   </div>
                 </div>
@@ -280,28 +303,28 @@
                   <h4 class="constraint-eval-title">Simultaneous 4-Constraint Verification</h4>
                   <div class="constraint-badges-grid">
                     <div id="constraint-practitioner" class="constraint-badge badge-pass">
-                      <span class="icon">&#10003;</span>
+                      <span class="icon" aria-hidden="true">&#10003;</span>
                       <div>
                         <strong>Constraint 1: Practitioner Availability</strong>
                         <div class="subtext">Rostered on duty, zero schedule clash</div>
                       </div>
                     </div>
                     <div id="constraint-room" class="constraint-badge badge-pass">
-                      <span class="icon">&#10003;</span>
+                      <span class="icon" aria-hidden="true">&#10003;</span>
                       <div>
                         <strong>Constraint 2: Physical Bay Capacity</strong>
-                        <div class="subtext">Tom Reilly Bay 4 free & unreserved</div>
+                        <div class="subtext">Tom Reilly Bay 4 free &amp; unreserved</div>
                       </div>
                     </div>
                     <div id="constraint-equipment" class="constraint-badge badge-pass">
-                      <span class="icon">&#10003;</span>
+                      <span class="icon" aria-hidden="true">&#10003;</span>
                       <div>
                         <strong>Constraint 3: Equipment Calibration</strong>
-                        <div class="subtext">Instrument sterilised & calibration valid</div>
+                        <div class="subtext">Instrument sterilised &amp; calibration valid</div>
                       </div>
                     </div>
                     <div id="constraint-ratio" class="constraint-badge badge-pass">
-                      <span class="icon">&#10003;</span>
+                      <span class="icon" aria-hidden="true">&#10003;</span>
                       <div>
                         <strong>Constraint 4: Supervisor-to-Student Ratio</strong>
                         <div id="ratio-constraint-desc" class="subtext">3/4 student bays occupied under Dr. Jenkins (Pass)</div>
@@ -320,7 +343,7 @@
                     <span>Overall Engine Status:</span>
                     <span id="booking-status-badge" class="badge badge-success">ALL 4 CONSTRAINTS SATISFIED</span>
                   </div>
-                  <div>
+                  <div class="flex gap-2">
                     <button type="button" id="btn-cancel-booking" class="btn btn-neutral">Cancel</button>
                     <button type="button" id="btn-book-slot" class="btn btn-primary">Confirm Slot Booking</button>
                   </div>
@@ -341,10 +364,10 @@
         return `
           <div class="bay-card ${isOccupied ? 'bay-occupied' : 'bay-available'}">
             <div class="bay-card-top">
-              <span class="bay-badge ${isOccupied ? 'badge-amber' : 'badge-emerald'}">
-                ${isOccupied ? '● Occupied' : '○ Available'}
+              <span class="badge ${isOccupied ? 'badge-amber' : 'badge-success'}">
+                ${isOccupied ? 'Occupied' : 'Available'}
               </span>
-              <span class="bay-discipline">${f.discipline.toUpperCase()}</span>
+              <span class="bay-discipline">${this.formatDiscipline(f.discipline)}</span>
             </div>
             <h4 class="bay-name">${f.name}</h4>
             <div class="bay-location text-muted">${f.campus}</div>
@@ -358,12 +381,12 @@
       return `
         <div class="alert-banner alert-info waitlist-banner" role="alert">
           <div class="waitlist-banner-content">
-            <span class="waitlist-icon">&#9889;</span>
+            <svg class="waitlist-svg-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             <div>
               <strong>Automated Waiting List Backfill Triggered!</strong>
               <p>
                 A cancellation was registered for <em>${offer.serviceName}</em>. The capacity engine has automatically dispatched a priority offer to <strong>${offer.clientName} (${offer.clientOrg})</strong>. 
-                Time-limited claim window: <strong class="text-danger">14 mins 52 secs remaining</strong>.
+                Time-limited claim window: <strong class="text-danger font-mono">14 mins 52 secs remaining</strong>.
               </p>
             </div>
           </div>
@@ -424,9 +447,6 @@
     evaluateConstraints() {
       const practitionerSelect = document.getElementById('booking-practitioner-select');
       const supervisorSelect = document.getElementById('booking-supervisor-select');
-      const roomSelect = document.getElementById('booking-room-select');
-      const equipmentSelect = document.getElementById('booking-equipment-select');
-
       const ratioBadge = document.getElementById('constraint-ratio');
       const ratioDesc = document.getElementById('ratio-constraint-desc');
       const warningBanner = document.getElementById('constraint-warning-banner');
@@ -438,7 +458,6 @@
       const isOverRatio = practitionerSelect.value === 'stu_5th_over_ratio' && supervisorSelect.value === 'sup_jenkins';
 
       if (isOverRatio) {
-        // Violates 1:4 safety guard!
         if (ratioBadge) {
           ratioBadge.className = 'constraint-badge badge-fail';
           ratioBadge.querySelector('.icon').innerHTML = '&#10007;';
@@ -456,14 +475,13 @@
           bookBtn.classList.add('btn-disabled');
         }
       } else {
-        // Satisfies constraints!
         if (ratioBadge) {
           ratioBadge.className = 'constraint-badge badge-pass';
           ratioBadge.querySelector('.icon').innerHTML = '&#10003;';
         }
         if (ratioDesc) {
-          ratioDesc.innerText = supervisorSelect.value === 'sup_davies' 
-            ? '1/4 bays occupied under Dr. Davies (3 Available)' 
+          ratioDesc.innerText = supervisorSelect.value === 'sup_davies'
+            ? '1/4 bays occupied under Dr. Davies (3 Available)'
             : '3/4 bays occupied under Dr. Jenkins (1 Available)';
         }
         if (warningBanner) warningBanner.style.display = 'none';
@@ -480,11 +498,10 @@
 
     executeBooking() {
       const modal = document.getElementById('booking-modal');
-      const serviceSelect = document.getElementById('booking-service-select');
       const roomSelect = document.getElementById('booking-room-select');
 
       AppStore.addAuditLog('BOOKING_CONFIRMED', `Appointment reserved in ${roomSelect.options[roomSelect.selectedIndex].text}`);
-      
+
       if (modal) modal.style.display = 'none';
       if (typeof App !== 'undefined' && App.showToast) {
         App.showToast('Booking successfully validated and confirmed across all 4 constraints!');

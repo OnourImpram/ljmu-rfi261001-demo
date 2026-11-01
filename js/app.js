@@ -155,25 +155,28 @@
 
       banner.className = `role-banner ${user.badgeClass || 'badge-neutral'}`;
       banner.innerHTML = `
-        <div class="role-banner-content">
-          <span class="role-indicator-icon">&#9679;</span>
-          <span class="role-banner-title">
-            Active Persona: <strong>${user.title}</strong> (${user.name})
-          </span>
-          <span class="role-banner-meta">| ${user.bannerMsg || user.program || ''}</span>
-        </div>
-        <div class="role-quick-switch-pills">
-          <span class="text-xs text-muted">Switch Role:</span>
-          <button class="pill-role ${role === 'student' ? 'active' : ''}" data-role="student">Student</button>
-          <button class="pill-role ${role === 'supervisor' ? 'active' : ''}" data-role="supervisor">Supervisor *</button>
-          <button class="pill-role ${role === 'manager' ? 'active' : ''}" data-role="manager">Commercial Lead</button>
-          <button class="pill-role ${role === 'booker' ? 'active' : ''}" data-role="booker">Corporate Booker</button>
+        <div class="container role-banner-inner">
+          <div class="role-banner-content">
+            <span class="role-indicator-dot" aria-hidden="true"></span>
+            <span class="role-banner-title">
+              Active Persona: <strong>${user.title}</strong> (${user.name})
+            </span>
+            <span class="role-banner-divider" aria-hidden="true">·</span>
+            <span class="role-banner-meta">${user.bannerMsg || user.program || ''}</span>
+          </div>
+          <div class="role-quick-switch-pills" role="group" aria-label="Quick Persona Switch">
+            <span class="role-switch-label">Persona View:</span>
+            <button type="button" class="pill-role ${role === 'student' ? 'active' : ''}" data-role="student">Student</button>
+            <button type="button" class="pill-role ${role === 'supervisor' ? 'active' : ''}" data-role="supervisor">Supervisor *</button>
+            <button type="button" class="pill-role ${role === 'manager' ? 'active' : ''}" data-role="manager">Commercial Lead</button>
+            <button type="button" class="pill-role ${role === 'booker' ? 'active' : ''}" data-role="booker">Corporate Booker</button>
+          </div>
         </div>
       `;
 
       // Re-attach quick pill click events
       banner.querySelectorAll('.pill-role').forEach(pill => {
-        pill.addEventListener('click', (e) => {
+        pill.addEventListener('click', () => {
           const r = pill.getAttribute('data-role');
           if (r) {
             AppStore.setRole(r);

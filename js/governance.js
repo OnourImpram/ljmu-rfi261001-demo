@@ -40,33 +40,33 @@
       this.container.innerHTML = `
         <div class="view-header">
           <div class="view-title-group">
-            <span class="view-eyebrow">Enterprise Integrations & Audit Governance</span>
-            <h2 class="view-title">Oracle EBS GL Export, Immutable Audit Log & Integration Status</h2>
+            <span class="view-eyebrow">Enterprise Integrations &amp; Audit Governance</span>
+            <h2 class="view-title">Oracle EBS GL Export, Immutable Audit Log &amp; Integration Status</h2>
             <p class="view-description">
-              Direct mapping into LJMU Oracle E-Business Suite Chart of Accounts, append-only audit trails supporting UK GDPR accountability, and simulated integration status for Microsoft Entra ID & Teams.
+              Direct mapping into LJMU Oracle E-Business Suite Chart of Accounts, append-only audit trails supporting UK GDPR accountability, and simulated integration status for Microsoft Entra ID &amp; Teams.
             </p>
           </div>
           <div class="view-actions">
             <button id="btn-download-oracle-csv" class="btn btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>Download Oracle EBS GL Batch (CSV)</span>
             </button>
             <!-- Alias button for test compatibility -->
             <button id="btn-export-gl-csv" style="display:none;" aria-hidden="true"></button>
 
             <button id="btn-export-audit-json" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
               <span>Export Audit Trail (JSON)</span>
             </button>
           </div>
         </div>
 
-        <!-- OPERATOR DIRECTIVE: 3-SILO AS-IS VS TO-BE ARCHITECTURAL TRANSFORMATION -->
+        <!-- 3-SILO AS-IS VS TO-BE ARCHITECTURAL TRANSFORMATION -->
         <section class="card architectural-transformation-card mb-4" aria-labelledby="transformation-heading">
           <div class="card-header-flex">
             <div>
               <span class="badge badge-accent">Strategic Procurement Rationale</span>
-              <h3 id="transformation-heading" class="card-title">From LJMU's Current Services &rarr; To One Connected Platform</h3>
+              <h3 id="transformation-heading" class="card-title mt-2">From LJMU's Current Services &rarr; To One Connected Platform</h3>
               <p class="card-subtitle">
                 How the proposal connects LJMU's existing services (based on public information) without replacing what already works.
               </p>
@@ -76,8 +76,8 @@
 
           <div class="silos-grid">
             <div class="silo-card silo-asis">
-              <div class="silo-badge badge-danger">Area B today</div>
-              <h4 class="silo-title">Faculty Equipment & Room Hire</h4>
+              <div class="silo-badge badge badge-danger">Area B today</div>
+              <h4 class="silo-title mt-2">Faculty Equipment &amp; Room Hire</h4>
               <div class="silo-source text-muted">Scope named in RFI 261001</div>
               <ul class="silo-list">
                 <li>CPD, workshops, equipment hire and specialist room hire.</li>
@@ -87,8 +87,8 @@
             </div>
 
             <div class="silo-card silo-asis">
-              <div class="silo-badge badge-danger">Commercial testing today</div>
-              <h4 class="silo-title">Public & Commercial Athlete/Patient Testing</h4>
+              <div class="silo-badge badge badge-danger">Commercial testing today</div>
+              <h4 class="silo-title mt-2">Public &amp; Commercial Athlete/Patient Testing</h4>
               <div class="silo-source text-muted"><code>ljmuperformancehub.com</code> (LJMU Performance Hub)</div>
               <ul class="silo-list">
                 <li>VO2max, physiological profiles, lactate, body composition, sweat testing, environmental chamber.</li>
@@ -98,11 +98,11 @@
             </div>
 
             <div class="silo-card silo-asis">
-              <div class="silo-badge badge-danger">Area A today</div>
-              <h4 class="silo-title">Accredited Student Clinical Supervision</h4>
+              <div class="silo-badge badge badge-danger">Area A today</div>
+              <h4 class="silo-title mt-2">Accredited Student Clinical Supervision</h4>
               <div class="silo-source text-muted">Clinics named in RFI 261001 and placement programmes</div>
               <ul class="silo-list">
-                <li>AHCS-accredited MSc Clinical Exercise Physiology alongside osteopathy, physiotherapy, cardiovascular screening and S&C clinics.</li>
+                <li>AHCS-accredited MSc Clinical Exercise Physiology alongside osteopathy, physiotherapy, cardiovascular screening and S&amp;C clinics.</li>
                 <li>Student drafts need practice educator countersignature with an auditable record.</li>
                 <li>Teaching and research use needs consent-filtered, de-identified exports.</li>
               </ul>
@@ -111,7 +111,6 @@
 
           <div class="tobe-banner mt-3">
             <div class="tobe-header">
-              <span class="tobe-icon">&#9733;</span>
               <strong>OIV Unified Hub Solution:</strong>
             </div>
             <p class="tobe-desc">
@@ -125,66 +124,66 @@
           <div class="card-header-flex">
             <div>
               <span class="badge badge-danger">Pillar 6: Centralised Operations</span>
-              <h3 id="exceptions-heading" class="card-title">Operational Exception & Follow-Up Console</h3>
+              <h3 id="exceptions-heading" class="card-title mt-2">Operational Exception &amp; Follow-Up Console</h3>
               <p class="card-subtitle">
                 Unified triage queue preventing operational bottlenecks across clinical supervision, financial transfers, equipment safety, and patient notifications.
               </p>
             </div>
             <div class="flex items-center gap-2">
-              <span class="badge badge-amber">2 Active Action Items</span>
-              <span class="badge badge-success">0 Critical Blockers</span>
+              <span class="badge badge-amber font-mono">2 Active Action Items</span>
+              <span class="badge badge-success font-mono">0 Critical Blockers</span>
             </div>
           </div>
 
           <div class="grid-4-col">
             <!-- Queue 1: Overdue Countersignatures -->
-            <div class="card subcard-widget">
+            <div class="subcard-widget">
               <div class="flex justify-between items-center mb-2">
                 <span class="badge badge-amber">Overdue SLA Queue</span>
-                <span class="text-xs text-muted">SLA: 24h</span>
+                <span class="text-xs text-muted font-mono">SLA: 24h</span>
               </div>
               <h4 class="font-bold text-sm">Clinical Countersignatures</h4>
-              <div class="text-xl font-bold text-amber mt-1">1 Pending</div>
-              <p class="text-xs text-muted mt-1">
+              <div class="text-xl font-bold text-amber mt-2 font-mono">1 Pending</div>
+              <p class="text-xs text-muted mt-2">
                 Episode <code>LJMU-OST-2026-0812</code> (Alex Walker &rarr; Dr. Jenkins). 3h 45m before auto-escalation to Senior Clinic Lead.
               </p>
             </div>
 
             <!-- Queue 2: Unmatched Oracle EBS Transfers -->
-            <div class="card subcard-widget">
+            <div class="subcard-widget">
               <div class="flex justify-between items-center mb-2">
                 <span class="badge badge-success">Reconciliation</span>
-                <span class="text-xs text-muted">Two-Phase</span>
+                <span class="text-xs text-muted font-mono">Two-Phase</span>
               </div>
               <h4 class="font-bold text-sm">Unmatched EBS Transfers</h4>
-              <div class="text-xl font-bold text-emerald mt-1">0 Unmatched</div>
-              <p class="text-xs text-muted mt-1">
+              <div class="text-xl font-bold text-emerald mt-2 font-mono">0 Unmatched</div>
+              <p class="text-xs text-muted mt-2">
                 Two-phase posting: each purchase order is matched to the Oracle EBS chart of accounts before it is confirmed.
               </p>
             </div>
 
             <!-- Queue 3: Equipment Calibration Locks -->
-            <div class="card subcard-widget">
+            <div class="subcard-widget">
               <div class="flex justify-between items-center mb-2">
                 <span class="badge badge-danger">Equipment Safety</span>
-                <span class="text-xs text-muted">C3 Guard</span>
+                <span class="text-xs text-muted font-mono">C3 Guard</span>
               </div>
               <h4 class="font-bold text-sm">Calibration Lockout</h4>
-              <div class="text-xl font-bold text-danger mt-1">1 Locked Out</div>
-              <p class="text-xs text-muted mt-1">
-                <code>eq_us_01</code> (12-Lead ECG & Metabolic Cart) expired 25 Oct 2026. Automatically blocked from booking engine until recalibrated.
+              <div class="text-xl font-bold text-danger mt-2 font-mono">1 Locked Out</div>
+              <p class="text-xs text-muted mt-2">
+                <code>eq_us_01</code> (12-Lead ECG &amp; Metabolic Cart) expired 25 Oct 2026. Automatically blocked from booking engine until recalibrated.
               </p>
             </div>
 
             <!-- Queue 4: Notification & Questionnaire Lifecycle -->
-            <div class="card subcard-widget">
+            <div class="subcard-widget">
               <div class="flex justify-between items-center mb-2">
                 <span class="badge badge-primary">4-State Lifecycle</span>
-                <span class="text-xs text-muted">SMS / Email</span>
+                <span class="text-xs text-muted font-mono">SMS / Email</span>
               </div>
-              <h4 class="font-bold text-sm">Follow-Up & Action Queue</h4>
-              <div class="text-xl font-bold text-primary mt-1">1 Queued</div>
-              <p class="text-xs text-muted mt-1">
+              <h4 class="font-bold text-sm">Follow-Up &amp; Action Queue</h4>
+              <div class="text-xl font-bold text-primary mt-2 font-mono">1 Queued</div>
+              <p class="text-xs text-muted mt-2">
                 Pre-test health screening questionnaire sent; contact confirmed; awaiting patient completion (auto-reminder scheduled).
               </p>
             </div>
@@ -195,8 +194,8 @@
         <section class="card mb-4" aria-labelledby="oracle-heading">
           <div class="card-header-flex">
             <div>
-              <span class="badge badge-primary">Finance & ERP Integration</span>
-              <h3 id="oracle-heading" class="card-title">Oracle E-Business Suite (EBS) General Ledger Batch Mapping</h3>
+              <span class="badge badge-primary">Finance &amp; ERP Integration</span>
+              <h3 id="oracle-heading" class="card-title mt-2">Oracle E-Business Suite (EBS) General Ledger Batch Mapping</h3>
               <p class="card-subtitle">
                 Automated <code>GL_INTERFACE</code> batch output mapped to LJMU Chart of Accounts structure.
               </p>
@@ -214,76 +213,76 @@
                   <th scope="col">Sub-Unit (Segment 3)</th>
                   <th scope="col">Account (Segment 4)</th>
                   <th scope="col">Project (Segment 5)</th>
-                  <th scope="col">DR (£)</th>
-                  <th scope="col">CR (£)</th>
+                  <th scope="col" class="text-right">DR (£)</th>
+                  <th scope="col" class="text-right">CR (£)</th>
                   <th scope="col">Account Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>4020 (Clinical Services)</td>
-                  <td>7210 (Clinical Fee Income)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td></td>
-                  <td class="font-bold">£105.00</td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">4020 (Clinical Services)</td>
+                  <td class="font-mono">7210 (Clinical Fee Income)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-right font-mono"></td>
+                  <td class="font-bold font-mono text-right">£105.00</td>
                   <td>Healthcare Consultations (VAT Exempt)</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>4030 (Performance Hub)</td>
-                  <td>7220 (Specialist Facility Hire)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td></td>
-                  <td class="font-bold">£400.00</td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">4030 (Performance Hub)</td>
+                  <td class="font-mono">7220 (Specialist Facility Hire)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-right font-mono"></td>
+                  <td class="font-bold font-mono text-right">£400.00</td>
                   <td>Biomechanics Lab Hire (Standard 20% VAT)</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>4030 (Performance Hub)</td>
-                  <td>7230 (Equipment Rental)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td></td>
-                  <td class="font-bold">£150.00</td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">4030 (Performance Hub)</td>
+                  <td class="font-mono">7230 (Equipment Rental)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-right font-mono"></td>
+                  <td class="font-bold font-mono text-right">£150.00</td>
                   <td>Portable CPET Cart Hire (Standard 20% VAT)</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>4030 (Performance Hub)</td>
-                  <td>7240 (Environmental Chamber Hire)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td></td>
-                  <td class="font-bold">£125.00</td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">4030 (Performance Hub)</td>
+                  <td class="font-mono">7240 (Environmental Chamber Hire)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-right font-mono"></td>
+                  <td class="font-bold font-mono text-right">£125.00</td>
                   <td>Environmental Chamber Hire 1h (Standard 20% VAT)</td>
                 </tr>
                 <tr>
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>0000 (Central Balance Sheet)</td>
-                  <td>2110 (VAT Output Liability)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td></td>
-                  <td class="font-bold text-danger">£135.00</td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">0000 (Central Balance Sheet)</td>
+                  <td class="font-mono">2110 (VAT Output Liability)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-right font-mono"></td>
+                  <td class="font-bold text-danger font-mono text-right">£135.00</td>
                   <td>HMRC Output VAT Payable (20%)</td>
                 </tr>
                 <tr class="table-row-active font-bold">
-                  <td><span class="badge badge-neutral">NEW</span></td>
-                  <td><strong>01</strong> (LJMU)</td>
-                  <td><strong>101</strong> (Sport & Exercise)</td>
-                  <td>0000 (Central Balance Sheet)</td>
-                  <td>1210 (Trade Debtors AR)</td>
-                  <td><strong>PRJ-PERFHUB</strong></td>
-                  <td class="text-primary font-bold">£915.00</td>
-                  <td></td>
+                  <td><span class="badge badge-neutral font-mono">NEW</span></td>
+                  <td class="font-mono"><strong>01</strong> (LJMU)</td>
+                  <td class="font-mono"><strong>101</strong> (Sport &amp; Exercise)</td>
+                  <td class="font-mono">0000 (Central Balance Sheet)</td>
+                  <td class="font-mono">1210 (Trade Debtors AR)</td>
+                  <td class="font-mono"><strong>PRJ-PERFHUB</strong></td>
+                  <td class="text-primary font-bold font-mono text-right">£915.00</td>
+                  <td class="text-right font-mono"></td>
                   <td>Accounts Receivable Control (Riverside AC, fictional)</td>
                 </tr>
               </tbody>
@@ -291,16 +290,16 @@
           </div>
         </section>
 
-        <!-- Immutable UK GDPR Audit Log & Telemetry Panel -->
+        <!-- Immutable UK GDPR Audit Log & Connectors Panel -->
         <div class="grid-2-col">
           <!-- Left: Immutable Audit Log -->
           <section class="card" aria-labelledby="audit-heading">
             <div class="card-header-flex">
               <div>
                 <span class="badge badge-accent">UK GDPR Accountability</span>
-                <h3 id="audit-heading" class="card-title">Immutable Platform Audit Trail</h3>
+                <h3 id="audit-heading" class="card-title mt-2">Immutable Platform Audit Trail</h3>
               </div>
-              <span class="badge badge-neutral">${filteredAudit.length} Entries</span>
+              <span class="badge badge-neutral font-mono">${filteredAudit.length} Entries</span>
             </div>
 
             <div class="audit-filter-bar mb-3">
@@ -313,7 +312,7 @@
                 <thead>
                   <tr>
                     <th>Timestamp (UTC)</th>
-                    <th>User & Role</th>
+                    <th>User &amp; Role</th>
                     <th>Action</th>
                     <th>Resource Target</th>
                     <th>SHA-256 Verification Digest</th>
@@ -325,10 +324,10 @@
                       <td class="whitespace-nowrap font-mono">${entry.timestamp.substring(11, 19)}</td>
                       <td>
                         <strong>${entry.userName}</strong>
-                        <div class="text-muted">${entry.role} (${entry.ip})</div>
+                        <div class="text-muted font-mono">${entry.role} (${entry.ip})</div>
                       </td>
                       <td>
-                        <span class="badge ${entry.action.includes('COUNTERSIGN') ? 'badge-success' : entry.action.includes('PO') ? 'badge-primary' : 'badge-neutral'}">
+                        <span class="badge font-mono ${entry.action.includes('COUNTERSIGN') ? 'badge-success' : entry.action.includes('PO') ? 'badge-primary' : 'badge-neutral'}">
                           ${entry.action}
                         </span>
                       </td>
@@ -341,12 +340,12 @@
             </div>
           </section>
 
-          <!-- Right: Enterprise Systems Telemetry Panel -->
+          <!-- Right: Enterprise Systems Connectors Panel -->
           <section id="telemetry-panel" class="card" aria-labelledby="telemetry-heading">
             <div class="card-header-flex">
               <div>
                 <span class="badge badge-success">Simulated Status</span>
-                <h3 id="telemetry-heading" class="card-title">Enterprise System Connectors</h3>
+                <h3 id="telemetry-heading" class="card-title mt-2">Enterprise System Connectors</h3>
               </div>
               <span class="badge badge-accent">Demo environment</span>
             </div>
@@ -354,11 +353,11 @@
             <div class="telemetry-connectors-list">
               <!-- Microsoft Azure AD / Entra ID -->
               <div class="connector-item">
-                <div class="connector-status-icon status-green">&#10003;</div>
+                <div class="connector-status-icon status-green" aria-hidden="true">&#10003;</div>
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Microsoft Azure AD / Entra ID SSO</strong>
-                    <span class="badge badge-neutral">SIMULATED</span>
+                    <span class="badge badge-neutral font-mono">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
                     Planned: OIDC / SAML 2.0 single sign-on with SCIM 2.0 role provisioning (requires LJMU tenant administrator consent).
@@ -368,11 +367,11 @@
 
               <!-- Microsoft Teams Graph API -->
               <div class="connector-item">
-                <div class="connector-status-icon status-green">&#10003;</div>
+                <div class="connector-status-icon status-green" aria-hidden="true">&#10003;</div>
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Microsoft Teams Graph API Connector</strong>
-                    <span class="badge badge-neutral">SIMULATED</span>
+                    <span class="badge badge-neutral font-mono">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
                     Planned: Teams meetings with lobby control created through Microsoft Graph, with Outlook calendar sync.
@@ -382,11 +381,11 @@
 
               <!-- Oracle E-Business Suite -->
               <div class="connector-item">
-                <div class="connector-status-icon status-green">&#10003;</div>
+                <div class="connector-status-icon status-green" aria-hidden="true">&#10003;</div>
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>Oracle E-Business Suite (EBS) Financial Bridge</strong>
-                    <span class="badge badge-neutral">SIMULATED</span>
+                    <span class="badge badge-neutral font-mono">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
                     Planned: GL and AR interface batches mapped to LJMU's chart of accounts (illustrative segment values).
@@ -396,11 +395,11 @@
 
               <!-- PCI DSS Level 1 Payment Gateway -->
               <div class="connector-item">
-                <div class="connector-status-icon status-green">&#10003;</div>
+                <div class="connector-status-icon status-green" aria-hidden="true">&#10003;</div>
                 <div class="connector-details">
                   <div class="connector-header">
                     <strong>PCI DSS Level 1 Payment Gateway (Stripe UK / Worldpay)</strong>
-                    <span class="badge badge-neutral">SIMULATED</span>
+                    <span class="badge badge-neutral font-mono">SIMULATED</span>
                   </div>
                   <div class="connector-meta text-xs text-muted">
                     SAQ-A eligible design: card details are entered in the provider's hosted fields and never reach LJMU or OIV systems.
@@ -417,7 +416,6 @@
     }
 
     bindEvents() {
-      // Direct download trigger
       const downloadCsvBtn = document.getElementById('btn-download-oracle-csv');
       const aliasCsvBtn = document.getElementById('btn-export-gl-csv');
       const downloadJsonBtn = document.getElementById('btn-export-audit-json');
