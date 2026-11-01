@@ -1,39 +1,50 @@
 /**
  * LJMU Clinical, Student Supervision & Commercial Booking Hub
- * Institutional Clinical & University Operations Design System (WCAG 2.2 Level AA)
+ * Official Liverpool John Moores University (ljmu.ac.uk & ljmuperformancehub.com) Brand Palette
+ * Primary Deep Blue: #00205B | Midnight Navy: #011A42 | Mint Accent: #2CD5C4 | Steel Grey: #DBE2E9
  * Typography: Public Sans (UI) + IBM Plex Mono (Clinical/Financial Data)
  * Author: ONOUR IMPRAM VENTURES LTD (Company #17429906)
  */
 
 :root {
-  /* Institutional Brand & Clinical Palette (WCAG 2.2 AA High-Contrast) */
-  --clr-navy: #0b3d91;
-  --clr-navy-dark: #072559;
-  --clr-navy-ink: #0a192f;
-  --clr-navy-light: #1e40af;
-  --clr-navy-tint: #eff6ff;
-  --clr-slate-dark: #0f172a;
-  --clr-slate-card: #1e293b;
-  --clr-slate-muted: #475569;
-  --clr-teal: #0f766e;
-  --clr-teal-light: #14b8a6;
-  --clr-teal-tint: #f0fdfa;
-  --clr-cyan: #0369a1;
-  --clr-emerald: #047857;
-  --clr-emerald-bg: #ecfdf5;
-  --clr-emerald-text: #065f46;
-  --clr-amber: #b45309;
-  --clr-amber-bg: #fffbeb;
-  --clr-amber-text: #92400e;
-  --clr-crimson: #b91c1c;
-  --clr-crimson-bg: #fef2f2;
-  --clr-crimson-text: #991b1b;
-  --clr-bg: #f1f5f9;
-  --clr-surface: #ffffff;
-  --clr-surface-subtle: #f8fafc;
-  --clr-border: #cbd5e1;
-  --clr-border-subtle: #e2e8f0;
-  --clr-border-dark: #94a3b8;
+  /* Liverpool John Moores University (LJMU) Official Corporate & Performance Hub Palette */
+  --clr-navy: #00205b;           /* LJMU Corporate Deep Blue (--navy on ljmuperformancehub.com) */
+  --clr-navy-dark: #011a42;      /* LJMU Midnight Navy (--news-creator-navy on ljmu.ac.uk) */
+  --clr-navy-ink: #011a42;       /* LJMU Header & Footer Midnight Blue */
+  --clr-navy-light: #063071;     /* LJMU Royal Blue (--news-creator-blue on ljmu.ac.uk) */
+  --clr-navy-soft: #1c3a85;      /* LJMU Soft Navy (--navy-soft on ljmuperformancehub.com) */
+  --clr-navy-tint: #eaeef3;      /* LJMU Cool Steel Tint (--rule-2 on ljmuperformancehub.com) */
+
+  /* LJMU Secondary Brand Accent: Mint / Turquoise (#2CD5C4 / #2AD4C3) */
+  --clr-ljmu-mint: #2cd5c4;      /* LJMU Official Mint Accent (--accent on ljmuperformancehub.com) */
+  --clr-ljmu-mint-bg: #d6f5f0;   /* LJMU Soft Mint Surface (--accent-soft on ljmuperformancehub.com) */
+  --clr-ljmu-mint-ink: #062b2a;  /* LJMU Deep Mint Ink (--form-accent-ink on ljmu.ac.uk) */
+  --clr-teal: #07776c;           /* LJMU Accessible Teal (5.3:1 on #ffffff) */
+  --clr-teal-light: #2cd5c4;
+  --clr-teal-tint: #d6f5f0;
+  --clr-cyan: #063071;
+
+  /* LJMU Performance Hub Semantic Status Tones */
+  --clr-emerald: #07776c;
+  --clr-emerald-bg: #d6f5f0;
+  --clr-emerald-text: #062b2a;
+  --clr-amber: #8a5d10;
+  --clr-amber-bg: #fdf3df;
+  --clr-amber-text: #6e480b;
+  --clr-crimson: #a3402d;
+  --clr-crimson-bg: #fbe7e2;
+  --clr-crimson-text: #7d2616;
+
+  /* LJMU Steel Grey & Cool Paper Surfaces */
+  --clr-slate-dark: #0e1730;     /* LJMU Ink (--ink on ljmuperformancehub.com) */
+  --clr-slate-card: #0a2a6e;     /* LJMU Secondary Navy (--navy-2) */
+  --clr-slate-muted: #53657a;    /* LJMU Muted Steel (--news-creator-muted on ljmu.ac.uk) */
+  --clr-bg: #f4f7fa;             /* LJMU Paper-2 Surface (--paper-2 on ljmuperformancehub.com) */
+  --clr-surface: #ffffff;        /* LJMU Pure Paper (--paper) */
+  --clr-surface-subtle: #f4f7fa;
+  --clr-border: #dbe2e9;         /* LJMU Official Steel Grey (--rule: #dbe2e9) */
+  --clr-border-subtle: #eaeef3;  /* LJMU Rule-2 (#eaeef3) */
+  --clr-border-dark: #8a93ab;    /* LJMU Muted-2 Steel Border (--muted-2: #8a93ab) */
 
   /* Typography Stack — Public Sans + IBM Plex Mono */
   --font-sans: "Public Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -88,7 +99,7 @@ button:focus-visible,
 select:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--clr-cyan);
+  outline: 2px solid var(--clr-navy);
   outline-offset: 2px;
 }
 
@@ -228,12 +239,12 @@ p {
 }
 
 /* ==========================================================================
-   1. Institutional Command Header (Dark Top Chrome)
+   1. LJMU Institutional Command Header (#011A42 Midnight + #00205B Deep Blue + #2CD5C4 Mint)
    ========================================================================== */
 .app-header {
   background-color: var(--clr-navy-ink);
-  color: #f8fafc;
-  border-bottom: 1px solid #1e293b;
+  color: #ffffff;
+  border-bottom: 2px solid var(--clr-ljmu-mint);
   padding: 12px 0;
 }
 
@@ -275,7 +286,7 @@ p {
 .brand-institution {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #cbd5e1;
+  color: #f4f7fa;
   letter-spacing: 0.02em;
 }
 
@@ -283,9 +294,9 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #1e293b;
-  color: #e2e8f0;
-  border: 1px solid #334155;
+  background-color: var(--clr-navy);
+  color: #ffffff;
+  border: 1px solid var(--clr-ljmu-mint);
   padding: 5px 10px;
   border-radius: var(--radius-xs);
   font-family: var(--font-mono);
@@ -297,7 +308,7 @@ p {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #34d399;
+  background-color: var(--clr-ljmu-mint);
   display: inline-block;
 }
 
@@ -309,7 +320,7 @@ p {
 }
 
 .brand-meta {
-  color: #cbd5e1;
+  color: #f4f7fa;
   font-size: 0.75rem;
   margin-bottom: 0;
   max-width: none;
@@ -331,9 +342,9 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #1e293b;
-  color: #f8fafc;
-  border: 1px solid #334155;
+  background-color: var(--clr-navy);
+  color: #ffffff;
+  border: 1px solid var(--clr-navy-soft);
   padding: 7px 12px;
   border-radius: var(--radius-sm);
   font-size: 0.8125rem;
@@ -341,8 +352,20 @@ p {
 }
 
 .btn-header-action:hover {
-  background-color: #334155;
-  border-color: #475569;
+  background-color: var(--clr-navy-light);
+  border-color: var(--clr-ljmu-mint);
+}
+
+.btn-header-action.cta {
+  background-color: var(--clr-ljmu-mint);
+  color: var(--clr-navy-ink);
+  border-color: var(--clr-ljmu-mint);
+  font-weight: 700;
+}
+
+.btn-header-action.cta:hover {
+  background-color: #d6f5f0;
+  color: var(--clr-navy-ink);
 }
 
 .btn-header-Ghost {
@@ -350,8 +373,8 @@ p {
   align-items: center;
   gap: 6px;
   background-color: transparent;
-  color: #cbd5e1;
-  border: 1px solid #334155;
+  color: #f4f7fa;
+  border: 1px solid var(--clr-navy-soft);
   padding: 7px 10px;
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
@@ -359,25 +382,25 @@ p {
 }
 
 .btn-header-Ghost:hover {
-  background-color: #1e293b;
+  background-color: var(--clr-navy);
   color: #ffffff;
 }
 
 .role-select-dropdown {
   padding: 6px 8px;
-  border: 1px solid #334155;
+  border: 1px solid var(--clr-navy-soft);
   border-radius: var(--radius-sm);
   font-family: var(--font-sans);
   font-size: 0.75rem;
-  background-color: #1e293b;
-  color: #f8fafc;
+  background-color: var(--clr-navy);
+  color: #ffffff;
   font-weight: 600;
   cursor: pointer;
   max-width: 240px;
 }
 
 /* ==========================================================================
-   2. Active Persona & Role Governance Bar
+   2. Active Persona & Role Governance Bar (LJMU Mint Soft & Steel Surfaces)
    ========================================================================== */
 .role-banner {
   padding: 6px 0;
@@ -388,23 +411,23 @@ p {
 }
 
 .badge-student {
-  background-color: #eff6ff;
-  color: #1e3a8a;
+  background-color: #eaeef3;
+  color: var(--clr-navy);
 }
 
 .badge-supervisor {
-  background-color: #f0fdfa;
-  color: #115e59;
+  background-color: var(--clr-ljmu-mint-bg);
+  color: var(--clr-ljmu-mint-ink);
 }
 
 .badge-manager {
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: #f4f7fa;
+  color: var(--clr-slate-dark);
 }
 
 .badge-booker {
-  background-color: var(--clr-emerald-bg);
-  color: var(--clr-emerald-text);
+  background-color: var(--clr-ljmu-mint-bg);
+  color: var(--clr-ljmu-mint-ink);
 }
 
 .role-banner-inner {
@@ -434,8 +457,8 @@ p {
 
 .badge-student .role-indicator-dot { background-color: var(--clr-navy); }
 .badge-supervisor .role-indicator-dot { background-color: var(--clr-teal); }
-.badge-manager .role-indicator-dot { background-color: var(--clr-cyan); }
-.badge-booker .role-indicator-dot { background-color: var(--clr-emerald); }
+.badge-manager .role-indicator-dot { background-color: var(--clr-navy-light); }
+.badge-booker .role-indicator-dot { background-color: var(--clr-teal); }
 
 .role-banner-title {
   color: var(--clr-slate-dark);
@@ -482,7 +505,7 @@ p {
 }
 
 /* ==========================================================================
-   3. Master Workbench Navigation Tabs
+   3. Master Workbench Navigation Tabs (LJMU Deep Blue + Mint Accent)
    ========================================================================== */
 .app-nav-bar {
   background-color: var(--clr-surface);
@@ -522,7 +545,7 @@ p {
 .tab-btn.active {
   color: var(--clr-navy);
   border-bottom: 2px solid var(--clr-navy);
-  background-color: var(--clr-navy-tint);
+  background-color: var(--clr-ljmu-mint-bg);
 }
 
 .tab-top-row {
@@ -534,6 +557,10 @@ p {
 .tab-svg-icon {
   flex-shrink: 0;
   color: currentColor;
+}
+
+.tab-btn.active .tab-svg-icon {
+  color: var(--clr-navy);
 }
 
 .tab-label {
@@ -555,7 +582,7 @@ p {
 }
 
 .tab-btn.active .tab-sub {
-  color: var(--clr-teal);
+  color: var(--clr-ljmu-mint-ink);
   font-weight: 600;
 }
 
@@ -603,7 +630,7 @@ p {
 
 .view-title {
   font-size: 1.5rem;
-  color: var(--clr-slate-dark);
+  color: var(--clr-navy);
 }
 
 .view-description {
@@ -621,7 +648,7 @@ p {
   flex-shrink: 0;
 }
 
-/* Cards & Surface Elements (Crisp 1px Borders, Zero Box-Shadow) */
+/* Cards & Surface Elements (Crisp 1px LJMU Steel Grey Borders, Zero Box-Shadow) */
 .card {
   background-color: var(--clr-surface);
   border: 1px solid var(--clr-border);
@@ -643,7 +670,7 @@ p {
 
 .card-title {
   font-size: 1.0625rem;
-  color: var(--clr-slate-dark);
+  color: var(--clr-navy);
 }
 
 .card-subtitle {
@@ -674,7 +701,7 @@ p {
 }
 
 /* ==========================================================================
-   5. Badges & Status Indicators
+   5. Badges & Status Indicators (LJMU Palette)
    ========================================================================== */
 .badge {
   display: inline-flex;
@@ -688,14 +715,14 @@ p {
   border: 1px solid transparent;
 }
 
-.badge-primary { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
-.badge-secondary { background: #f1f5f9; color: #334155; border-color: #cbd5e1; }
-.badge-accent { background: #ccfbf1; color: #0f766e; border-color: #99f6e4; }
-.badge-success { background: var(--clr-emerald-bg); color: var(--clr-emerald-text); border-color: #a7f3d0; }
-.badge-amber { background: var(--clr-amber-bg); color: var(--clr-amber-text); border-color: #fde68a; }
-.badge-danger { background: var(--clr-crimson-bg); color: var(--clr-crimson-text); border-color: #fecaca; }
-.badge-info { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
-.badge-neutral { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+.badge-primary { background: #eaeef3; color: var(--clr-navy); border-color: #c5d1e0; }
+.badge-secondary { background: #f4f7fa; color: var(--clr-slate-dark); border-color: var(--clr-border); }
+.badge-accent { background: var(--clr-ljmu-mint-bg); color: var(--clr-ljmu-mint-ink); border-color: #8bdcd0; }
+.badge-success { background: var(--clr-emerald-bg); color: var(--clr-emerald-text); border-color: #8bdcd0; }
+.badge-amber { background: var(--clr-amber-bg); color: var(--clr-amber-text); border-color: #e5c178; }
+.badge-danger { background: var(--clr-crimson-bg); color: var(--clr-crimson-text); border-color: #e6a293; }
+.badge-info { background: #eaeef3; color: var(--clr-navy-light); border-color: #c5d1e0; }
+.badge-neutral { background: #f4f7fa; color: var(--clr-slate-muted); border-color: var(--clr-border); }
 
 .status-dot {
   width: 8px;
@@ -707,7 +734,7 @@ p {
 }
 
 /* ==========================================================================
-   6. Buttons & Form Controls
+   6. Buttons & Form Controls (LJMU Deep Blue & Mint)
    ========================================================================== */
 .btn {
   display: inline-flex;
@@ -734,21 +761,21 @@ p {
 
 .btn-secondary {
   background-color: var(--clr-surface);
-  color: var(--clr-slate-dark);
+  color: var(--clr-navy);
   border-color: var(--clr-border-dark);
 }
 .btn-secondary:hover {
-  background-color: var(--clr-surface-subtle);
-  border-color: var(--clr-navy);
-  color: var(--clr-navy);
+  background-color: var(--clr-ljmu-mint-bg);
+  border-color: var(--clr-teal);
+  color: var(--clr-ljmu-mint-ink);
 }
 
 .btn-success {
-  background-color: var(--clr-emerald);
+  background-color: var(--clr-teal);
   color: #ffffff;
-  border-color: var(--clr-emerald);
+  border-color: var(--clr-teal);
 }
-.btn-success:hover { background-color: #065f46; }
+.btn-success:hover { background-color: var(--clr-ljmu-mint-ink); }
 
 .btn-neutral {
   background-color: var(--clr-surface);
@@ -827,7 +854,7 @@ p {
 
 .data-table th {
   background-color: var(--clr-surface-subtle);
-  color: var(--clr-slate-muted);
+  color: var(--clr-navy);
   font-weight: 700;
   font-size: 0.75rem;
   padding: 10px 12px;
@@ -845,11 +872,11 @@ p {
 }
 
 .table-row-active {
-  background-color: #fffbeb !important;
+  background-color: var(--clr-amber-bg) !important;
 }
 
 .table-row-available {
-  background-color: #ecfdf5 !important;
+  background-color: var(--clr-ljmu-mint-bg) !important;
 }
 
 .table-legend {
@@ -874,9 +901,9 @@ p {
   border: 1px solid var(--clr-border-dark);
 }
 
-.swatch-booked { background-color: #fef3c7; }
-.swatch-available, .swatch-free { background-color: #d1fae5; }
-.swatch-commercial { background-color: #dbeafe; }
+.swatch-booked { background-color: var(--clr-amber-bg); }
+.swatch-available, .swatch-free { background-color: var(--clr-ljmu-mint-bg); }
+.swatch-commercial { background-color: var(--clr-navy-tint); }
 
 /* ==========================================================================
    8. Module 01: Supervisor Ratio Meter & Clinical Bay Cards
@@ -908,13 +935,13 @@ p {
 .status-pill-success {
   background: var(--clr-emerald-bg);
   color: var(--clr-emerald-text);
-  border: 1px solid #a7f3d0;
+  border: 1px solid #8bdcd0;
 }
 
 .status-pill-danger {
   background: var(--clr-crimson-bg);
   color: var(--clr-crimson-text);
-  border: 1px solid #fecaca;
+  border: 1px solid #e6a293;
 }
 
 .ratio-slot-grid {
@@ -937,14 +964,14 @@ p {
 
 .ratio-slot-chip.slot-occupied {
   background-color: var(--clr-navy-tint);
-  border-color: #93c5fd;
-  color: var(--clr-navy-dark);
+  border-color: #9fb0c7;
+  color: var(--clr-navy);
 }
 
 .ratio-slot-chip.slot-available {
-  background-color: var(--clr-emerald-bg);
-  border-color: #6ee7b7;
-  color: var(--clr-emerald-text);
+  background-color: var(--clr-ljmu-mint-bg);
+  border-color: #2cd5c4;
+  color: var(--clr-ljmu-mint-ink);
 }
 
 .slot-dot {
@@ -957,7 +984,7 @@ p {
 
 .ratio-bar-wrapper {
   height: 8px;
-  background-color: #e2e8f0;
+  background-color: var(--clr-border);
   border-radius: var(--radius-xs);
   overflow: hidden;
   margin-bottom: 8px;
@@ -993,13 +1020,13 @@ p {
 }
 
 .bay-occupied {
-  background: #fffbeb;
-  border-color: #fcd34d;
+  background: var(--clr-amber-bg);
+  border-color: #e5c178;
 }
 
 .bay-available {
-  background: #ecfdf5;
-  border-color: #6ee7b7;
+  background: var(--clr-ljmu-mint-bg);
+  border-color: #8bdcd0;
 }
 
 .bay-card-top {
@@ -1014,6 +1041,7 @@ p {
   font-size: 0.875rem;
   font-weight: 700;
   margin-bottom: 2px;
+  color: var(--clr-navy);
 }
 
 .bay-location {
@@ -1060,13 +1088,13 @@ p {
 
 .badge-pass {
   background: var(--clr-emerald-bg);
-  border: 1px solid #a7f3d0;
+  border: 1px solid #8bdcd0;
   color: var(--clr-emerald-text);
 }
 
 .badge-fail {
   background: var(--clr-crimson-bg);
-  border: 1px solid #fecaca;
+  border: 1px solid #e6a293;
   color: var(--clr-crimson-text);
 }
 
@@ -1089,19 +1117,19 @@ p {
 .alert-danger {
   background: var(--clr-crimson-bg);
   color: var(--clr-crimson-text);
-  border: 1px solid #fca5a5;
+  border: 1px solid #e6a293;
 }
 
 .alert-info {
   background: var(--clr-navy-tint);
-  color: #1e40af;
-  border: 1px solid #bfdbfe;
+  color: var(--clr-navy);
+  border: 1px solid #9fb0c7;
 }
 
 .alert-success {
   background: var(--clr-emerald-bg);
   color: var(--clr-emerald-text);
-  border: 1px solid #a7f3d0;
+  border: 1px solid #8bdcd0;
 }
 
 .waitlist-banner-content {
@@ -1142,7 +1170,7 @@ p {
 }
 
 .btn-discipline.active {
-  background: var(--clr-navy-tint);
+  background: var(--clr-ljmu-mint-bg);
   border-color: var(--clr-navy);
 }
 
@@ -1175,6 +1203,10 @@ p {
   color: var(--clr-slate-muted);
 }
 
+.btn-discipline.active .disc-meta {
+  color: var(--clr-ljmu-mint-ink);
+}
+
 /* Patient Demographic Spine Banner */
 .patient-banner-card {
   background: var(--clr-surface);
@@ -1192,6 +1224,7 @@ p {
 .patient-name {
   font-size: 1.25rem;
   margin: 4px 0;
+  color: var(--clr-navy);
 }
 
 .patient-meta-row {
@@ -1215,13 +1248,13 @@ p {
 .status-draft {
   background: var(--clr-amber-bg);
   color: var(--clr-amber-text);
-  border: 1px solid #fde68a;
+  border: 1px solid #e5c178;
 }
 
 .status-locked {
   background: var(--clr-emerald-bg);
   color: var(--clr-emerald-text);
-  border: 1px solid #a7f3d0;
+  border: 1px solid #8bdcd0;
 }
 
 .red-flag-checks-row {
@@ -1262,13 +1295,13 @@ p {
 }
 
 .diff-student {
-  background: #fffbeb;
-  border-color: #fde68a;
+  background: var(--clr-amber-bg);
+  border-color: #e5c178;
 }
 
 .diff-supervisor {
-  background: #f0fdfa;
-  border-color: #99f6e4;
+  background: var(--clr-ljmu-mint-bg);
+  border-color: #8bdcd0;
 }
 
 .diff-col-header {
@@ -1289,15 +1322,15 @@ p {
 }
 
 .rev-draft {
-  background: #fef3c7;
-  color: #92400e;
-  border: 1px solid #fcd34d;
+  background: #ffffff;
+  color: var(--clr-amber-text);
+  border: 1px solid #e5c178;
 }
 
 .rev-final {
-  background: #ccfbf1;
-  color: #115e59;
-  border: 1px solid #99f6e4;
+  background: #ffffff;
+  color: var(--clr-ljmu-mint-ink);
+  border: 1px solid #8bdcd0;
 }
 
 .diff-content {
@@ -1321,7 +1354,7 @@ p {
 
 .signature-lock-box.isLocked {
   background: var(--clr-emerald-bg);
-  border-color: #6ee7b7;
+  border-color: #8bdcd0;
 }
 
 .sig-header {
@@ -1358,8 +1391,8 @@ p {
 .hash-code {
   display: block;
   padding: 8px 10px;
-  background: #0f172a;
-  color: #cbd5e1;
+  background: var(--clr-navy-ink);
+  color: #f4f7fa;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   border-radius: var(--radius-xs);
@@ -1367,7 +1400,7 @@ p {
 }
 
 .hash-active {
-  color: #34d399;
+  color: #ffffff;
 }
 
 .hash-code-sm {
@@ -1433,11 +1466,11 @@ p {
 }
 
 .ecg-canvas-container {
-  background: #0f172a;
+  background: var(--clr-navy-ink);
   border-radius: var(--radius-sm);
   padding: 10px;
   overflow: hidden;
-  border: 1px solid #1e293b;
+  border: 1px solid var(--clr-navy-soft);
 }
 
 .ecg-canvas {
@@ -1465,7 +1498,7 @@ p {
   font-family: var(--font-mono);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--clr-slate-dark);
+  color: var(--clr-navy);
   margin: 3px 0;
 }
 
@@ -1493,6 +1526,7 @@ p {
 .service-title {
   font-size: 0.875rem;
   margin: 3px 0;
+  color: var(--clr-navy);
 }
 
 .service-top-row {
@@ -1594,8 +1628,8 @@ p {
 }
 
 .silo-asis {
-  background: #fffbfa;
-  border-color: #fecaca;
+  background: var(--clr-crimson-bg);
+  border-color: #e6a293;
 }
 
 .silo-badge {
@@ -1609,6 +1643,7 @@ p {
 .silo-title {
   font-size: 0.875rem;
   margin-bottom: 4px;
+  color: var(--clr-navy);
 }
 
 .silo-source {
@@ -1619,7 +1654,7 @@ p {
 .silo-list {
   padding-left: 16px;
   font-size: 0.75rem;
-  color: var(--clr-slate-muted);
+  color: var(--clr-slate-dark);
 }
 
 .silo-list li {
@@ -1627,14 +1662,14 @@ p {
 }
 
 .tobe-banner {
-  background: var(--clr-navy-tint);
-  border: 1px solid #bfdbfe;
+  background: var(--clr-ljmu-mint-bg);
+  border: 1px solid #8bdcd0;
   border-radius: var(--radius-sm);
   padding: 14px 18px;
 }
 
 .tobe-header {
-  color: var(--clr-navy);
+  color: var(--clr-ljmu-mint-ink);
   font-size: 0.875rem;
   margin-bottom: 4px;
 }
@@ -1677,7 +1712,7 @@ p {
 .status-green {
   background: var(--clr-emerald-bg);
   color: var(--clr-emerald-text);
-  border: 1px solid #a7f3d0;
+  border: 1px solid #8bdcd0;
 }
 
 .connector-header {
@@ -1690,8 +1725,8 @@ p {
 }
 
 .dataset-preview-box {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: var(--clr-navy-ink);
+  color: #f4f7fa;
   padding: 12px;
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
@@ -1704,7 +1739,7 @@ p {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 23, 42, 0.7);
+  background-color: rgba(1, 26, 66, 0.72);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1719,7 +1754,7 @@ p {
   max-width: 680px;
   max-height: 90vh;
   overflow-y: auto;
-  border: 2px solid var(--clr-slate-dark);
+  border: 2px solid var(--clr-navy);
 }
 
 .modal-lg { max-width: 900px; }
@@ -1744,7 +1779,7 @@ p {
   font-size: 1.5rem;
   color: var(--clr-slate-muted);
   cursor: pointer;
-  line-height: 1;
+  line-height: 1.35;
 }
 
 .btn-close:hover {
@@ -1780,7 +1815,7 @@ p {
 
 .silo-diag-box {
   background: var(--clr-crimson-bg);
-  border: 1px solid #fecaca;
+  border: 1px solid #e6a293;
   border-radius: var(--radius-xs);
   padding: 10px;
 }
@@ -1793,8 +1828,8 @@ p {
 }
 
 .unified-target-box {
-  background: var(--clr-navy-tint);
-  border: 1px solid #bfdbfe;
+  background: var(--clr-ljmu-mint-bg);
+  border: 1px solid #8bdcd0;
   border-radius: var(--radius-sm);
   padding: 16px;
 }
@@ -1804,7 +1839,7 @@ p {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--clr-navy);
+  color: var(--clr-ljmu-mint-ink);
   margin-bottom: 6px;
 }
 
@@ -1816,8 +1851,8 @@ p {
 }
 
 .commercial-package-callout {
-  background: var(--clr-emerald-bg);
-  border: 1px solid #6ee7b7;
+  background: var(--clr-ljmu-mint-bg);
+  border: 1px solid #8bdcd0;
   border-radius: var(--radius-sm);
   padding: 14px;
 }
@@ -1827,11 +1862,11 @@ p {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background-color: var(--clr-slate-dark);
+  background-color: var(--clr-navy-ink);
   color: #ffffff;
   padding: 12px 18px;
   border-radius: var(--radius-sm);
-  border: 2px solid var(--clr-teal-light);
+  border: 2px solid var(--clr-ljmu-mint);
   font-size: 0.8125rem;
   font-weight: 600;
   z-index: 9999;
@@ -1847,15 +1882,15 @@ p {
 }
 
 /* ==========================================================================
-   13. Institutional Footer
+   13. LJMU Institutional Footer (#011A42 Midnight + #00205B Deep Blue + #2CD5C4 Mint)
    ========================================================================== */
 .app-footer {
   background-color: var(--clr-navy-ink);
-  color: #cbd5e1;
+  color: #f4f7fa;
   padding: 36px 0 24px;
   margin-top: auto;
   font-size: 0.8125rem;
-  border-top: 1px solid #1e293b;
+  border-top: 2px solid var(--clr-ljmu-mint);
 }
 
 .footer-grid {
@@ -1872,12 +1907,12 @@ p {
 }
 
 .app-footer a {
-  color: #f8fafc;
+  color: #ffffff;
   text-decoration: underline;
 }
 
 .app-footer a:hover {
-  color: #ffffff;
+  color: #f4f7fa;
 }
 
 .tag-cloud {
@@ -1887,9 +1922,9 @@ p {
 }
 
 .tag {
-  background: #1e293b;
-  color: #e2e8f0;
-  border: 1px solid #334155;
+  background: var(--clr-navy);
+  color: #ffffff;
+  border: 1px solid var(--clr-navy-soft);
   padding: 5px 10px;
   border-radius: var(--radius-xs);
   font-family: var(--font-mono);
@@ -1897,7 +1932,7 @@ p {
 }
 
 .footer-bottom {
-  border-top: 1px solid #1e293b;
+  border-top: 1px solid var(--clr-navy-soft);
   padding-top: 16px;
 }
 
@@ -1958,6 +1993,7 @@ p {
   .select-wrapper,
   .role-select-dropdown {
     width: 100%;
+    max-width: 100%;
   }
   .card {
     padding: 14px;

@@ -449,7 +449,7 @@
                 <div class="chart-canvas-wrapper" id="body-chart-canvas">
                   <!-- SVG Anatomical Body Silhouette -->
                   <svg viewBox="0 0 280 400" class="svg-body-silhouette" id="svg-body-map" aria-label="Anatomical Body Chart">
-                    <g fill="#e2e8f0" stroke="#64748b" stroke-width="1.5">
+                    <g fill="#eaeef3" stroke="#53657a" stroke-width="1.5">
                       <ellipse cx="140" cy="45" rx="24" ry="30" />
                       <rect x="133" y="75" width="14" height="20" rx="3" />
                       <path d="M100 95 L180 95 L170 200 L110 200 Z" />
@@ -459,9 +459,9 @@
                       <path d="M168 200 L165 310 L170 375 L155 375 L148 310 L145 200 Z" />
                     </g>
                     <!-- Pre-plotted Patellar Marker -->
-                    <circle cx="165" cy="305" r="11" fill="none" stroke="#b91c1c" stroke-width="1.5" />
-                    <circle cx="165" cy="305" r="5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" />
-                    <text x="180" y="309" font-size="11" font-weight="bold" fill="#991b1b">Patellar Tendon (6/10)</text>
+                    <circle cx="165" cy="305" r="11" fill="none" stroke="#a3402d" stroke-width="1.5" />
+                    <circle cx="165" cy="305" r="5" fill="#a3402d" stroke="#ffffff" stroke-width="1.5" />
+                    <text x="180" y="309" font-size="11" font-weight="bold" fill="#7d2616">Patellar Tendon (6/10)</text>
                   </svg>
                   <p class="chart-caption text-xs text-muted text-center">Click anywhere on the anatomical figure to place custom diagnostic markers.</p>
                 </div>
@@ -627,11 +627,11 @@
       const mid = height / 2;
 
       const drawEcg = () => {
-        ctx.fillStyle = '#0f172a';
+        ctx.fillStyle = '#011a42';
         ctx.fillRect(0, 0, width, height);
 
         // Grid lines
-        ctx.strokeStyle = '#1e293b';
+        ctx.strokeStyle = '#0a2a6e';
         ctx.lineWidth = 1;
         ctx.beginPath();
         for (let x = 0; x < width; x += 20) {
@@ -645,7 +645,7 @@
         ctx.stroke();
 
         // Waveform
-        ctx.strokeStyle = '#10b981';
+        ctx.strokeStyle = '#2cd5c4';
         ctx.lineWidth = 2.5;
         ctx.beginPath();
 
