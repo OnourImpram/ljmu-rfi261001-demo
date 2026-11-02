@@ -13,8 +13,8 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'ljmu_hub_state_v3_2';
-  const LEGACY_STORAGE_KEYS = ['ljmu_hub_state_v3_1', 'ljmu_hub_state_v3', 'ljmu_hub_state_v2', 'ljmu_hub_state'];
+  const STORAGE_KEY = 'ljmu_hub_state_v4';
+  const LEGACY_STORAGE_KEYS = ['ljmu_hub_state_v3_2', 'ljmu_hub_state_v3_1', 'ljmu_hub_state_v3', 'ljmu_hub_state_v2', 'ljmu_hub_state'];
 
   const INITIAL_PERSONAS = {
     student: {
@@ -22,7 +22,7 @@
       name: 'Alex Walker',
       role: 'student',
       title: 'Student Practitioner (Final-year)',
-      program: 'MSc Clinical Exercise Physiology & Osteopathy',
+      program: 'Supervised clinical placement',
       supervisorId: 'usr_sup_001',
       supervisorName: 'Dr. Sarah Jenkins',
       badgeClass: 'badge-student',
@@ -32,11 +32,11 @@
       id: 'usr_sup_001',
       name: 'Dr. Sarah Jenkins',
       role: 'supervisor',
-      title: 'Senior Clinical Practice Educator (MCSP, HCPC, GOsC)',
+      title: 'Clinical Practice Educator',
       program: 'Faculty Clinical Lead, School of Sport & Exercise Sciences',
       maxStudentRatio: 4,
       badgeClass: 'badge-supervisor',
-      bannerMsg: '2 Student Drafts Awaiting Countersignature'
+      bannerMsg: 'Clinical review and supervised learning'
     },
     manager: {
       id: 'usr_mgr_001',
@@ -45,7 +45,7 @@
       title: 'Commercial & Lab Operations Manager',
       program: 'LJMU Performance Hub & Specialist Laboratories',
       badgeClass: 'badge-manager',
-      bannerMsg: 'Oracle EBS Batch Ready & 1 PO Pending Approval'
+      bannerMsg: 'Commercial bookings and finance exports'
     },
     booker: {
       id: 'usr_bkr_001',
@@ -63,9 +63,9 @@
     { id: 'rm_tr_g02', name: 'Teaching Clinic - Bay 2', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
     { id: 'rm_tr_g03', name: 'Teaching Clinic - Bay 3', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'physiotherapy', status: 'occupied' },
     { id: 'rm_tr_g04', name: 'Teaching Clinic - Bay 4', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'osteopathy', status: 'available' },
-    { id: 'rm_tr_biomech', name: 'Tom Reilly - Biomechanics Lab', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
-    { id: 'rm_tr_env', name: 'Tom Reilly - Environmental Hypoxia Chamber', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'specialist_lab', capacity: 6, discipline: 'physiology', status: 'available' },
-    { id: 'rm_tr_bodycomp', name: 'Tom Reilly - Body Composition Suite', campus: 'Byrom Street (Tom Reilly, L3 3AF)', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
+    { id: 'rm_tr_biomech', name: 'Biomechanics Lab', campus: 'Reference campus', type: 'specialist_lab', capacity: 10, discipline: 'biomechanics', status: 'available' },
+    { id: 'rm_tr_env', name: 'Environmental Hypoxia Chamber', campus: 'Reference campus', type: 'specialist_lab', capacity: 6, discipline: 'physiology', status: 'available' },
+    { id: 'rm_tr_bodycomp', name: 'Body Composition Suite', campus: 'Reference campus', type: 'diagnostic_suite', capacity: 2, discipline: 'physiology', status: 'available' },
     { id: 'rm_ch_mov', name: 'S&C Movement Bay', campus: 'Teaching Clinic (demo)', type: 'clinical_bay', capacity: 1, discipline: 'sc', status: 'available' }
   ];
 
@@ -78,13 +78,18 @@
 
   const INITIAL_SUPERVISOR_ROSTER = [
     { id: 'sup_jenkins', name: 'Dr. Sarah Jenkins', maxRatio: 4, activeBays: 3, room: 'Teaching Clinic (demo)', disciplines: ['osteopathy', 'physiotherapy'] },
-    { id: 'sup_davies', name: 'Dr. Mark Davies', maxRatio: 4, activeBays: 1, room: 'Tom Reilly Physiology Labs', disciplines: ['cardiovascular', 'physiology'] }
+    { id: 'sup_davies', name: 'Dr. Mark Davies', maxRatio: 4, activeBays: 1, room: 'Physiology laboratory', disciplines: ['cardiovascular', 'physiology'] }
   ];
 
   const INITIAL_STUDENT_ROSTER = [
-    { id: 'stu_walker', name: 'Alex Walker', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 124, targetHours: 200, completedCases: 38 },
-    { id: 'stu_patel', name: 'Priya Patel', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 148, targetHours: 200, completedCases: 46 }
+    { id: 'stu_walker', userId: 'usr_stu_001', busy: true, name: 'Alex Walker', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 124, targetHours: 200, completedCases: 38 },
+    { id: 'stu_patel', userId: 'usr_stu_002', busy: true, name: 'Priya Patel', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 148, targetHours: 200, completedCases: 46 }
   ];
+
+  INITIAL_STUDENT_ROSTER.push(
+    { id: 'stu_reilly', userId: 'usr_stu_003', name: 'Jordan Reilly', year: 'Final-year', supervisorId: 'sup_jenkins', hoursLogged: 96, targetHours: 200, completedCases: 24 },
+    { id: 'stu_morgan', userId: 'usr_stu_004', name: 'Sam Morgan', year: 'Final-year', supervisorId: 'sup_davies', hoursLogged: 84, targetHours: 200, completedCases: 21 }
+  );
 
   const INITIAL_RECORDS = {
     osteopathy: {
@@ -97,12 +102,12 @@
       nhsNumber: '999 000 0000',
       episodeCode: 'LJMU-OST-2026-0812',
       discipline: 'osteopathy',
-      disciplineTitle: 'Osteopathy Clinic (GOsC Standard)',
+      disciplineTitle: 'Osteopathy Clinic',
       status: 'DRAFT: AWAITING SUPERVISOR COUNTERSIGNATURE',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
-      supervisorName: 'Dr. Sarah Jenkins, MCSP',
+      supervisorName: 'Dr. Sarah Jenkins',
       encounterDate: '2026-10-31 14:15 GMT',
       subjective: 'Patient reports persistent right cervicothoracic pain radiating towards the right levator scapulae following extended workstation hours (approx 9h daily). Denies radicular numbness, tingling, or peripheral weakness. Red flags screened negative: no saddle anaesthesia, no bladder/bowel dysfunction, no unexplained night pain or weight loss.',
       objective: 'Cervical active rotation restricted to right (55 deg, normal 80 deg) with end-range pain. Somatic dysfunction detected at C5-C6 with facet joint restriction. Hypertonicity noted in right upper trapezius and levator scapulae. Negative Spurling test.',
@@ -121,20 +126,20 @@
     },
     physiotherapy: {
       id: 'rec_2026_0904',
-      patientId: 'pat_watson',
-      patientName: 'Emma Watson',
+      patientId: 'pat_wilson',
+      patientName: 'Emma Wilson',
       age: 24,
       gender: 'Female',
       dob: '2002-03-21',
       nhsNumber: '999 000 0000',
       episodeCode: 'LJMU-PHY-2026-0904',
       discipline: 'physiotherapy',
-      disciplineTitle: 'Physiotherapy & MSK Clinic (CSP / HCPC Standard)',
+      disciplineTitle: 'Physiotherapy & MSK Clinic',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
-      supervisorName: 'Dr. Sarah Jenkins, MCSP',
+      supervisorName: 'Dr. Sarah Jenkins',
       encounterDate: '2026-10-30 11:00 GMT',
       subjective: 'Elite field hockey athlete presenting with 6-week progressive anterior knee pain, exacerbated by landing and decelerating. Morning stiffness < 15 mins.',
       objective: 'Focal tenderness over right inferior pole of patella. Single-leg decline squat provokes 6/10 familiar pain. Knee flexion ROM 135 deg symmetrical. Oxford scale: Quads 4/5.',
@@ -142,9 +147,9 @@
       studentDraftPlan: 'Initiate heavy slow resistance (HSR) leg extension protocol and decline board isometric squats (5x45s holds).',
       supervisorAmendment: 'Plan confirmed with progression criteria: Maintain isometrics until VAS <= 3, then graduate to concentric-eccentric loading 3x weekly.',
       activePlan: 'Initiate heavy slow resistance (HSR) leg extension protocol and decline board isometric squats (5x45s holds). Progress per criteria.',
-      signatureHash: 'SHA256:7e91f043ba4e21a8c093847291a4fd09e13b827e8a93112cba504d6f81a79241',
+      signatureHash: null,
       signedTimestamp: '2026-10-30T11:45:12Z',
-      supervisorSignedBy: 'Dr. Sarah Jenkins, MCSP',
+      supervisorSignedBy: 'Dr. Sarah Jenkins',
       researchConsent: true,
       bodyMarkers: [
         { x: 145, y: 310, type: 'primary', label: 'Patellar Tendon (Pain: 6/10)' },
@@ -166,8 +171,8 @@
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Final-year Student)',
-      supervisorId: 'usr_sup_001',
-      supervisorName: 'Dr. Mark Davies, PhD',
+      supervisorId: 'usr_sup_002',
+      supervisorName: 'Dr. Mark Davies',
       encounterDate: '2026-10-29 09:30 GMT',
       subjective: 'Masters marathon runner presenting for annual pre-season cardiovascular screening. Asymptomatic, denies syncope, palpitations, or atypical exertional dyspnoea.',
       objective: 'Resting BP: 118/76 mmHg. Resting HR: 52 bpm (sinus bradycardia of athlete). Radial-femoral pulse symmetry intact.',
@@ -175,9 +180,9 @@
       studentDraftPlan: 'Cleared for high-intensity endurance competition. Annual routine follow-up recommended.',
       supervisorAmendment: 'ECG reviewed and verified. Low cardiovascular risk profile.',
       activePlan: 'Cleared for high-intensity endurance competition. Annual routine follow-up recommended.',
-      signatureHash: 'SHA256:3a4b9c1d8820ef0192a54b38d7c491e0a293847591cdeba12398571029384abc',
+      signatureHash: null,
       signedTimestamp: '2026-10-29T10:15:00Z',
-      supervisorSignedBy: 'Dr. Mark Davies, PhD',
+      supervisorSignedBy: 'Dr. Mark Davies',
       researchConsent: true,
       ecgMetrics: {
         hr: 52,
@@ -186,24 +191,23 @@
         qtc: 408,
         rhythm: 'Normal Sinus Rhythm'
       },
-      qrisk3Score: 2.4 // 2.4% low 10-year risk
     },
     physiology: {
       id: 'rec_2026_1011',
-      patientId: 'pat_bennett',
-      patientName: 'Chloe Bennett',
-      age: 26,
+      patientId: 'pat_brooks',
+      patientName: 'Chloe Brooks',
+      age: 25,
       gender: 'Female',
       dob: '2000-11-09',
       nhsNumber: '999 000 0000',
       episodeCode: 'LJMU-EXP-2026-1011',
       discipline: 'physiology',
-      disciplineTitle: 'Exercise Physiology & CPET Suite (AHCS / CASES)',
+      disciplineTitle: 'Exercise Physiology & CPET Suite',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Final-year Student)',
-      supervisorId: 'usr_sup_001',
-      supervisorName: 'Dr. Mark Davies, PhD',
+      supervisorId: 'usr_sup_002',
+      supervisorName: 'Dr. Mark Davies',
       encounterDate: '2026-10-28 15:00 GMT',
       subjective: 'Competitive triathlete undergoing physiological benchmarking for aerobic power and ventilatory thresholds on Lode Excalibur ergometer.',
       objective: 'Continuous ramp test (25W/min). VO2peak achieved: 56.4 ml/kg/min (114% predicted). Peak RER 1.18. FEV1 4.20L (98% pred), FVC 4.95L, Ratio 84.8%.',
@@ -211,9 +215,9 @@
       studentDraftPlan: 'Structure Zone 2 endurance volume at 145-160W (below VT1); establish threshold intervals at 265-280W.',
       supervisorAmendment: 'Thresholds verified against gas exchange criteria (V-slope method). Approved training plan.',
       activePlan: 'Structure Zone 2 endurance volume at 145-160W (below VT1); establish threshold intervals at 265-280W.',
-      signatureHash: 'SHA256:c940291e0a2938471b827e8a93112cba504d6f81a792417e91f043ba4e21a8c0',
+      signatureHash: null,
       signedTimestamp: '2026-10-28T16:20:10Z',
-      supervisorSignedBy: 'Dr. Mark Davies, PhD (AHCS Registered)',
+      supervisorSignedBy: 'Dr. Mark Davies',
       researchConsent: true,
       cpetData: {
         vo2peak: 56.4,
@@ -236,12 +240,12 @@
       nhsNumber: '999 000 0000',
       episodeCode: 'LJMU-SNC-2026-1033',
       discipline: 'sc',
-      disciplineTitle: 'Strength & Conditioning Suite (CASES / UKSCA)',
+      disciplineTitle: 'Strength & Conditioning Suite',
       status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
       authorId: 'usr_stu_001',
       authorName: 'Alex Walker (Final-year Student)',
       supervisorId: 'usr_sup_001',
-      supervisorName: 'Dr. Sarah Jenkins, MCSP',
+      supervisorName: 'Dr. Sarah Jenkins',
       encounterDate: '2026-10-27 14:00 GMT',
       subjective: 'University rugby union wing recovering from grade 2 ankle syndesmosis strain. Return-to-play power assessment.',
       objective: 'ForceDecks dual plate countermovement jump (CMJ): Jump Height 42.6cm, RSImod 0.52, Eccentric Braking RFD 4,280 N/s. Left-Right peak force asymmetry: 3.2% right bias (within normal <10% tolerance).',
@@ -249,9 +253,9 @@
       studentDraftPlan: 'Clear for full-contact training and reactive change-of-direction drills.',
       supervisorAmendment: 'Return-to-play clearance ratified.',
       activePlan: 'Clear for full-contact training and reactive change-of-direction drills.',
-      signatureHash: 'SHA256:d8a4f9103b4e21a7c093847291a4fd09e13b827e8a93112cba504d6f81a79241',
+      signatureHash: null,
       signedTimestamp: '2026-10-27T15:10:00Z',
-      supervisorSignedBy: 'Dr. Sarah Jenkins, MCSP',
+      supervisorSignedBy: 'Dr. Sarah Jenkins',
       researchConsent: true,
       scData: {
         jumpHeight: 42.6,
@@ -265,6 +269,7 @@
   };
 
   const INITIAL_SERVICES = [
+    { id: 'srv_osteo_eval', name: 'Osteopathy Clinical Encounter', discipline: 'osteopathy', stream: 'Area A', vatRate: 0, vatCode: 'EXEMPT', vatExempt: true, price: 45, vatCategory: 'Illustrative healthcare exemption', duration: '60 mins', facility: 'Teaching Clinic' },
     {
       id: 'srv_physio_eval',
       name: 'Physiotherapy Initial Assessment',
@@ -274,7 +279,7 @@
       vatCode: 'EXEMPT',
       vatExempt: true,
       price: 45.00,
-      vatCategory: 'Healthcare Exempt (VATA 1994 Sch 9 Grp 7)',
+      vatCategory: 'Healthcare exemption (illustrative)',
       duration: '45 mins',
       facility: 'Teaching Clinic Bay 2/3'
     },
@@ -287,7 +292,7 @@
       vatCode: 'EXEMPT',
       vatExempt: true,
       price: 60.00,
-      vatCategory: 'Healthcare Exempt (VATA 1994 Sch 9 Grp 7)',
+      vatCategory: 'Healthcare exemption (illustrative)',
       duration: '60 mins',
       facility: 'Cardiovascular Screening Suite'
     },
@@ -302,7 +307,7 @@
       price: 400.00,
       vatCategory: 'Commercial Facility Hire (Standard 20%)',
       duration: '2 Hours',
-      facility: 'Tom Reilly Biomechanics Lab'
+      facility: 'Biomechanics laboratory'
     },
     {
       id: 'srv_cpet_hire',
@@ -326,9 +331,9 @@
       vatCode: 'EXEMPT',
       vatExempt: true,
       price: 125.00,
-      vatCategory: 'Eligible Body Vocational Training Exempt (VATA 1994 Sch 9 Grp 6, illustrative)',
+      vatCategory: 'Training exemption (illustrative)',
       duration: '1 Day (7 CPD hrs)',
-      facility: 'Tom Reilly Lecture & Practical Suite',
+      facility: 'Teaching and practical suite',
       seatsTotal: 20,
       seatsBooked: 20
     },
@@ -343,7 +348,7 @@
       price: 125.00,
       vatCategory: 'Commercial Facility Hire (Standard 20%)',
       duration: '1 Hour',
-      facility: 'Tom Reilly Environmental Chamber'
+      facility: 'Environmental chamber'
     }
   ];
 
@@ -353,7 +358,7 @@
       serviceId: 'srv_physio_eval',
       name: 'Physiotherapy Initial Assessment (Student Clinic)',
       stream: 'Area A Clinical',
-      category: 'Healthcare Exempt (VATA 1994 Sch 9 Grp 7)',
+      category: 'Healthcare exemption (illustrative)',
       vatRate: 0.0,
       vatExempt: true,
       unitPrice: 45.00,
@@ -364,7 +369,7 @@
       serviceId: 'srv_cardio_screen',
       name: '12-Lead ECG Cardiovascular Panel',
       stream: 'Area A Clinical',
-      category: 'Healthcare Exempt (VATA 1994 Sch 9 Grp 7)',
+      category: 'Healthcare exemption (illustrative)',
       vatRate: 0.0,
       vatExempt: true,
       unitPrice: 60.00,
@@ -432,474 +437,349 @@
       netStandard: 675.00,
       vatStandard: 135.00,
       totalGross: 915.00,
-      oracleEbsSynced: true,
-      oracleBatchId: 'EBS-2026-1031-01'
+      oracleEbsSynced: false,
+      oracleBatchId: 'REF-GL-001'
     }
   ];
 
-  const INITIAL_AUDIT_LOG = [
-    {
-      id: 'aud_1001',
-      timestamp: '2026-10-31T14:15:22Z',
-      userId: 'usr_stu_001',
-      userName: 'Alex Walker (Student Practitioner)',
-      role: 'student',
-      action: 'EPR_DRAFT_SAVE',
-      resource: 'rec_2026_0812 (James Taylor - Osteopathy)',
-      ip: '192.0.2.88',
-      hash: 'SHA256:7c3b2f910a4e321b09c847e9123847a98b71234cde56789012345678abcdef01'
-    },
-    {
-      id: 'aud_1002',
-      timestamp: '2026-10-31T14:16:05Z',
-      userId: 'usr_sup_001',
-      userName: 'Dr. Sarah Jenkins (Clinical Supervisor)',
-      role: 'supervisor',
-      action: 'EPR_REVIEW_ACCESS',
-      resource: 'rec_2026_0812 (James Taylor - Osteopathy)',
-      ip: '192.0.2.12',
-      hash: 'SHA256:8d2e41c99b12345ef0192837465abcde9876543210fedcba0987654321fedcba'
-    },
-    {
-      id: 'aud_1003',
-      timestamp: '2026-10-31T12:05:14Z',
-      userId: 'usr_mgr_001',
-      userName: 'Marcus Vance (Commercial Manager)',
-      role: 'manager',
-      action: 'PURCHASE_ORDER_APPROVE',
-      resource: 'ord_2026_0091 (Riverside AC (fictional) - £915.00)',
-      ip: '198.51.100.45',
-      hash: 'SHA256:4f81092384abcef01928374650192837465bcde8901234567890abcdef123456'
-    },
-    {
-      id: 'aud_1004',
-      timestamp: '2026-10-31T12:10:00Z',
-      userId: 'usr_mgr_001',
-      userName: 'Marcus Vance (Commercial Manager)',
-      role: 'manager',
-      action: 'ORACLE_EBS_GL_BATCH_GENERATE',
-      resource: 'GL_INTERFACE_BATCH_20261031_01',
-      ip: '198.51.100.45',
-      hash: 'SHA256:1a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d5e6f708192a3b4c5d6e7f809'
-    }
-  ];
+  const D = typeof module === 'object' && module.exports ? require('./domain.js') : HubDomain;
+  const CAPABILITIES = Object.freeze({
+    clinicalRead: ['student', 'supervisor'],
+    countersign: ['supervisor'],
+    researchExport: ['supervisor'],
+    commercialRead: ['manager', 'booker'],
+    submitOrder: ['manager', 'booker'],
+    approveOrder: ['manager'],
+    financeExport: ['manager'],
+    governanceRead: ['manager', 'supervisor'],
+    book: ['student', 'supervisor', 'manager', 'booker']
+  });
 
-  // Helper for SHA-256 fallback when Web Crypto isn't available
   async function computeSha256(message) {
-    if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
-      try {
-        const msgBuffer = new TextEncoder().encode(message);
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return 'SHA256:' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      } catch (e) {
-        // Fallback
-      }
-    }
-    // Simple deterministic pseudo-hash fallback for environments without subtle crypto
-    let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
-    for (let i = 0; i < message.length; i++) {
-      const ch = message.charCodeAt(i);
-      h1 = Math.imul(h1 ^ ch, 2654435761);
-      h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-    const hex = (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16).padStart(16, '0');
-    return 'SHA256:' + hex + hex + hex + hex;
+    const crypto = typeof window !== 'undefined' ? window.crypto : globalThis.crypto;
+    if (!crypto?.subtle) throw new Error('SHA-256 review requires Web Crypto. Open the HTTPS site or a localhost server.');
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(message));
+    return 'SHA256:' + Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
   }
 
   class Store {
     constructor() {
       this.listeners = [];
+      this.signing = new Map();
+      this.auditQueue = Promise.resolve();
+      this.generation = 0;
+      this.sequence = 0;
       this.state = this.loadInitialState();
     }
 
-    loadInitialState() {
-      try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          for (const oldKey of LEGACY_STORAGE_KEYS) {
-            window.localStorage.removeItem(oldKey);
-          }
-          const saved = window.localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const staleMarkers = ['Ultrasound', 'Cosmed', 'Portable CPET Portable CPET', 'SEShub', 'Copperas', 'caren', 'dexa', 'Harriers', '0% Exempt', 'Year 3 MSc', '150.204.', 'MCSP 049182', 'Cosmed'];
-            const hasStale = staleMarkers.some(m => saved.includes(m));
-            if (hasStale) {
-              window.localStorage.removeItem(STORAGE_KEY);
-            } else {
-              const parsed = JSON.parse(saved);
-              // Verify structure has records and cart
-              if (parsed && parsed.records && parsed.cart && parsed.currentUser) {
-                return parsed;
-              }
-            }
-          }
-        }
-      } catch (e) {
-        console.warn('Could not load stored state:', e);
-      }
-      return this.getDefaultState();
-    }
-
     getDefaultState() {
+      const records = D.clone(INITIAL_RECORDS);
+      for (const record of Object.values(records)) {
+        record.version = 1;
+        record.history = [];
+        record.signatureHash = null;
+        record.signaturePayload = null;
+        record.signatureOrigin = record.signedTimestamp ? 'reference' : null;
+        record.creditedEncounter = Boolean(record.signedTimestamp);
+      }
+      const orders = D.clone(INITIAL_ORDERS).map(order => ({ ...order,
+        submittedById: INITIAL_PERSONAS.booker.id, approvedById: INITIAL_PERSONAS.manager.id,
+        oracleEbsSynced: false, exportStatus: 'READY', oracleBatchId: 'REF-GL-001' }));
       return {
-        currentRole: 'supervisor', // Default persona
-        currentUser: JSON.parse(JSON.stringify(INITIAL_PERSONAS.supervisor)),
-        personas: JSON.parse(JSON.stringify(INITIAL_PERSONAS)),
-        facilities: JSON.parse(JSON.stringify(INITIAL_FACILITIES)),
-        equipment: JSON.parse(JSON.stringify(INITIAL_EQUIPMENT)),
-        supervisors: JSON.parse(JSON.stringify(INITIAL_SUPERVISOR_ROSTER)),
-        students: JSON.parse(JSON.stringify(INITIAL_STUDENT_ROSTER)),
-        records: JSON.parse(JSON.stringify(INITIAL_RECORDS)),
-        services: JSON.parse(JSON.stringify(INITIAL_SERVICES)),
-        cart: JSON.parse(JSON.stringify(INITIAL_CART)),
-        orders: JSON.parse(JSON.stringify(INITIAL_ORDERS)),
-        auditLog: JSON.parse(JSON.stringify(INITIAL_AUDIT_LOG)),
-        activeDiscipline: 'osteopathy',
-        activeTab: 'booking',
-        waitlist: [
-          { id: 'wl_001', clientName: 'David Miller', clientOrg: 'Riverside AC (fictional)', serviceId: 'srv_cpd_manip', time: '2026-10-31 09:12Z', status: 'WAITING' }
-        ],
+        schemaVersion: 4, referenceDate: '2026-10-31',
+        currentRole: 'supervisor', currentUser: D.clone(INITIAL_PERSONAS.supervisor),
+        personas: D.clone(INITIAL_PERSONAS), facilities: D.clone(INITIAL_FACILITIES),
+        equipment: D.clone(INITIAL_EQUIPMENT), supervisors: D.clone(INITIAL_SUPERVISOR_ROSTER),
+        students: D.clone(INITIAL_STUDENT_ROSTER), records, services: D.clone(INITIAL_SERVICES),
+        cart: D.clone(INITIAL_CART), orders, bookings: [], auditLog: [],
+        activeDiscipline: 'osteopathy', activeTab: 'booking',
+        waitlist: [{ id: 'wl_001', clientName: 'David Miller', clientOrg: 'Riverside Athletics Club',
+          userId: INITIAL_PERSONAS.booker.id, serviceId: 'srv_cpd_manip', status: 'WAITING' }],
         waitlistOffer: null
       };
     }
 
+    loadInitialState() {
+      try {
+        const storage = typeof window !== 'undefined' ? window.localStorage : null;
+        if (storage) {
+          for (const key of LEGACY_STORAGE_KEYS) storage.removeItem(key);
+          const saved = JSON.parse(storage.getItem(STORAGE_KEY) || 'null');
+          const arrays = ['facilities', 'equipment', 'supervisors', 'students', 'services', 'cart', 'orders', 'bookings', 'auditLog', 'waitlist'];
+          if (saved?.schemaVersion === 4 && Object.hasOwn(INITIAL_PERSONAS, saved.currentRole) &&
+              saved.records && Object.keys(INITIAL_RECORDS).every(key => saved.records[key]?.id) &&
+              arrays.every(key => Array.isArray(saved[key]))) {
+            saved.personas = D.clone(INITIAL_PERSONAS);
+            saved.currentUser = D.clone(INITIAL_PERSONAS[saved.currentRole]);
+            D.cartTotals(saved.cart);
+            return saved;
+          }
+        }
+      } catch (_) { /* Storage is optional; an invalid snapshot starts a clean reference session. */ }
+      return this.getDefaultState();
+    }
+
     saveState() {
       try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
-        }
-      } catch (e) {
-        // quota exceeded or privacy mode
-      }
+        if (typeof window !== 'undefined') window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+      } catch (_) { /* Private browsing can disable persistence without disabling the workflows. */ }
     }
 
-    getState() {
-      return this.state;
-    }
-
+    getState() { return this.state; }
     setState(patch) {
       this.state = { ...this.state, ...patch };
       this.saveState();
-      this.notify();
+      for (const listener of this.listeners) listener(this.state);
     }
-
     subscribe(listener) {
       this.listeners.push(listener);
-      return () => {
-        this.listeners = this.listeners.filter(l => l !== listener);
-      };
+      return () => { this.listeners = this.listeners.filter(item => item !== listener); };
     }
-
-    notify() {
-      for (const listener of this.listeners) {
-        try {
-          listener(this.state);
-        } catch (e) {
-          console.error('Error in state subscriber:', e);
-        }
-      }
-    }
-
     reset() {
-      try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          window.localStorage.removeItem(STORAGE_KEY);
-        }
-      } catch (e) {}
+      this.generation += 1;
+      this.signing.clear();
       this.state = this.getDefaultState();
-      this.saveState();
-      this.notify();
+      this.setState({});
     }
-
+    can(capability) { return Boolean(CAPABILITIES[capability]?.includes(this.state.currentRole)); }
+    requirePermission(capability) {
+      if (!this.can(capability)) throw new Error('This action requires an authorised ' +
+        (capability === 'approveOrder' || capability === 'financeExport' ? 'commercial manager.' : 'clinical supervisor or permitted role.'));
+    }
     setRole(roleId) {
-      if (this.state.personas[roleId]) {
-        const nextUser = JSON.parse(JSON.stringify(this.state.personas[roleId]));
-        this.setState({
-          currentRole: roleId,
-          currentUser: nextUser
-        });
-        this.addAuditLog('ROLE_SWITCH', `Switched active persona to ${nextUser.title} (${nextUser.name})`);
-      }
+      if (!Object.hasOwn(INITIAL_PERSONAS, roleId)) throw new Error('Unknown role.');
+      this.setState({ currentRole: roleId, currentUser: D.clone(INITIAL_PERSONAS[roleId]) });
+    }
+    setDiscipline(key) {
+      this.requirePermission('clinicalRead');
+      if (!Object.hasOwn(this.state.records, key)) throw new Error('Unknown clinical discipline.');
+      this.setState({ activeDiscipline: key });
+    }
+    uid(prefix) {
+      this.sequence += 1;
+      return `${prefix}_${Date.now().toString(36)}_${this.sequence.toString(36)}`;
     }
 
-    setDiscipline(disciplineKey) {
-      if (this.state.records[disciplineKey]) {
-        this.setState({ activeDiscipline: disciplineKey });
-      }
-    }
-
-    async addAuditLog(action, resource) {
-      const ts = new Date().toISOString();
-      const user = this.state.currentUser;
-      const rawPayload = `${ts}|${user.id}|${user.role}|${action}|${resource}`;
-      const hash = await computeSha256(rawPayload);
-
-      const entry = {
-        id: 'aud_' + Date.now().toString(36),
-        timestamp: ts,
-        userId: user.id,
-        userName: `${user.name} (${user.title.split(' ')[0]})`,
-        role: user.role,
-        action: action,
-        resource: resource,
-        ip: '192.0.2.' + Math.floor(10 + Math.random() * 80),
-        hash: hash
-      };
-
-      const updatedLog = [entry, ...this.state.auditLog];
-      this.setState({ auditLog: updatedLog });
-    }
-
-    calculateCartTotals() {
-      let netExempt = 0;
-      let netStandard = 0;
-      let vatStandard = 0;
-
-      for (const item of this.state.cart) {
-        const lineNet = item.unitPrice * item.qty;
-        if (item.vatExempt || item.vatRate === 0) {
-          netExempt += lineNet;
-        } else {
-          netStandard += lineNet;
-          vatStandard += lineNet * item.vatRate;
-        }
-      }
-
-      const totalGross = netExempt + netStandard + vatStandard;
-
-      return {
-        netExempt: Number(netExempt.toFixed(2)),
-        netStandard: Number(netStandard.toFixed(2)),
-        vatStandard: Number(vatStandard.toFixed(2)),
-        totalGross: Number(totalGross.toFixed(2))
-      };
-    }
-
-    async executeCountersignature(disciplineKey, amendmentText) {
-      const rec = this.state.records[disciplineKey];
-      if (!rec) return null;
-
-      const user = this.state.currentUser;
-      const ts = new Date().toISOString();
-      const payloadToSign = JSON.stringify({
-        recordId: rec.id,
-        patientId: rec.patientId,
-        discipline: rec.discipline,
-        studentId: rec.authorId,
-        supervisorId: user.id,
-        timestamp: ts,
-        amendment: amendmentText || rec.supervisorAmendment,
-        version: 1
+    addAuditLog(action, resource) {
+      const user = D.clone(this.state.currentUser);
+      const generation = this.generation;
+      const timestamp = new Date().toISOString();
+      this.auditQueue = this.auditQueue.then(async () => {
+        if (generation !== this.generation) return;
+        const previousHash = this.state.auditLog[0]?.hash || null;
+        const entry = { id: this.uid('audit'), timestamp, userId: user.id, userName: user.name,
+          role: user.role, action, resource, previousHash };
+        let hash = null;
+        try { hash = await computeSha256(D.canonical(entry)); } catch (_) { /* No false digest when Web Crypto is unavailable. */ }
+        if (generation !== this.generation) return;
+        this.setState({ auditLog: [{ ...entry, hash }, ...this.state.auditLog] });
       });
+      return this.auditQueue;
+    }
+    getAuditEntries() {
+      this.requirePermission('governanceRead');
+      return this.state.auditLog.filter(entry => this.state.currentRole === 'supervisor'
+        ? !/^(PO_|PURCHASE_|FINANCE_)/.test(entry.action)
+        : !/^(EPR_|SUPERVISOR_|RESEARCH_)/.test(entry.action));
+    }
 
-      const signatureHash = await computeSha256(payloadToSign);
+    calculateCartTotals() { return D.cartTotals(this.state.cart); }
+    addToCart(serviceId) {
+      this.requirePermission('commercialRead');
+      const service = this.state.services.find(item => item.id === serviceId);
+      if (!service) throw new Error('Unknown service.');
+      if (Number.isInteger(service.seatsTotal) && service.seatsBooked >= service.seatsTotal) throw new Error('This course is full. Use the waiting list.');
+      const cart = D.clone(this.state.cart);
+      const existing = cart.find(item => item.serviceId === serviceId);
+      if (existing) existing.qty += 1;
+      else cart.push({ id: this.uid('cart'), serviceId, name: service.name, stream: service.stream,
+        category: service.vatCategory, vatRate: service.vatRate, vatExempt: service.vatExempt, unitPrice: service.price, qty: 1 });
+      D.cartTotals(cart);
+      this.setState({ cart });
+    }
+    removeFromCart(itemId) {
+      this.requirePermission('commercialRead');
+      this.setState({ cart: this.state.cart.filter(item => item.id !== itemId) });
+    }
 
-      const updatedRecord = {
-        ...rec,
-        status: 'SUPERVISOR COUNTERSIGNED & LOCKED',
-        activePlan: amendmentText || rec.supervisorAmendment || rec.studentDraftPlan,
-        supervisorAmendment: amendmentText || rec.supervisorAmendment,
-        signatureHash: signatureHash,
-        signedTimestamp: ts,
-        supervisorSignedBy: `${user.name} (${user.title})`
-      };
-
-      const updatedRecords = {
-        ...this.state.records,
-        [disciplineKey]: updatedRecord
-      };
-
-      // Also increment student competency hours
-      const updatedStudents = this.state.students.map(s => {
-        if (s.id === 'stu_walker') {
-          return { ...s, hoursLogged: s.hoursLogged + 1, completedCases: s.completedCases + 1 };
-        }
-        return s;
-      });
-
+    evaluateBooking(request) { return D.bookingConstraints(this.state, request); }
+    confirmBooking(request) {
+      this.requirePermission('book');
+      if (request.slotId !== 'reference-afternoon') throw new Error('Select the reference afternoon session.');
+      const result = this.evaluateBooking(request);
+      if (!result.valid) throw new Error(Object.values(result.checks).filter(x => !x.ok).map(x => x.message).join(' '));
+      const service = this.state.services.find(x => x.id === request.serviceId);
+      if (service.stream === 'Area A' && !this.can('clinicalRead')) throw new Error('A clinical role is required to allocate supervised clinical appointments.');
+      const student = service.stream === 'Area A' && this.state.students.find(x => x.id === request.practitionerId);
+      const booking = { ...request, id: this.uid('booking'), status: 'CONFIRMED', createdBy: this.state.currentUser.id };
       this.setState({
-        records: updatedRecords,
-        students: updatedStudents
+        bookings: [...this.state.bookings, booking],
+        facilities: this.state.facilities.map(x => x.id === request.roomId ? { ...x, status: 'occupied' } : x),
+        equipment: this.state.equipment.map(x => x.id === request.equipmentId ? { ...x, status: 'reserved' } : x),
+        supervisors: this.state.supervisors.map(x => student && x.id === request.supervisorId ? { ...x, activeBays: x.activeBays + 1 } : x)
       });
-
-      await this.addAuditLog('SUPERVISOR_COUNTERSIGN', `${rec.id} (${rec.patientName}) countersigned by ${user.name} [${signatureHash.substring(0, 16)}...]`);
-      return updatedRecord;
+      void this.addAuditLog('BOOKING_CONFIRMED', booking.id + ' / ' + request.roomId);
+      return booking;
     }
 
-    async submitPurchaseOrder(poDetails) {
+    createWaitlistOffer(now = Date.now()) {
+      if (!['supervisor', 'manager'].includes(this.state.currentRole)) throw new Error('A service lead must release a waiting-list place.');
+      const current = this.state.waitlistOffer;
+      if (current?.status === 'OFFERED' && Date.parse(current.expiresAt) > now) return current;
+      const person = this.state.waitlist.find(x => x.status === 'WAITING');
+      if (!person) throw new Error('No eligible people remain on the waiting list.');
+      const service = this.state.services.find(x => x.id === person.serviceId);
+      const offer = { ...person, id: this.uid('offer'), serviceName: service.name,
+        status: 'OFFERED', expiresAt: new Date(now + 15 * 60 * 1000).toISOString() };
+      this.setState({ waitlistOffer: offer, services: this.state.services.map(x => x.id === service.id
+        ? { ...x, seatsBooked: Math.min(x.seatsBooked, x.seatsTotal - 1) } : x) });
+      void this.addAuditLog('WAITLIST_OFFER', offer.id);
+      return offer;
+    }
+    claimWaitlistOffer(now = Date.now()) {
+      const offer = this.state.waitlistOffer;
+      if (!offer || offer.status !== 'OFFERED' || Date.parse(offer.expiresAt) <= now) throw new Error('This offer has expired or is no longer available.');
+      if (this.state.currentUser.id !== offer.userId) throw new Error('Switch to the invited corporate booker to accept this offer.');
+      const service = this.state.services.find(x => x.id === offer.serviceId);
+      if (service.seatsBooked >= service.seatsTotal) throw new Error('No course places remain.');
+      this.setState({ waitlistOffer: { ...offer, status: 'CLAIMED' },
+        services: this.state.services.map(x => x.id === service.id ? { ...x, seatsBooked: x.seatsBooked + 1 } : x),
+        waitlist: this.state.waitlist.map(x => x.id === offer.id || x.userId === offer.userId ? { ...x, status: 'BOOKED' } : x) });
+      void this.addAuditLog('WAITLIST_CLAIM', offer.id);
+      return this.state.waitlistOffer;
+    }
+
+    saveDraft(key, fields) {
+      this.requirePermission('clinicalRead');
+      const record = this.state.records[key];
+      if (!record || record.authorId !== this.state.currentUser.id || this.state.currentRole !== 'student') throw new Error('Only the authoring student can edit this draft.');
+      if (record.status.includes('LOCKED')) throw new Error('A countersigned record is locked.');
+      const next = { ...record };
+      for (const field of ['subjective', 'objective', 'assessment', 'studentDraftPlan']) {
+        if (typeof fields[field] !== 'string' || !fields[field].trim() || fields[field].length > 10000) throw new Error('Complete all draft fields using no more than 10,000 characters per field.');
+        next[field] = fields[field].trim();
+      }
+      next.activePlan = next.studentDraftPlan;
+      next.version = record.version + 1;
+      next.history = [...record.history, { version: record.version, event: 'DRAFT_SAVED', content: D.recordContent(record) }];
+      this.setState({ records: { ...this.state.records, [key]: next } });
+      void this.addAuditLog('EPR_DRAFT_SAVE', `${record.id} / version ${next.version}`);
+      return next;
+    }
+
+    async executeCountersignature(key, amendmentText) {
+      this.requirePermission('countersign');
+      const record = this.state.records[key];
+      if (!record) throw new Error('Clinical record not found.');
+      if (record.supervisorId !== this.state.currentUser.id) throw new Error('Only the assigned supervisor can countersign this record.');
+      if (record.status.includes('LOCKED')) return D.clone(record);
+      if (this.signing.has(record.id)) return this.signing.get(record.id);
+      const actor = D.clone(this.state.currentUser);
+      const generation = this.generation;
+      const original = D.canonical(record);
+      const operation = (async () => {
+        const timestamp = new Date().toISOString();
+        const amendment = String(amendmentText ?? record.supervisorAmendment ?? '').trim();
+        if (!amendment || amendment.length > 10000) throw new Error('Enter a supervisor review of 1 to 10,000 characters.');
+        const updated = { ...D.clone(record), supervisorAmendment: amendment, activePlan: amendment };
+        const payload = { record: D.recordContent(updated), supervisorId: actor.id, timestamp, version: record.version };
+        const signatureHash = await computeSha256(D.canonical(payload));
+        if (generation !== this.generation || this.state.currentRole !== 'supervisor' || this.state.currentUser.id !== actor.id ||
+            D.canonical(this.state.records[key]) !== original) throw new Error('The record or active role changed during review. Review the current version again.');
+        Object.assign(updated, { status: 'SUPERVISOR COUNTERSIGNED & LOCKED', signatureHash,
+          signaturePayload: payload, signatureOrigin: 'session', signedTimestamp: timestamp,
+          supervisorSignedBy: actor.name, creditedEncounter: true });
+        const students = this.state.students.map(student => student.userId === record.authorId && !record.creditedEncounter
+          ? { ...student, hoursLogged: student.hoursLogged + 1, completedCases: student.completedCases + 1 } : student);
+        this.setState({ records: { ...this.state.records, [key]: updated }, students });
+        await this.addAuditLog('SUPERVISOR_COUNTERSIGN', `${record.id} / version ${record.version}`);
+        return D.clone(updated);
+      })();
+      this.signing.set(record.id, operation);
+      try { return await operation; } finally { this.signing.delete(record.id); }
+    }
+
+    async verifyCountersignature(key) {
+      this.requirePermission('clinicalRead');
+      const record = this.state.records[key];
+      if (!record?.signaturePayload || !record.signatureHash) return { valid: false, reason: 'No session-generated digest for this reference record.' };
+      const unchanged = D.canonical(D.recordContent(record)) === D.canonical(record.signaturePayload.record);
+      const digest = await computeSha256(D.canonical(record.signaturePayload));
+      return { valid: unchanged && digest === record.signatureHash, reason: unchanged && digest === record.signatureHash ? 'Record version matches its SHA-256 digest.' : 'Record content no longer matches the reviewed version.' };
+    }
+
+    async submitPurchaseOrder(details) {
+      this.requirePermission('submitOrder');
+      if (!this.state.cart.length) throw new Error('The basket is empty. Add a service before submitting.');
+      const poNumber = String(details.poNumber ?? '').trim();
+      if (!/^[A-Za-z0-9][A-Za-z0-9 ._\/-]{2,63}$/.test(poNumber)) throw new Error('Enter a PO reference of 3–64 letters, numbers, spaces, dots, slashes or hyphens.');
+      const paymentTerms = details.paymentTerms || 'Net 30 Days';
+      if (!['Net 30 Days', 'Net 60 Days', 'Payment in advance'].includes(paymentTerms)) throw new Error('Invalid payment terms.');
       const totals = this.calculateCartTotals();
-      const orderId = 'ord_' + Date.now().toString(36);
-      const orderNumber = 'ORD-2026-' + Math.floor(1000 + Math.random() * 9000);
-
-      const newOrder = {
-        id: orderId,
-        orderNumber: orderNumber,
-        customerType: 'B2B_ORGANISATIONAL',
-        organisationName: poDetails.orgName || 'Riverside Athletics Club (fictional)',
-        bookerName: poDetails.bookerName || this.state.currentUser.name,
-        bookerEmail: poDetails.bookerEmail || 'd.miller@riverside-ac.example',
-        payingOrg: poDetails.payingOrg || 'Riverside AC (fictional) Accounts Payable',
-        invoiceEmail: poDetails.invoiceEmail || 'accounts@riverside-ac.example',
-        poNumber: poDetails.poNumber || 'RAC-2026-PO-' + Math.floor(1000 + Math.random() * 9000),
-        paymentTerms: poDetails.paymentTerms || 'Net 30 Days',
-        status: 'PENDING_PO_VERIFICATION',
-        dateCreated: new Date().toISOString(),
-        dateApproved: null,
-        approvedBy: null,
-        items: this.state.cart.map(c => ({
-          name: c.name,
-          qty: c.qty,
-          unitPrice: c.unitPrice,
-          vatRate: c.vatRate,
-          net: c.unitPrice * c.qty,
-          vat: c.vatExempt ? 0 : c.unitPrice * c.qty * c.vatRate
-        })),
-        netExempt: totals.netExempt,
-        netStandard: totals.netStandard,
-        vatStandard: totals.vatStandard,
-        totalGross: totals.totalGross,
-        oracleEbsSynced: false,
-        oracleBatchId: null
-      };
-
-      const updatedOrders = [newOrder, ...this.state.orders];
-      this.setState({ orders: updatedOrders });
-
-      await this.addAuditLog('PO_SUBMIT', `${orderNumber} submitted by ${newOrder.bookerName} (PO: ${newOrder.poNumber}, Total: £${totals.totalGross})`);
-      return newOrder;
+      const actor = this.state.currentUser;
+      const items = this.state.cart.map(item => ({ ...D.clone(item), ...D.lineAmounts(item) }));
+      const duplicate = this.state.orders.find(order => order.poNumber.toUpperCase() === poNumber.toUpperCase() && order.submittedById === actor.id);
+      if (duplicate) {
+        if (D.canonical(duplicate.items) === D.canonical(items) && duplicate.paymentTerms === paymentTerms) return D.clone(duplicate);
+        throw new Error('This PO reference already belongs to a different order. Use a new reference.');
+      }
+      const order = { id: this.uid('order'), orderNumber: 'REF-' + this.uid('PO').toUpperCase(),
+        customerType: 'B2B_ORGANISATIONAL', organisationName: 'Riverside Athletics Club',
+        bookerName: actor.name, submittedById: actor.id, invoiceEmail: 'accounts@riverside-ac.example',
+        poNumber, paymentTerms, status: 'PENDING_PO_VERIFICATION', dateCreated: new Date().toISOString(),
+        dateApproved: null, approvedBy: null, items, ...totals, oracleEbsSynced: false,
+        oracleBatchId: null, exportStatus: 'AWAITING_APPROVAL' };
+      this.setState({ orders: [order, ...this.state.orders] });
+      await this.addAuditLog('PO_SUBMIT', `${order.orderNumber} / ${poNumber} / GBP ${totals.totalGross.toFixed(2)}`);
+      return D.clone(order);
     }
 
-    async approvePurchaseOrder(orderId) {
-      const user = this.state.currentUser;
-      const ts = new Date().toISOString();
-      const batchId = 'EBS-2026-' + Math.floor(1000 + Math.random() * 9000);
-
-      const updatedOrders = this.state.orders.map(ord => {
-        if (ord.id === orderId) {
-          return {
-            ...ord,
-            status: 'APPROVED: AWAITING PAYMENT',
-            dateApproved: ts,
-            approvedBy: `${user.name} (${user.title})`,
-            oracleEbsSynced: true,
-            oracleBatchId: batchId
-          };
-        }
-        return ord;
-      });
-
-      this.setState({ orders: updatedOrders });
-      await this.addAuditLog('PURCHASE_ORDER_APPROVE', `${orderId} approved by ${user.name} and synced to Oracle EBS Batch ${batchId}`);
+    async approvePurchaseOrder(id) {
+      this.requirePermission('approveOrder');
+      const order = this.state.orders.find(item => item.id === id);
+      if (!order) throw new Error('Purchase order not found.');
+      if (order.submittedById === this.state.currentUser.id) throw new Error('A different authorised manager must approve the order.');
+      if (order.dateApproved) return D.clone(order);
+      if (order.status !== 'PENDING_PO_VERIFICATION') throw new Error('This order is not awaiting approval.');
+      const approved = { ...order, status: 'APPROVED: AWAITING PAYMENT', dateApproved: new Date().toISOString(),
+        approvedBy: this.state.currentUser.name, approvedById: this.state.currentUser.id,
+        oracleEbsSynced: false, oracleBatchId: this.uid('REF-GL'), exportStatus: 'READY' };
+      this.setState({ orders: this.state.orders.map(item => item.id === id ? approved : item) });
+      await this.addAuditLog('PURCHASE_ORDER_APPROVE', `${order.orderNumber} / export ready`);
+      return D.clone(approved);
     }
 
     generateOracleGLCSV() {
-      const headers = [
-        'STATUS',
-        'LEDGER_ID',
-        'ACCOUNTING_DATE',
-        'USER_JE_SOURCE_NAME',
-        'USER_JE_CATEGORY_NAME',
-        'SEGMENT1_ENTITY',
-        'SEGMENT2_COST_CENTRE',
-        'SEGMENT3_SUB_UNIT',
-        'SEGMENT4_ACCOUNT',
-        'SEGMENT5_PROJECT',
-        'ENTERED_DR',
-        'ENTERED_CR',
-        'CURRENCY_CODE',
-        'REFERENCE1_PO',
-        'REFERENCE4_DESC'
-      ];
-
-      const rows = [
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4020', '7210', 'PRJ-PERFHUB', '', '105.00', 'GBP', 'N/A', 'Clinical Consultations Healthcare (VAT Exempt)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7220', 'PRJ-PERFHUB', '', '400.00', 'GBP', 'RAC-2026-PO-9942', 'Biomechanics Lab Hire 2h (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7230', 'PRJ-PERFHUB', '', '150.00', 'GBP', 'RAC-2026-PO-9942', 'Portable CPET Cart Hire Day Rate (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Commercial Sales', '01', '101', '4030', '7240', 'PRJ-PERFHUB', '', '125.00', 'GBP', 'RAC-2026-PO-9942', 'Environmental Chamber Hire 1h (Std Rated 20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'VAT Payable', '01', '101', '0000', '2110', 'PRJ-PERFHUB', '', '135.00', 'GBP', 'RAC-2026-PO-9942', 'HM Revenue & Customs Output VAT (20%)'],
-        ['NEW', '2026', '2026-10-31', 'OIV_CLINICAL_HUB', 'Trade Debtors', '01', '101', '0000', '1210', 'PRJ-PERFHUB', '915.00', '', 'GBP', 'RAC-2026-PO-9942', 'Accounts Receivable Control Riverside AC (fictional)']
-      ];
-
-      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-      return csvContent;
+      this.requirePermission('financeExport');
+      const rows = [['STATUS', 'LEDGER_ID', 'ACCOUNTING_DATE', 'USER_JE_SOURCE_NAME', 'USER_JE_CATEGORY_NAME',
+        'SEGMENT1_ENTITY', 'SEGMENT2_COST_CENTRE', 'SEGMENT3_SUB_UNIT', 'SEGMENT4_ACCOUNT', 'SEGMENT5_PROJECT',
+        'ENTERED_DR', 'ENTERED_CR', 'CURRENCY_CODE', 'REFERENCE1_PO', 'REFERENCE4_DESC']];
+      for (const order of this.state.orders.filter(item => item.dateApproved && item.exportStatus === 'READY')) {
+        const row = (account, debit, credit, description, category = 'Commercial Sales') => ['NEW', 'REF-LEDGER',
+          order.dateApproved.slice(0, 10), 'OIV_REFERENCE', category, '01', '101', '4030', account, 'PRJ-REFERENCE',
+          debit ? debit.toFixed(2) : '', credit ? credit.toFixed(2) : '', 'GBP', order.poNumber, description];
+        for (const item of order.items) rows.push(row(item.vatRate === 0 ? '7210' : '7220', 0, item.net, item.name));
+        if (order.vatStandard) rows.push(row('2110', 0, order.vatStandard, 'Output VAT', 'VAT Payable'));
+        rows.push(row('1210', order.totalGross, 0, order.orderNumber, 'Trade Debtors'));
+      }
+      return D.csv(rows);
     }
 
+    researchRows() {
+      this.requirePermission('researchExport');
+      return Object.values(this.state.records).map((record, index) => ({ record, index })).filter(({ record }) => record.researchConsent === true).map(({ record, index }) => ({
+        researchId: 'REF-STUDY-' + String(index + 1).padStart(3, '0'),
+        ageBand: `${Math.floor(record.age / 5) * 5}-${Math.floor(record.age / 5) * 5 + 4}`,
+        discipline: record.discipline, reviewed: record.status.includes('LOCKED'),
+        recordVersion: record.version, consentRecorded: true
+      }));
+    }
     generateResearchCSV() {
-      const headers = [
-        'PSEUDONYM_ID',
-        'AGE_BAND',
-        'GENDER',
-        'DISTRICT_POSTCODE',
-        'SERVICE_DISCIPLINE',
-        'ENCOUNTER_DATE',
-        'PRESENTING_REGION',
-        'PRIMARY_DIAGNOSIS_CODE',
-        'STANDARDIZED_OUTCOME_SCORE',
-        'RESEARCH_CONSENT_VERIFIED'
-      ];
-
-      const rows = [
-        ['LJMU-RES-8841-A', '25-29', 'Male', 'L3', 'Osteopathy', '2026-10-31', 'Cervicothoracic Spine', 'ICD11:ME84.0', 'VAS:6/10', 'TRUE'],
-        ['LJMU-RES-8842-B', '20-24', 'Female', 'L3', 'Physiotherapy', '2026-10-30', 'Patellar Tendon', 'VISA-P:62/100', 'MSK-HQ:38/56', 'TRUE'],
-        ['LJMU-RES-8843-C', '50-54', 'Male', 'L3', 'Cardiovascular', '2026-10-29', 'Cardiopulmonary Screening', 'Rhythm:SinusBrady', 'QRISK3:2.4%', 'TRUE'],
-        ['LJMU-RES-8844-D', '25-29', 'Female', 'L3', 'Exercise Physiology', '2026-10-28', 'Cardiopulmonary Fitness', 'VO2peak:56.4', 'VT1:165W_VT2:285W', 'TRUE'],
-        ['LJMU-RES-8845-E', '20-24', 'Male', 'L3', 'Strength & Conditioning', '2026-10-27', 'Neuromuscular Power', 'CMJ:42.6cm', 'Asymmetry:3.2%', 'TRUE']
-      ];
-
-      return [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const rows = this.researchRows();
+      return D.csv([['STUDY_ID', 'AGE_BAND', 'DISCIPLINE', 'REVIEWED', 'RECORD_VERSION', 'CONSENT_RECORDED'],
+        ...rows.map(row => [row.researchId, row.ageBand, row.discipline, row.reviewed, row.recordVersion, row.consentRecorded])]);
     }
-
-    generateResearchJSON() {
-      return JSON.stringify([
-        {
-          researchId: 'LJMU-RES-8841-A',
-          ageBand: '25-29 years',
-          gender: 'Male',
-          outwardPostcode: 'L3',
-          discipline: 'Osteopathy',
-          clinicalMetrics: { chiefComplaint: 'Cervical Spine', restriction: 'C5-C6 Facet', initialVAS: 6 },
-          consentRecorded: true
-        },
-        {
-          researchId: 'LJMU-RES-8842-B',
-          ageBand: '20-24 years',
-          gender: 'Female',
-          outwardPostcode: 'L3',
-          discipline: 'Physiotherapy',
-          clinicalMetrics: { condition: 'Patellar Tendinopathy', visaP: 62, mskHq: 38 },
-          consentRecorded: true
-        },
-        {
-          researchId: 'LJMU-RES-8843-C',
-          ageBand: '50-54 years',
-          gender: 'Male',
-          outwardPostcode: 'L3',
-          discipline: 'Cardiovascular Screening',
-          clinicalMetrics: { restingHR: 52, restingBP: '118/76', qrisk3Pct: 2.4, ecgRhythm: 'Sinus' },
-          consentRecorded: true
-        },
-        {
-          researchId: 'LJMU-RES-8844-D',
-          ageBand: '25-29 years',
-          gender: 'Female',
-          outwardPostcode: 'L3',
-          discipline: 'Clinical Exercise Physiology',
-          clinicalMetrics: { vo2peak: 56.4, vt1Watts: 165, vt2Watts: 285, fev1FvcRatio: 84.8 },
-          consentRecorded: true
-        },
-        {
-          researchId: 'LJMU-RES-8845-E',
-          ageBand: '20-24 years',
-          gender: 'Male',
-          outwardPostcode: 'L3',
-          discipline: 'Strength & Conditioning',
-          clinicalMetrics: { cmjHeightCm: 42.6, rsimod: 0.52, asymmetryPct: 3.2, vbtMeanVel: 0.72 },
-          consentRecorded: true
-        }
-      ], null, 2);
-    }
+    generateResearchJSON() { return JSON.stringify(this.researchRows(), null, 2); }
   }
 
   return new Store();

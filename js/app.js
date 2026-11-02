@@ -1,273 +1,154 @@
-/**
- * LJMU Clinical, Student Supervision & Commercial Booking Hub
- * Master Application Controller & Router
- * Author: ONOUR IMPRAM VENTURES LTD (Company #17429906)
- */
-
+/** Navigation, accessible dialogs and shared presentation helpers. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.App = factory();
-  }
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.App = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
+  const TABS = ['booking', 'epr', 'commercial', 'governance'];
+  const ROLE_LABELS = { student: 'Student', supervisor: 'Supervisor', manager: 'Commercial lead', booker: 'Corporate booker' };
 
   class Application {
     constructor() {
       this.activeTab = 'booking';
       this.toastTimeout = null;
+      this.modal = null;
+      this.modalTrigger = null;
     }
-
     init() {
-      // 1. Initialise Module Views
-      if (typeof BookingModule !== 'undefined') BookingModule.init('view-booking');
-      if (typeof EPRModule !== 'undefined') EPRModule.init('view-epr');
-      if (typeof CommercialModule !== 'undefined') CommercialModule.init('view-commercial');
-      if (typeof GovernanceModule !== 'undefined') GovernanceModule.init('view-governance');
-
-      // 2. Setup Navigation & Role Event Listeners
-      this.bindTabNavigation();
-      this.bindRoleSwitcher();
-      this.bindGlobalActions();
-
-      // 3. Subscribe to Store State Changes
-      AppStore.subscribe((state) => {
-        this.updateRoleBanner(state);
+      this.modules = { booking: BookingModule, epr: EPRModule, commercial: CommercialModule, governance: GovernanceModule };
+      for (const [name, module] of Object.entries(this.modules)) module.init('view-' + name);
+      for (const name of TABS) {
+        const button = document.getElementById('tab-' + name);
+        button.addEventListener('click', () => this.switchTab(name));
+        button.addEventListener('keydown', event => {
+          let target;
+          const index = TABS.indexOf(name);
+          if (event.key === 'ArrowRight') target = TABS[(index + 1) % TABS.length];
+          if (event.key === 'ArrowLeft') target = TABS[(index + TABS.length - 1) % TABS.length];
+          if (event.key === 'Home') target = TABS[0];
+          if (event.key === 'End') target = TABS[TABS.length - 1];
+          if (target) { event.preventDefault(); this.switchTab(target); document.getElementById('tab-' + target).focus(); }
+        });
+      }
+      document.getElementById('role-select').addEventListener('change', event => this.usePersona(event.target.value));
+      document.getElementById('btn-reset-demo').addEventListener('click', () => {
+        if (window.confirm('Reset the reference data and clear this walkthrough’s bookings, reviews and orders?')) {
+          this.closeDialog(); AppStore.reset(); this.refreshAllViews();
+          this.showToast('Reference data reset. The walkthrough is ready.');
+        }
       });
-
-      // 4. Initial Banner Render
+      for (const [open, modal, close] of [
+        ['btn-open-arch-modal', 'arch-modal', 'btn-close-arch'],
+        ['btn-open-pillars-modal', 'pillars-modal', 'btn-close-pillars']
+      ]) this.bindDialog(open, modal, close);
+      document.addEventListener('keydown', event => this.handleDialogKeys(event));
+      AppStore.subscribe(state => this.updateRoleBanner(state));
       this.updateRoleBanner(AppStore.getState());
-      this.switchTab(this.activeTab);
-
-      console.log('LJMU Clinical, Supervision & Commercial Hub initialised successfully.');
+      this.switchTab('booking');
     }
-
-    bindTabNavigation() {
-      const tabs = [
-        { btnId: 'tab-booking', viewId: 'view-booking', tabName: 'booking' },
-        { btnId: 'tab-epr', viewId: 'view-epr', tabName: 'epr' },
-        { btnId: 'tab-commercial', viewId: 'view-commercial', tabName: 'commercial' },
-        { btnId: 'tab-governance', viewId: 'view-governance', tabName: 'governance' }
-      ];
-
-      tabs.forEach(t => {
-        const btn = document.getElementById(t.btnId);
-        if (btn) {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.switchTab(t.tabName);
-          });
-        }
-      });
-    }
-
-    switchTab(tabName) {
-      this.activeTab = tabName;
-      const tabMap = {
-        booking: { btn: 'tab-booking', view: 'view-booking' },
-        epr: { btn: 'tab-epr', view: 'view-epr' },
-        commercial: { btn: 'tab-commercial', view: 'view-commercial' },
-        governance: { btn: 'tab-governance', view: 'view-governance' }
-      };
-
-      Object.keys(tabMap).forEach(key => {
-        const item = tabMap[key];
-        const btn = document.getElementById(item.btn);
-        const view = document.getElementById(item.view);
-        const isActive = key === tabName;
-
-        if (btn) {
-          if (isActive) {
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            btn.setAttribute('tabindex', '0');
-          } else {
-            btn.classList.remove('active');
-            btn.setAttribute('aria-selected', 'false');
-            btn.setAttribute('tabindex', '-1');
-          }
-        }
-
-        if (view) {
-          if (isActive) {
-            view.style.display = 'block';
-            view.setAttribute('aria-hidden', 'false');
-          } else {
-            view.style.display = 'none';
-            view.setAttribute('aria-hidden', 'true');
-          }
-        }
-      });
-
-      // Refresh corresponding view content if needed
-      if (tabName === 'booking' && typeof BookingModule !== 'undefined') BookingModule.render();
-      if (tabName === 'epr' && typeof EPRModule !== 'undefined') EPRModule.render();
-      if (tabName === 'commercial' && typeof CommercialModule !== 'undefined') CommercialModule.render();
-      if (tabName === 'governance' && typeof GovernanceModule !== 'undefined') GovernanceModule.render();
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    bindRoleSwitcher() {
-      const select = document.getElementById('role-select');
-      const roleButtons = document.querySelectorAll('[data-role]');
-
-      if (select) {
-        select.addEventListener('change', (e) => {
-          AppStore.setRole(e.target.value);
-          this.refreshAllViews();
-        });
+    switchTab(name) {
+      if (!TABS.includes(name)) return;
+      this.closeDialog();
+      this.activeTab = name;
+      for (const tab of TABS) {
+        const active = tab === name;
+        const button = document.getElementById('tab-' + tab);
+        const view = document.getElementById('view-' + tab);
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-selected', String(active));
+        button.tabIndex = active ? 0 : -1;
+        view.hidden = !active;
+        view.setAttribute('aria-hidden', String(!active));
       }
-
-      roleButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const roleId = btn.getAttribute('data-role');
-          if (roleId) {
-            AppStore.setRole(roleId);
-            if (select) select.value = roleId;
-            this.refreshAllViews();
-          }
-        });
-      });
+      this.modules[name].render();
     }
-
-    updateRoleBanner(state) {
-      const banner = document.getElementById('role-banner');
-      const select = document.getElementById('role-select');
-      const user = state.currentUser;
-      const role = state.currentRole;
-
-      if (select && select.value !== role) {
-        select.value = role;
-      }
-
-      // Update role buttons active state
-      document.querySelectorAll('[data-role]').forEach(btn => {
-        if (btn.getAttribute('data-role') === role) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-
-      if (!banner) return;
-
-      banner.className = `role-banner ${user.badgeClass || 'badge-neutral'}`;
-      banner.innerHTML = `
-        <div class="container role-banner-inner">
-          <div class="role-banner-content">
-            <span class="role-indicator-dot" aria-hidden="true"></span>
-            <span class="role-banner-title">
-              Active Persona: <strong>${user.title}</strong> (${user.name})
-            </span>
-            <span class="role-banner-divider" aria-hidden="true">·</span>
-            <span class="role-banner-meta">${user.bannerMsg || user.program || ''}</span>
-          </div>
-          <div class="role-quick-switch-pills" role="group" aria-label="Quick Persona Switch">
-            <span class="role-switch-label">Persona View:</span>
-            <button type="button" class="pill-role ${role === 'student' ? 'active' : ''}" data-role="student">Student</button>
-            <button type="button" class="pill-role ${role === 'supervisor' ? 'active' : ''}" data-role="supervisor">Supervisor *</button>
-            <button type="button" class="pill-role ${role === 'manager' ? 'active' : ''}" data-role="manager">Commercial Lead</button>
-            <button type="button" class="pill-role ${role === 'booker' ? 'active' : ''}" data-role="booker">Corporate Booker</button>
-          </div>
-        </div>
-      `;
-
-      // Re-attach quick pill click events
-      banner.querySelectorAll('.pill-role').forEach(pill => {
-        pill.addEventListener('click', () => {
-          const r = pill.getAttribute('data-role');
-          if (r) {
-            AppStore.setRole(r);
-            if (select) select.value = r;
-            this.refreshAllViews();
-          }
-        });
-      });
+    usePersona(role) {
+      this.closeDialog();
+      AppStore.setRole(role);
+      this.refreshAllViews();
     }
-
     refreshAllViews() {
-      if (typeof BookingModule !== 'undefined') BookingModule.render();
-      if (typeof EPRModule !== 'undefined') EPRModule.render();
-      if (typeof CommercialModule !== 'undefined') CommercialModule.render();
-      if (typeof GovernanceModule !== 'undefined') GovernanceModule.render();
+      for (const module of Object.values(this.modules)) module.render();
     }
-
-    bindGlobalActions() {
-      // Reset Data Button
-      const resetBtn = document.getElementById('btn-reset-demo');
-      if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-          if (confirm('Reset entire demo state to factory seeds? (All countersigned records & orders will reset)')) {
-            AppStore.reset();
-            this.refreshAllViews();
-            this.showToast('Demo data successfully reset to initial factory state.');
-          }
-        });
+    updateRoleBanner(state) {
+      const user = state.currentUser;
+      const pending = Object.values(state.records).filter(record => record.status.includes('DRAFT')).length;
+      const message = state.currentRole === 'supervisor' ? `${pending} clinical review${pending === 1 ? '' : 's'} awaiting sign-off`
+        : state.currentRole === 'manager' ? `${state.orders.filter(order => !order.dateApproved).length} orders awaiting approval`
+          : state.currentRole === 'student' ? 'Assigned records and supervised practice' : 'Bookings, purchase orders and invoices';
+      document.getElementById('role-select').value = state.currentRole;
+      const banner = document.getElementById('role-banner');
+      banner.className = 'role-banner ' + user.badgeClass;
+      banner.innerHTML = `<div class="container role-banner-inner"><div class="role-banner-content">
+        <span class="role-indicator-dot" aria-hidden="true"></span><span><strong>${HubDomain.escapeHtml(user.name)}</strong> · ${ROLE_LABELS[state.currentRole]}</span>
+        <span class="role-banner-meta">${message}</span></div>
+        <div class="role-quick-switch-pills" role="group" aria-label="Choose a walkthrough persona">
+          ${Object.entries(ROLE_LABELS).map(([role, label]) => `<button type="button" class="pill-role ${role === state.currentRole ? 'active' : ''}" data-role="${role}" aria-pressed="${role === state.currentRole}">${label}</button>`).join('')}
+        </div></div>`;
+      banner.querySelectorAll('[data-role]').forEach(button => button.addEventListener('click', () => this.usePersona(button.dataset.role)));
+    }
+    renderRestricted(container, title, text, role) {
+      container.innerHTML = `<section class="card access-card"><span class="badge badge-neutral">Role-specific workspace</span>
+        <h2 class="view-title">${HubDomain.escapeHtml(title)}</h2><p>${HubDomain.escapeHtml(text)}</p>
+        <button class="btn btn-primary" data-select-persona="${role}">Explore as ${ROLE_LABELS[role].toLowerCase()}</button></section>`;
+      container.querySelector('[data-select-persona]').addEventListener('click', () => this.usePersona(role));
+    }
+    bindDialog(openId, modalId, closeId) {
+      const open = document.getElementById(openId), modal = document.getElementById(modalId), close = document.getElementById(closeId);
+      if (open && modal) open.addEventListener('click', () => this.openDialog(modal, open));
+      if (close) close.addEventListener('click', () => this.closeDialog());
+      if (modal) modal.addEventListener('click', event => { if (event.target === modal) this.closeDialog(); });
+    }
+    openDialog(modal, trigger = document.activeElement) {
+      if (!modal) return;
+      this.closeDialog();
+      this.modal = modal; this.modalTrigger = trigger;
+      modal.style.display = 'flex'; modal.removeAttribute('aria-hidden');
+      document.body.classList.add('dialog-open');
+      for (const element of document.body.children) {
+        if (element !== modal && !element.contains(modal) && element.tagName !== 'SCRIPT') element.inert = true;
       }
-
-      // Architecture Modal Trigger
-      const archBtn = document.getElementById('btn-open-arch-modal');
-      const archModal = document.getElementById('arch-modal');
-      const closeArchBtn = document.getElementById('btn-close-arch');
-
-      if (archBtn && archModal) {
-        archBtn.addEventListener('click', () => {
-          archModal.style.display = 'flex';
-        });
-      }
-      if (closeArchBtn && archModal) {
-        closeArchBtn.addEventListener('click', () => {
-          archModal.style.display = 'none';
-        });
-      }
-
-      // The 6 Capability Pillars Modal Trigger
-      const pillarsBtn = document.getElementById('btn-open-pillars-modal');
-      const pillarsModal = document.getElementById('pillars-modal');
-      const closePillarsBtn = document.getElementById('btn-close-pillars');
-
-      if (pillarsBtn && pillarsModal) {
-        pillarsBtn.addEventListener('click', () => {
-          pillarsModal.style.display = 'flex';
-        });
-      }
-      if (closePillarsBtn && pillarsModal) {
-        closePillarsBtn.addEventListener('click', () => {
-          pillarsModal.style.display = 'none';
-        });
+      const first = modal.querySelector('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]');
+      if (first) first.focus();
+    }
+    closeDialog() {
+      if (!this.modal) return;
+      this.modal.style.display = 'none'; this.modal.setAttribute('aria-hidden', 'true');
+      for (const element of document.body.children) element.inert = false;
+      document.body.classList.remove('dialog-open');
+      if (this.modalTrigger?.isConnected) this.modalTrigger.focus();
+      this.modal = null; this.modalTrigger = null;
+    }
+    handleDialogKeys(event) {
+      if (!this.modal) return;
+      if (event.key === 'Escape') { event.preventDefault(); this.closeDialog(); return; }
+      if (event.key !== 'Tab') return;
+      const items = [...this.modal.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex="0"]')]
+        .filter(item => item.getClientRects().length > 0);
+      if (!items.length) { event.preventDefault(); return; }
+      const first = items[0], last = items[items.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !this.modal.contains(document.activeElement))) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !this.modal.contains(document.activeElement))) {
+        event.preventDefault(); first.focus();
       }
     }
-
-    showToast(message) {
-      let toast = document.getElementById('app-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'app-toast';
-        toast.className = 'toast-notification';
-        toast.setAttribute('role', 'status');
-        toast.setAttribute('aria-live', 'polite');
-        document.body.appendChild(toast);
-      }
-
-      toast.innerText = message;
-      toast.classList.add('toast-visible');
-
-      if (this.toastTimeout) clearTimeout(this.toastTimeout);
-      this.toastTimeout = setTimeout(() => {
-        toast.classList.remove('toast-visible');
-      }, 4000);
+    download(filename, content, type) {
+      const url = URL.createObjectURL(new Blob([content], { type }));
+      const link = document.createElement('a'); link.href = url; link.download = filename;
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    showToast(message, error = false) {
+      const toast = document.getElementById('app-toast');
+      toast.textContent = message;
+      toast.setAttribute('role', error ? 'alert' : 'status');
+      toast.classList.add('toast-visible'); toast.classList.toggle('toast-error', error);
+      clearTimeout(this.toastTimeout);
+      this.toastTimeout = setTimeout(() => toast.classList.remove('toast-visible'), error ? 7000 : 4500);
     }
   }
-
-  const appInstance = new Application();
-
-  if (typeof document !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
-      appInstance.init();
-    });
-  }
-
-  return appInstance;
+  const app = new Application();
+  if (typeof document !== 'undefined') document.addEventListener('DOMContentLoaded', () => app.init());
+  return app;
 });

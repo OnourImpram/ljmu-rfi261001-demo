@@ -1,356 +1,53 @@
-/**
- * LJMU Clinical, Student Supervision & Commercial Booking Hub
- * Commercial Checkout, Mixed-Basket VAT & Corporate Purchase Order Approval
- * Author: ONOUR IMPRAM VENTURES LTD (Company #17429906)
- */
-
+/** Catalogue, mixed-tax basket and separated purchase-order approval. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.CommercialModule = factory();
-  }
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.CommercialModule = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-
-  class CommercialModule {
-    constructor() {
-      this.container = null;
-    }
-
-    init(containerId) {
-      this.container = document.getElementById(containerId);
-      if (!this.container) return;
-      this.render();
-      this.bindEvents();
-    }
-
+  const E = value => HubDomain.escapeHtml(value);
+  const money = value => new Intl.NumberFormat('en-GB', {style:'currency',currency:'GBP'}).format(value);
+  const date = value => new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeZone:'UTC'}).format(new Date(value));
+  class CommercialWorkspace {
+    init(id) { this.container = document.getElementById(id); this.selectedOrder = null; this.render(); }
     render() {
-      const state = AppStore.getState();
-      const totals = AppStore.calculateCartTotals();
-      const role = state.currentRole;
-      const isManager = role === 'manager';
-      const activeOrder = state.orders[0];
-
-      this.container.innerHTML = `
-        <div class="view-header">
-          <div class="view-title-group">
-            <span class="view-eyebrow">Area B Commercial Revenue &amp; VAT rules per item, configured with LJMU Finance</span>
-            <h2 class="view-title">Commercial Storefront, Mixed-VAT &amp; Purchase Orders</h2>
-            <p class="view-description">
-              Illustrative VAT treatment (configured with LJMU Finance): Healthcare Exemption (VATA 1994 Sch 9 Grp 7) vs Standard-Rated 20% Commercial Facility Hire, alongside B2B Corporate Purchase Order (Net 30) lifecycle.
-            </p>
-          </div>
-          <div class="view-actions">
-            <button id="btn-view-invoice" class="btn btn-secondary">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              <span>View Sample VAT Invoice</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 3-Silo Context Callout for Commercial Hub -->
-        <div class="alert-banner alert-info mb-4">
-          <div class="flex items-center gap-3">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <div>
-              <strong>Connecting commercial testing with clinics and Oracle EBS:</strong>
-              <span>Performance testing bookings (integrated with the existing Performance Hub booking service) are combined with Area A clinical services into a single mixed-basket checkout with automatic Oracle GL mapping.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-commercial-layout">
-          <!-- Left Column: Commercial Services Catalog -->
-          <div class="catalog-col">
-            <section class="card" aria-labelledby="catalog-heading">
-              <div class="card-header-flex">
-                <h3 id="catalog-heading" class="card-title">Commercial &amp; Diagnostic Services Catalog</h3>
-                <span class="badge badge-accent">Area A &amp; B Combined</span>
-              </div>
-
-              <div class="service-cards-list">
-                ${this.renderCatalogItems(state.services)}
-              </div>
-            </section>
-          </div>
-
-          <!-- Right Column: Mixed-Basket & PO Approval Console -->
-          <div class="checkout-col">
-            <!-- Mixed Basket Summary Card -->
-            <section id="basket-summary" class="card basket-card" aria-labelledby="basket-heading">
-              <div class="card-header-flex">
-                <div>
-                  <span class="badge badge-primary">Interactive Tax Engine</span>
-                  <h3 id="basket-heading" class="card-title mt-2">Commercial Checkout Basket</h3>
-                </div>
-                <span class="badge badge-neutral font-mono">${state.cart.length} Line Items</span>
-              </div>
-
-              <div class="basket-items-table-wrap">
-                <table class="data-table text-sm" aria-label="Basket Line Items">
-                  <thead>
-                    <tr>
-                      <th scope="col">Item Description</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">VAT Rate</th>
-                      <th scope="col" class="text-right">Net</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    ${state.cart.map(item => `
-                      <tr>
-                        <td>
-                          <strong>${item.name}</strong>
-                          <div class="text-xs text-muted">${item.stream}</div>
-                        </td>
-                        <td>
-                          <span class="badge ${item.vatExempt ? 'badge-success' : 'badge-amber'}">
-                            ${item.vatExempt ? 'VAT Exempt' : '20% Std'}
-                          </span>
-                        </td>
-                        <td class="font-mono">${item.vatExempt ? 'Exempt' : '20.0%'}</td>
-                        <td class="font-bold font-mono text-right">£${(item.unitPrice * item.qty).toFixed(2)}</td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Real-Time VAT Recalculation Summary -->
-              <div class="vat-calculation-summary">
-                <div class="vat-line">
-                  <span>Area A Healthcare Net (Exempt):</span>
-                  <strong id="subtotal-exempt" class="font-mono">£${totals.netExempt.toFixed(2)}</strong>
-                </div>
-                <div class="vat-line">
-                  <span>Area B Commercial Net (Standard-Rated):</span>
-                  <strong id="subtotal-standard" class="font-mono">£${totals.netStandard.toFixed(2)}</strong>
-                </div>
-                <div class="vat-line vat-tax-line">
-                  <span>HMRC Output VAT (20% on Standard Net):</span>
-                  <strong id="vat-standard" class="text-danger font-mono">£${totals.vatStandard.toFixed(2)}</strong>
-                </div>
-                <div class="vat-total-line">
-                  <span>Total Amount Payable (Gross):</span>
-                  <strong id="total-gross" class="text-primary text-xl font-mono">£${totals.totalGross.toFixed(2)}</strong>
-                </div>
-
-                <!-- Alias selectors for test framework compatibility -->
-                <span id="vat-exempt-total" style="display:none;">£${totals.netExempt.toFixed(2)}</span>
-                <span id="vat-standard-total" style="display:none;">£${totals.vatStandard.toFixed(2)}</span>
-                <span id="total-price-display" style="display:none;">£${totals.totalGross.toFixed(2)}</span>
-              </div>
-            </section>
-
-            <!-- Corporate Purchase Order (Net 30) Workflow Card -->
-            <section class="card po-workflow-card" aria-labelledby="po-heading">
-              <div class="card-header-flex">
-                <div>
-                  <span class="badge badge-accent">B2B Corporate Account</span>
-                  <h3 id="po-heading" class="card-title mt-2">Corporate Purchase Order (PO) Engine</h3>
-                </div>
-                <div id="order-status-badge" class="badge ${activeOrder.status.includes('APPROVED') ? 'badge-success' : 'badge-amber'}">
-                  ${activeOrder.status}
-                </div>
-              </div>
-
-              <div class="po-body">
-                <p class="text-sm text-muted">
-                  Corporate clients (clubs, schools, NHS trusts) often pay by purchase order rather than by card. This module separates the Corporate Booker from the Paying Organisation, with an approval gate for Faculty Managers.
-                </p>
-
-                <form id="po-form" class="po-form-grid" onsubmit="return false;">
-                  <div class="form-group">
-                    <label for="po-number-input" class="font-bold">Client PO Number:</label>
-                    <input type="text" id="po-number-input" aria-label="Client Purchase Order Number" class="form-control font-mono" value="${activeOrder.poNumber || 'RAC-2026-PO-9942'}" placeholder="e.g. RAC-2026-PO-9942">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="po-terms-select" class="font-bold">Payment Credit Terms:</label>
-                    <select id="po-terms-select" aria-label="Payment Credit Terms" class="form-control">
-                      <option value="net30" selected>Net 30 Days (University Standard)</option>
-                      <option value="net60">Net 60 Days</option>
-                      <option value="upfront">Immediate Card / BACS</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="po-org-name" class="font-bold">Client Organisation:</label>
-                    <input type="text" id="po-org-name" aria-label="Client Organisation" class="form-control" value="Riverside Athletics Club (fictional)" readonly>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="po-invoice-email" class="font-bold">Finance &amp; Accounts Payable Email:</label>
-                    <input type="email" id="po-invoice-email" aria-label="Finance and Accounts Payable Email" class="form-control font-mono" value="accounts@riverside-ac.example" readonly>
-                  </div>
-
-                  <div class="po-actions-group">
-                    <button type="button" id="btn-submit-po" class="btn btn-secondary">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                      <span>Submit Commercial Order with PO</span>
-                    </button>
-                    <!-- Alias button for test compatibility -->
-                    <button type="button" id="btn-generate-po" style="display:none;" aria-hidden="true"></button>
-
-                    <!-- Manager Approval Button (Visible or enabled for Manager) -->
-                    <button type="button" id="btn-approve-po" class="btn btn-success ${!isManager ? 'btn-disabled' : ''}" ${!isManager ? 'disabled' : ''}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      <span>Approve PO as Operations Lead</span>
-                    </button>
-                  </div>
-
-                  ${!isManager ? `
-                    <div class="po-role-notice text-xs text-muted mt-2">
-                      Note: PO Approval is restricted to <strong>Commercial &amp; Lab Manager (Marcus Vance)</strong>. Switch role in top bar to execute approval.
-                    </div>
-                  ` : ''}
-                </form>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <!-- Sample VAT Invoice Modal -->
-        <div id="invoice-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-invoice-title" style="display: none;">
-          <div class="modal-content modal-lg">
-            <div class="modal-header">
-              <h3 id="modal-invoice-title" class="modal-title">Sample VAT Invoice (synthetic): ${activeOrder.orderNumber}</h3>
-              <button id="btn-close-invoice" class="btn-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body invoice-printable">
-              <div class="invoice-header-grid">
-                <div>
-                  <h4 class="text-primary font-bold text-lg">Liverpool John Moores University</h4>
-                  <div class="text-sm text-muted">Faculty of Science | School of Sport &amp; Exercise Sciences</div>
-                  <div class="text-sm text-muted">Tom Reilly Building, Byrom Street, Liverpool L3 3AF</div>
-                  <div class="text-sm text-muted">VAT Registration No: [placeholder, from LJMU Finance]</div>
-                </div>
-                <div class="text-right">
-                  <div class="badge badge-success text-sm">${activeOrder.status}</div>
-                  <div class="text-sm mt-2">Invoice Date: <strong class="font-mono">31 October 2026</strong></div>
-                  <div class="text-sm">Payment Due: <strong class="font-mono">30 November 2026</strong></div>
-                  <div class="text-sm">Purchase Order: <strong class="font-mono">${activeOrder.poNumber}</strong></div>
-                </div>
-              </div>
-
-              <div class="invoice-billed-to mt-4">
-                <strong>Billed To:</strong>
-                <div>${activeOrder.organisationName}</div>
-                <div>Attn: Accounts Payable (${activeOrder.invoiceEmail})</div>
-                <div>Booker Contact: ${activeOrder.bookerName}</div>
-              </div>
-
-              <table class="data-table mt-4" aria-label="Invoice Lines">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th class="text-right">Net Amount</th>
-                    <th class="text-right">VAT Rate</th>
-                    <th class="text-right">Gross</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${activeOrder.items.map(it => `
-                    <tr>
-                      <td>${it.name}</td>
-                      <td>${it.vatRate === 0 ? 'Healthcare Exempt' : 'Standard 20%'}</td>
-                      <td class="font-mono text-right">£${it.net.toFixed(2)}</td>
-                      <td class="font-mono text-right">${it.vatRate === 0 ? 'Exempt (no VAT)' : `£${it.vat.toFixed(2)} (20%)`}</td>
-                      <td class="font-bold font-mono text-right">£${(it.net + it.vat).toFixed(2)}</td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-
-              <div class="invoice-totals-box mt-4 text-right">
-                <div>Healthcare Exempt Subtotal: <strong class="font-mono">£${activeOrder.netExempt.toFixed(2)}</strong></div>
-                <div>Standard-Rated (20%) Subtotal: <strong class="font-mono">£${activeOrder.netStandard.toFixed(2)}</strong></div>
-                <div>HM Revenue &amp; Customs VAT (20%): <strong class="font-mono">£${activeOrder.vatStandard.toFixed(2)}</strong></div>
-                <div class="text-lg font-bold text-primary mt-2 font-mono">Total Amount Payable: £${activeOrder.totalGross.toFixed(2)}</div>
-              </div>
-
-              <div class="invoice-remit-info mt-4">
-                <h5 class="font-bold text-sm">LJMU Bank Remittance Instructions:</h5>
-                <div class="text-xs text-muted">Remittance details: [placeholder, inserted from LJMU's Oracle EBS configuration]</div>
-                <div class="text-xs text-muted">Oracle EBS Reconciliation Tag: <code>01-101-4030-7220-PRJ-PERFHUB</code></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
-      this.bindActions();
-      this.bindEvents();
-    }
-
-    renderCatalogItems(services) {
-      return services.map(s => `
-        <div class="service-catalog-item">
-          <div class="service-info">
-            <div class="service-top-row">
-              <span class="badge ${s.vatExempt ? 'badge-success' : 'badge-amber'}">${s.vatCategory}</span>
-              <span class="service-duration text-xs text-muted font-mono">${s.duration}</span>
-            </div>
-            <h4 class="service-title">${s.name}</h4>
-            <div class="service-facility text-xs text-muted">${s.facility}</div>
-          </div>
-          <div class="service-pricing">
-            <span class="price-val font-mono">£${s.price.toFixed(2)}</span>
-            <span class="price-vat-note text-xs text-muted">${s.vatExempt ? 'VAT exempt' : '+ 20% VAT'}</span>
-            <button type="button" class="btn btn-sm btn-neutral btn-add-cart mt-2" data-service-id="${s.id}">In Basket</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    bindEvents() {
-      const invoiceBtn = document.getElementById('btn-view-invoice');
-      const closeInvoiceBtn = document.getElementById('btn-close-invoice');
-      const invoiceModal = document.getElementById('invoice-modal');
-
-      if (invoiceBtn && invoiceModal) {
-        invoiceBtn.addEventListener('click', () => invoiceModal.style.display = 'flex');
+      if (!this.container) return;
+      if (!AppStore.can('commercialRead')) {
+        App.renderRestricted(this.container, 'Commercial operations have their own workspace', 'Explore the service catalogue, organisational checkout and purchase-order approvals as a corporate booker or commercial lead. Clinical notes are not included in these workflows.', 'booker'); return;
       }
-      if (closeInvoiceBtn && invoiceModal) {
-        closeInvoiceBtn.addEventListener('click', () => invoiceModal.style.display = 'none');
-      }
+      const s = AppStore.getState(), totals = AppStore.calculateCartTotals();
+      const orders = s.currentRole === 'booker' ? s.orders.filter(o => o.submittedById === s.currentUser.id) : s.orders;
+      const order = orders.find(o => o.id === this.selectedOrder) || orders[0];
+      this.container.innerHTML = `<div class="view-header"><div class="view-title-group"><span class="view-eyebrow">Faculty income &amp; organisational customers</span><h2 class="view-title">From service selection to a reconciled invoice.</h2><p class="view-description">Combine clinical appointments and commercial hire in one basket, with explicit tax codes, purchase-order approval and linked financial records.</p></div><span class="badge badge-accent">0% OIV booking surcharge</span></div>
+        <div class="grid-commercial-layout"><section class="card"><div class="card-header-flex"><h3 class="card-title">Service catalogue</h3><span class="badge badge-neutral">${s.services.length} services</span></div><div class="catalogue-grid">${s.services.map(service => {
+          const full = Number.isInteger(service.seatsTotal) && service.seatsBooked >= service.seatsTotal;
+          return `<article class="catalogue-item"><div class="section-tag-row"><span class="badge ${service.stream === 'Area A' ? 'badge-primary' : 'badge-info'}">${E(service.stream)}</span>${full ? '<span class="badge badge-neutral">Waiting list</span>' : ''}</div><h4>${E(service.name)}</h4><p class="text-xs text-muted">${E(service.duration)} · ${service.vatExempt ? 'Exempt tax code' : '20% tax code'}</p><div class="card-header-flex mt-3"><strong>${money(service.price)} <span class="text-xs text-muted">net</span></strong><button class="btn btn-secondary btn-sm" data-add-service="${E(service.id)}" ${full ? 'disabled' : ''} aria-label="Add ${E(service.name)} to basket">${full ? 'Course full' : 'Add to basket'}</button></div></article>`;
+        }).join('')}</div><p class="text-xs text-muted mt-3">Tax classifications are illustrative configuration; LJMU Finance approves the applicable codes for its services.</p></section>
+        <section class="card checkout-card"><span class="badge badge-accent">Organisational checkout</span><h3 class="card-title mt-2">Riverside Athletics Club</h3><p class="text-sm text-muted mb-4">Fictional organisational customer · purchase-order payment</p>
+          <div class="basket-list">${s.cart.length ? s.cart.map(item => {const line = HubDomain.lineAmounts(item);return `<div class="basket-item"><div><strong>${E(item.name)}</strong><p class="text-xs text-muted">${item.qty} × ${money(item.unitPrice)} · ${item.vatExempt ? 'Exempt' : '20% VAT'}</p></div><div class="basket-amount"><strong>${money(line.net + line.vat)}</strong><button class="btn-text" data-remove-item="${E(item.id)}" aria-label="Remove ${E(item.name)}">Remove</button></div></div>`;}).join('') : '<p class="text-muted">Your basket is empty. Add a service to continue.</p>'}</div>
+          <dl class="checkout-totals"><div><dt>Exempt net</dt><dd>${money(totals.netExempt)}</dd></div><div><dt>Taxable net</dt><dd>${money(totals.netStandard)}</dd></div><div><dt>VAT</dt><dd>${money(totals.vatStandard)}</dd></div><div class="total-row"><dt>Total</dt><dd id="cart-total">${money(totals.totalGross)}</dd></div></dl>
+          <form id="purchase-order-form"><div class="form-group"><label for="po-number">Purchase order reference</label><input id="po-number" class="form-control" value="RAC-2026-PO-9943" maxlength="64" required autocomplete="off" pattern="[A-Za-z0-9][A-Za-z0-9 ._\\x2F\\x2D]{2,63}" aria-describedby="po-help"><p id="po-help" class="text-xs text-muted mt-2">Use a unique reference for each order.</p></div><div class="form-group"><label for="po-terms">Payment terms</label><select id="po-terms" class="form-control"><option>Net 30 Days</option><option>Net 60 Days</option><option>Payment in advance</option></select></div><button id="btn-submit-po" class="btn btn-primary btn-block" ${s.cart.length ? '' : 'disabled'}>Submit for commercial approval</button></form>
+          <p class="text-xs text-muted mt-3">This walkthrough creates a reference order; no payment is taken.</p></section></div>
+        <section class="card"><div class="card-header-flex"><div><h3 class="card-title">Purchase orders &amp; invoice preview</h3><p class="card-subtitle">Submitting and approving an order are separate actions.</p></div><span class="badge badge-neutral">${orders.length} orders</span></div>
+          <div class="table-responsive"><table class="data-table"><caption class="sr-only">Purchase orders</caption><thead><tr><th scope="col">Order</th><th scope="col">PO reference</th><th scope="col">Total</th><th scope="col">Status</th><th scope="col">Action</th></tr></thead><tbody>${orders.map(o => `<tr><td>${E(o.orderNumber)}</td><td>${E(o.poNumber)}</td><td>${money(o.totalGross)}</td><td><span class="badge ${o.dateApproved ? 'badge-success' : 'badge-amber'}">${o.dateApproved ? 'Approved · export ready' : 'Awaiting approval'}</span></td><td><button class="btn-text" data-view-order="${E(o.id)}">View invoice</button>${AppStore.can('approveOrder') && !o.dateApproved && o.submittedById !== s.currentUser.id ? `<button class="btn btn-primary btn-sm" data-approve-order="${E(o.id)}">Approve PO</button>` : ''}</td></tr>`).join('') || '<tr><td colspan="5">No orders submitted.</td></tr>'}</tbody></table></div>
+          ${order ? this.invoice(order) : ''}</section>`;
+      this.container.querySelectorAll('[data-add-service]').forEach(b => b.addEventListener('click', () => this.run(() => { AppStore.addToCart(b.dataset.addService); this.render(); App.showToast('Service added to basket.'); })));
+      this.container.querySelectorAll('[data-remove-item]').forEach(b => b.addEventListener('click', () => this.run(() => { AppStore.removeFromCart(b.dataset.removeItem); this.render(); })));
+      this.container.querySelectorAll('[data-view-order]').forEach(b => b.addEventListener('click', () => { this.selectedOrder = b.dataset.viewOrder; this.render(); this.container.querySelector('#invoice-preview').scrollIntoView({behavior:'auto',block:'nearest'}); }));
+      this.container.querySelectorAll('[data-approve-order]').forEach(b => b.addEventListener('click', async () => {
+        b.disabled = true;
+        try { const o = await AppStore.approvePurchaseOrder(b.dataset.approveOrder); this.selectedOrder = o.id; this.render(); App.showToast('Order approved. Balanced finance mapping is ready for export.'); }
+        catch (error) { b.disabled = false; App.showToast(error.message, true); }
+      }));
+      this.container.querySelector('#purchase-order-form').addEventListener('submit', async event => {
+        event.preventDefault(); const button = this.container.querySelector('#btn-submit-po'); button.disabled = true;
+        try { const o = await AppStore.submitPurchaseOrder({poNumber:this.container.querySelector('#po-number').value,paymentTerms:this.container.querySelector('#po-terms').value}); this.selectedOrder = o.id; this.render(); App.showToast('Purchase order submitted for independent approval.'); }
+        catch (error) { button.disabled = false; App.showToast(error.message, true); }
+      });
     }
-
-    bindActions() {
-      const submitPoBtn = document.getElementById('btn-submit-po');
-      const aliasPoBtn = document.getElementById('btn-generate-po');
-      const approvePoBtn = document.getElementById('btn-approve-po');
-      const poInput = document.getElementById('po-number-input');
-
-      const handleSubmitPo = async () => {
-        const poNum = poInput ? poInput.value.trim() : 'RAC-2026-PO-9942';
-        await AppStore.submitPurchaseOrder({ poNumber: poNum });
-        if (typeof App !== 'undefined' && App.showToast) {
-          App.showToast(`Purchase Order ${poNum} submitted! Awaiting Manager approval.`);
-        }
-        this.render();
-      };
-
-      if (submitPoBtn) submitPoBtn.addEventListener('click', handleSubmitPo);
-      if (aliasPoBtn) aliasPoBtn.addEventListener('click', handleSubmitPo);
-
-      if (approvePoBtn) {
-        approvePoBtn.addEventListener('click', async () => {
-          const state = AppStore.getState();
-          const activeOrder = state.orders[0];
-          if (activeOrder) {
-            await AppStore.approvePurchaseOrder(activeOrder.id);
-            if (typeof App !== 'undefined' && App.showToast) {
-              App.showToast('Purchase Order approved by Operations Lead! Oracle EBS GL Batch ready.');
-            }
-            this.render();
-          }
-        });
-      }
+    run(action) { try { action(); } catch (error) { App.showToast(error.message,true); } }
+    invoice(o) {
+      return `<section id="invoice-preview" class="invoice-preview mt-4" aria-label="Reference invoice"><div class="card-header-flex"><div><span class="view-eyebrow">Reference invoice</span><h4>${E(o.orderNumber)}</h4></div><span class="badge badge-neutral">${o.dateApproved ? 'Approved' : 'Awaiting PO approval'}</span></div><div class="grid-2-col mb-4"><div><strong>${E(o.organisationName)}</strong><p>${E(o.invoiceEmail)}</p><p>PO: ${E(o.poNumber)}</p></div><div><p>Created: ${date(o.dateCreated)}</p><p>Terms: ${E(o.paymentTerms)}</p><p>Currency: GBP</p></div></div><div class="table-responsive"><table class="data-table"><caption class="sr-only">Reference invoice line items</caption><thead><tr><th scope="col">Service</th><th scope="col">Quantity</th><th scope="col">Net</th><th scope="col">VAT</th><th scope="col">Gross</th></tr></thead><tbody>${o.items.map(item => `<tr><td>${E(item.name)}</td><td>${item.qty}</td><td>${money(item.net)}</td><td>${money(item.vat)}</td><td>${money(item.net + item.vat)}</td></tr>`).join('')}</tbody><tfoot><tr><th scope="row" colspan="2">Total</th><td>${money(o.netExempt+o.netStandard)}</td><td>${money(o.vatStandard)}</td><td><strong>${money(o.totalGross)}</strong></td></tr></tfoot></table></div><p class="text-xs text-muted mt-3">Illustrative invoice layout, not a tax invoice or payment request. University legal and VAT particulars are configured during implementation.</p></section>`;
     }
   }
-
-  return new CommercialModule();
+  return new CommercialWorkspace();
 });

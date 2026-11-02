@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">OIV Clinical and Faculty Operations</title>
+  <desc id="desc">Connected booking, supervised clinical practice and commercial services. Prepared for LJMU RFI 261001.</desc>
+  <rect width="1200" height="630" fill="#011a42"/>
+  <rect x="64" y="72" width="64" height="64" rx="10" fill="#00205b" stroke="#2cd5c4" stroke-width="2"/>
+  <path d="M80 119L96 87L112 119H103L96 105L89 119Z" fill="white"/>
+  <g font-family="Arial, sans-serif">
+    <text x="152" y="108" fill="#d6f5f0" font-size="23" letter-spacing="2">ONOUR IMPRAM VENTURES LTD</text>
+    <text x="64" y="242" fill="white" font-size="58" font-weight="700">Clinical &amp; faculty operations</text>
+    <text x="64" y="306" fill="#c4d3e5" font-size="28">One coordinated service. Distinct responsibilities.</text>
+    <g fill="#06265a" stroke="#456189"><rect x="64" y="370" width="252" height="90" rx="8"/><rect x="336" y="370" width="252" height="90" rx="8"/><rect x="608" y="370" width="252" height="90" rx="8"/><rect x="880" y="370" width="252" height="90" rx="8"/></g>
+    <g fill="white" font-size="22" font-weight="700"><text x="84" y="423">Booking &amp; resources</text><text x="356" y="423">Supervised practice</text><text x="628" y="423">Commercial activity</text><text x="900" y="423">Finance &amp; audit</text></g>
+    <text x="64" y="545" fill="#2cd5c4" font-size="22">Prepared for Liverpool John Moores University · RFI 261001</text>
+    <text x="64" y="585" fill="#c4d3e5" font-size="19">Interactive reference environment · Synthetic data</text>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+name: Reference quality checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: JavaScript syntax and regression checks
+        run: |
+          for source in js/*.js; do node --check "$source"; done
+          npm test
+          python tests/check_source.py
+      - name: Browser dependencies
+        run: |
+          python -m pip install -r tests/requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Browser workflows and responsive checks
+        run: python tests/browser_smoke.py
