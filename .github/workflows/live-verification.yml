@@ -1,0 +1,58 @@
+name: Published site verification
+on:
+  workflow_call:
+    inputs:
+      page_url:
+        type: string
+        required: true
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  published-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      BASE_URL: ${{ inputs.page_url || 'https://onourimpram.github.io/ljmu-rfi261001-demo/' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install browser dependencies
+        run: |
+          python -m pip install -r tests/requirements.txt
+          python -m playwright install --with-deps chromium
+      - name: Confirm published source and public file boundaries
+        run: python tests/pages_site.py verify "$BASE_URL"
+      - name: Published HTTPS browser workflows
+        run: python tests/browser_smoke.py
+      - name: Published native cryptographic review
+        run: |
+          python - <<'PY'
+          import os
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={'width':1440,'height':1000})
+              errors = []
+              page.on('pageerror', lambda error: errors.append(str(error)))
+              page.goto(os.environ['BASE_URL'], wait_until='domcontentloaded')
+              page.wait_for_selector('#btn-open-booking-modal')
+              assert page.evaluate('isSecureContext && Boolean(crypto.subtle)')
+              page.evaluate('AppStore.reset();App.refreshAllViews()')
+              before = page.evaluate('AppStore.getState().students[0].hoursLogged')
+              page.click('#tab-epr')
+              page.click('#btn-execute-countersign')
+              page.wait_for_function("AppStore.getState().records.osteopathy.signatureHash?.length === 71")
+              assert page.locator('#btn-execute-countersign').is_disabled()
+              assert page.evaluate('AppStore.getState().students[0].hoursLogged') == before + 1
+              sig = page.evaluate("AppStore.getState().records.osteopathy.signatureHash")
+              assert sig.startswith('SHA256:') and len(sig) == 71
+              assert not errors, errors
+              page.evaluate('AppStore.reset();App.refreshAllViews()')
+              print('PASS: secure origin, native SHA-256, locked UI, single activity credit, no page errors')
+              browser.close()
+          PY

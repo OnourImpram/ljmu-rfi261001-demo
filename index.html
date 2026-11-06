@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#00205B">
+  <meta name="author" content="ONOUR IMPRAM VENTURES LTD (Company No. 17429906)">
+
+  <title>Clinics &amp; performance services | OIV demonstration for LJMU</title>
+  <meta name="description" content="Independent supplier demonstration for LJMU RFI 261001. Explore synthetic clinic bookings, supervised student records, purchase orders and a sample finance export.">
+  <link rel="canonical" href="https://onourimpram.github.io/ljmu-rfi261001-demo/">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/performance-hub-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LJMU Performance Hub &amp; Clinical Operations Platform (RFI 261001)">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:url" content="https://onourimpram.github.io/ljmu-rfi261001-demo/">
+  <meta property="og:title" content="Clinics and performance services | OIV demonstration for LJMU">
+  <meta property="og:description" content="Independent supplier demonstration for LJMU RFI 261001. Explore synthetic clinic bookings, supervised student records, purchase orders and a sample finance export.">
+  <meta property="og:image" content="https://onourimpram.github.io/ljmu-rfi261001-demo/screenshots/og-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Clinics and performance services. Independent OIV demonstration for LJMU.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Clinics and performance services | OIV demonstration for LJMU">
+  <meta name="twitter:description" content="Independent supplier demonstration for LJMU RFI 261001. Explore synthetic clinic bookings, supervised student records, purchase orders and a sample finance export.">
+  <meta name="twitter:image" content="https://onourimpram.github.io/ljmu-rfi261001-demo/screenshots/og-preview.png">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OIV clinical and commercial workflow demonstrator",
+    "description": "Independent supplier demonstration for LJMU RFI 261001. Explore synthetic clinic bookings, supervised student records, purchase orders and a sample finance export.",
+    "applicationCategory": "Demonstration",
+    "operatingSystem": "Browser",
+    "inLanguage": "en-GB",
+    "creator": {
+        "@type": "Organization",
+        "name": "ONOUR IMPRAM VENTURES LTD"
+    }
+}
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/body-chart.css">
+  <link rel="stylesheet" href="css/muscle-reference.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to the workspace</a>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-lockup">
+      <a href="https://www.ljmu.ac.uk/" class="logo-link-ljmu" aria-label="Liverpool John Moores University website">
+        <img class="header-logo-ljmu" src="assets/img/ljmu-logo-navy.png" width="845" height="300" alt="Liverpool John Moores University">
+      </a>
+      <span class="brand-divider" aria-hidden="true"></span>
+      <a href="https://www.ljmuperformancehub.com/" class="logo-link-hub" aria-label="LJMU Performance Hub website">
+        <img class="header-logo-hub" src="assets/img/performance-hub-logo.png" width="951" height="160" alt="LJMU Performance Hub">
+      </a>
+    </div>
+    <div class="header-tools">
+      <a class="supplier-credit" href="https://oiv.onourimpram.com/">Independent demo by <strong>OIV</strong></a>
+      <button type="button" id="btn-open-pillars-modal" data-open-dialog="pillars-modal" class="guide-trigger" aria-haspopup="dialog">RFI guide</button>
+    </div>
+  </div>
+</header>
+<nav class="service-nav" aria-label="Demonstration workspaces">
+  <div class="service-nav-inner">
+    <div class="tabs-nav" role="tablist" aria-label="Workspaces">
+      <button type="button" id="tab-booking" class="tab-btn" role="tab" aria-selected="true" aria-controls="view-booking" tabindex="0">Bookings</button>
+      <button type="button" id="tab-epr" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-epr" tabindex="-1">Clinical records</button>
+      <button type="button" id="tab-commercial" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-commercial" tabindex="-1">Orders</button>
+      <button type="button" id="tab-governance" class="tab-btn" role="tab" aria-selected="false" aria-controls="view-governance" tabindex="-1">Finance</button>
+    </div>
+    <button type="button" class="scope-trigger" id="btn-open-arch-modal" data-open-dialog="arch-modal" aria-haspopup="dialog">About the demo</button>
+  </div>
+</nav>
+<main>
+  <section class="welcome" aria-labelledby="hero-heading">
+    <div class="welcome-inner">
+      <div class="welcome-copy">
+        <p class="welcome-context">School of Sport and Exercise Sciences</p>
+        <h1 id="hero-heading">Clinics and<br> performance services</h1>
+        <p class="welcome-lead">Book a teaching clinic, review a student’s notes or take a laboratory order through to finance.</p>
+        <div class="welcome-actions">
+          <a class="entry-action" href="#booking" data-workspace="booking">Open the booking desk <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#epr" data-workspace="epr">Clinical records</a>
+        </div>
+        <p class="local-note">OIV supplier demo · RFI 261001 <span aria-hidden="true">/</span> Fictional records saved in this browser.</p>
+      </div>
+      <figure class="welcome-image">
+        <img src="assets/img/performance-lab.webp" width="1300" height="867" fetchpriority="high" alt="A runner wearing a breathing mask on a treadmill in an illustrative exercise physiology laboratory">
+        <figcaption>Exercise physiology · Illustrative scene</figcaption>
+      </figure>
+    </div>
+  </section>
+  <div id="main-content" class="desk-shell" tabindex="-1">
+    <div class="desk-context">
+      <div class="desk-context-heading">
+        <span class="desk-indicator" aria-hidden="true"></span>
+        <p>Workspace <span aria-hidden="true">/</span> <strong id="desk-label">Bookings</strong></p>
+      </div>
+      <div class="desk-controls">
+        <label for="role-select">View as</label>
+        <select id="role-select" class="role-select-dropdown">
+          <option value="supervisor">Clinical supervisor</option>
+          <option value="student">Student practitioner</option>
+          <option value="manager">Lab manager</option>
+          <option value="booker">Client booker</option>
+          <option value="patient">Patient (sample)</option>
+        </select>
+        <button type="button" id="btn-reset-demo" class="reset-action" title="Restore the fictional records to their starting state">Reset demo</button>
+      </div>
+    </div>
+    <div id="role-banner" class="sr-only" aria-live="polite"></div>
+    <div class="main-container"><section id="view-booking" class="view-section" role="tabpanel" tabindex="-1" aria-labelledby="tab-booking"></section>
+<section id="view-epr" class="view-section" role="tabpanel" tabindex="-1" aria-labelledby="tab-epr" hidden></section>
+<section id="view-commercial" class="view-section" role="tabpanel" tabindex="-1" aria-labelledby="tab-commercial" hidden></section>
+<section id="view-governance" class="view-section" role="tabpanel" tabindex="-1" aria-labelledby="tab-governance" hidden></section></div>
+  </div>
+</main>
+<div id="arch-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="arch-title" hidden>
+ <div class="modal-dialog"><div class="modal-header"><h2 class="modal-title" id="arch-title">About this demonstration</h2><button type="button" id="btn-close-arch" data-close-dialog class="btn-close-modal">Close</button></div>
+ <div class="modal-body editorial-dialog"><p>OIV created this demonstration to accompany its response to LJMU’s market engagement. It gives the University a way to try the proposed clinical and faculty workflows.</p>
+ <h3>Teaching clinics</h3><p>Reserve a shared room and equipment, record student activity and use the supervisor role to review and sign a draft.</p>
+ <h3>Faculty services</h3><p>Build an organisation’s order, approve it in a separate role and reconcile the illustrative invoice against its journal.</p>
+ <p class="dialog-note">Use fictional information only. For implementation, OIV would configure permissions, clinical templates and finance mappings against LJMU’s agreed policies and test systems.</p></div></div>
+</div>
+<div id="pillars-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="review-title" hidden>
+ <div class="modal-dialog"><div class="modal-header"><h2 class="modal-title" id="review-title">Reviewer guide</h2><button type="button" id="btn-close-pillars" data-close-dialog class="btn-close-modal">Close</button></div>
+ <div class="modal-body editorial-dialog"><p>Start with a teaching appointment or follow an external client’s order. The role selector changes which actions you can take.</p>
+ <dl class="review-list">
+ <div><dt>Bookings <small>§3.3–3.4</small></dt><dd>Try an unavailable asset, then reserve an available space. Use the appointment list to change or cancel the reservation.</dd></div>
+ <div><dt>Clinical records <small>§3.5–3.6</small></dt><dd>Save a note as a student and switch to the supervising clinician to countersign it.</dd></div>
+ <div><dt>Orders <small>§3.8</small></dt><dd>Add a service, submit a purchase order as the client booker and approve it as the lab manager.</dd></div>
+ <div><dt>Finance <small>§3.8–3.9</small></dt><dd>Match the approved order reference and total to the downloaded journal.</dd></div></dl>
+ <p class="dialog-note">For remote follow-up (§3.7), try the linked patient invitation, consent and attendance record. The written response sets out the proposed video service, implementation, charges and terms.</p>
+ <a class="text-link" href="guide.html">Read the evaluation guide</a></div></div>
+</div>
+
+  <div id="booking-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Appointment booking" hidden></div>
+  <div id="logbook-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Student activity record" hidden></div>
+  <div id="research-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Research export preview" hidden></div>
+  <div id="invoice-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Invoice preview" hidden></div>
+
+  <footer class="site-footer">
+ <div class="footer-inner">
+   <div class="footer-identity"><a href="https://oiv.onourimpram.com/" class="footer-supplier"><img src="assets/img/oiv-logo.png" width="480" height="271" alt="OIV"> <span>Onour Impram Ventures Ltd</span></a>
+   <p>Independent supplier demonstration prepared for Liverpool John Moores University. RFI 261001.</p></div>
+   <nav class="footer-workflows review-routes" aria-label="Workspace shortcuts"><h2>Workspaces</h2><a href="#booking" data-workspace="booking">Bookings</a>
+<a href="#epr" data-workspace="epr">Clinical records</a>
+<a href="#commercial" data-workspace="commercial">Orders</a>
+<a href="#governance" data-workspace="governance">Finance</a></nav>
+   <nav class="footer-info" aria-label="Further information"><h2>Further information</h2><span id="footer-about-slot"></span><a href="guide.html">Evaluation guide</a><a href="https://www.ljmu.ac.uk/">University website</a><a href="https://www.ljmuperformancehub.com/">Performance Hub website</a></nav>
+ </div>
+</footer>
+<script src="js/body-chart.js"></script>
+<script src="js/muscle-reference.js"></script>
+<script src="js/store.js"></script>
+<script src="js/service-desk.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/epr.js"></script>
+<script src="js/commercial.js"></script>
+<script src="js/governance.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

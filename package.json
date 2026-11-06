@@ -1,0 +1,9 @@
+{
+  "name": "oiv-ljmu-workflow-reference",
+  "version": "2026.11.5+demo.6",
+  "private": true,
+  "description": "Synthetic-data workflow reference for LJMU RFI 261001",
+  "engines": { "node": ">=22" },
+  "scripts": { "test": "node --test tests/*.test.cjs" },
+  "license": "UNLICENSED"
+}

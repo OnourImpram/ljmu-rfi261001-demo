@@ -1,0 +1,8 @@
+# Clinical and faculty services | RFI 261001
+
+ONOUR IMPRAM VENTURES LTD created this optional browser-based walkthrough to accompany its response to Liverpool John Moores University’s preliminary market engagement.
+Published site: https://onourimpram.github.io/ljmu-rfi261001-demo/
+Buyer notice: https://www.find-tender.service.gov.uk/Notice/099596-2026
+
+The clinical workspace connects appointments, supervised student notes, progress history and remote follow-up consent. The faculty workspace connects course places, organisational orders, example VAT, credits, receipts, refunds and finance reporting. The evaluation guide links the exercises to the questionnaire.
+The demo uses fictional data and local browser storage. The private supplier response describes production status, external integrations, assurance and commercial terms.
